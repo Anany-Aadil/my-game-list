@@ -1,12 +1,12 @@
 export default function StatusBar() {
   return (
-    <nav className="flex p-1.5 w-250 bg-gray-200 *:m-2 *:px-1.5 *:w-50 text-center">
-      <div>All</div>
-      <div>Currently Playing</div>
-      <div>On-Hold</div>
-      <div>Completed</div>
-      <div>Dropped</div>
-      <div>Plan to Play</div>
+    <nav className="flex w-250 bg-gray-200 *:p-4 *:w-40 text-center justify-between *:hover:bg-gray-300 *:transition-colors ">
+      <div className="">All</div>
+      <div className="">Currently Playing</div>
+      <div className="">On-Hold</div>
+      <div className="">Completed</div>
+      <div className="">Dropped</div>
+      <div className="">Plan to Play</div>
     </nav>
   );
 }
