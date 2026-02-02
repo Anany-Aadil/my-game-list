@@ -14,8 +14,15 @@ async function getAccessToken() {
   return data.access_token;
 }
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const search = searchParams.get("search");
+
+    if (!search) {
+      return NextResponse.json([]);
+    }
+
     const access_token = await getAccessToken();
 
     const igdb_response = await fetch(IGDB_GAMES_URL, {
@@ -26,9 +33,10 @@ export async function GET() {
         "Content-Type": "text/plain",
       },
       body: `
-                    fields name, cover.url, platforms.name;
-                    limit 10;
-                `,
+            search "${search}";
+            fields name, cover.url, platforms.name;
+            limit 5;
+            `,
     });
 
     const games = await igdb_response.json();
@@ -36,7 +44,10 @@ export async function GET() {
     const cleanGames = games.map((game) => ({
       id: game.id,
       name: game.name,
-      cover: game.cover?.url?.replace("t_thumb", "t_cover_big"),
+      cover: game.cover
+        ? `https://${game.cover.url.replace("t_thumb", "t_cover_big")}`
+        : null,
+      // cover: game.cover?.url?.replace("t_thumb", "t_cover_big"),
       platforms: game.platforms?.map((p) => p.name) ?? [],
     }));
 
