@@ -51,7 +51,7 @@ export async function GET(request) {
       platforms: game.platforms?.map((p) => p.name) ?? [],
     }));
 
-    return NextResponse.json(cleanGames);
+    return NextResponse.json({ results: cleanGames });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

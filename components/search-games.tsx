@@ -12,17 +12,17 @@ export default function SearchGames({
   children,
   userList,
   startAddGame,
-  startEditGame,
+  // startEditGame,
 }: {
   isOpen: boolean;
   onClose: any;
   children: React.ReactNode;
   userList: React.ComponentState;
   startAddGame: any;
-  startEditGame: any;
+  // startEditGame: any;
 }) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
 
   const handleSearch = async () => {
@@ -36,7 +36,7 @@ export default function SearchGames({
         `/api/games/?search=${encodeURIComponent(query)}`,
       );
       const data = await res.json();
-      setResults(data);
+      setResults(Array.isArray(data.results) ? data.results : []);
     } catch (error) {
       console.error("Search failed: ", error);
     } finally {
@@ -87,14 +87,17 @@ export default function SearchGames({
       )}
 
       <div>
-        {results.map((game: any) => (
-          <SearchItem
-            key={game.id}
-            game={game}
-            onAdd={startAddGame}
-            isAdded={checkIfAdded(game)}
-          />
-        ))}
+        {
+          // Array.isArray(results) &&
+          results.map((game: any) => (
+            <SearchItem
+              key={game.id}
+              game={game}
+              onAdd={startAddGame}
+              isAdded={checkIfAdded(game)}
+            />
+          ))
+        }
       </div>
       {/* Confirmation Dialogue here */}
       {children}

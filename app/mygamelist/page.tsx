@@ -146,7 +146,7 @@ export default function Page() {
       <SearchGames
         userList={userList}
         startAddGame={startAddGame}
-        startEditGame={startEditGame}
+        // startEditGame={startEditGame}
         onClose={() => setIsSearchOpen(false)}
         isOpen={isSearchOpen}
       >
