@@ -7,10 +7,6 @@ export default function SearchItem({
   onAdd: any;
   isAdded: boolean;
 }) {
-  const handleAdd = () => {
-    console.log("Added game: ", game.name);
-  };
-
   return (
     <div className="flex justify-between px-4 py-1 my-1">
       <span className="">{game.name}</span>

@@ -9,28 +9,27 @@ import SearchItem from "@/components/search-item";
 export default function SearchGames({
   isOpen,
   onClose,
+  children,
+  userList,
+  startAddGame,
+  startEditGame,
 }: {
   isOpen: boolean;
   onClose: any;
+  children: React.ReactNode;
+  userList: React.ComponentState;
+  startAddGame: any;
+  startEditGame: any;
 }) {
   const [query, setQuery] = useState("");
-  const [userList, setUserList] = useState([]);
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const addToList = (game: any) => {
-    const alreadyAdded = userList.some((g: any) => g.id === game.id);
-
-    if (alreadyAdded) return;
-
-    setUserList((prev) => [...prev, game]);
-  };
+  const [searching, setSearching] = useState(false);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
 
     setResults([]);
-    setLoading(true);
+    setSearching(true);
 
     try {
       const res = await fetch(
@@ -41,7 +40,7 @@ export default function SearchGames({
     } catch (error) {
       console.error("Search failed: ", error);
     } finally {
-      setLoading(false);
+      setSearching(false);
     }
   };
 
@@ -54,8 +53,11 @@ export default function SearchGames({
     return null;
   }
 
+  const checkIfAdded = (game: any) =>
+    userList.some((g: any) => g.id === game.id);
+
   return (
-    <div className="bg-gray-800 fixed w-[50%] h-100 rounded-xl text-gray-200 left-1/4 top-1/4">
+    <section className="bg-gray-800 fixed w-[50%] h-100 rounded-xl text-gray-200 left-1/4 top-1/4 shadow-2xl shadow-gray-900">
       <search className="border-2 border-gray-200 w-[75%] h-15 items-center justify-between flex rounded-4xl mx-auto my-5">
         <input
           type="text"
@@ -80,7 +82,7 @@ export default function SearchGames({
           />
         </button>
       </search>
-      {loading && (
+      {searching && (
         <div className="mx-auto text-gray-400 text-center">Searching . . .</div>
       )}
 
@@ -89,12 +91,13 @@ export default function SearchGames({
           <SearchItem
             key={game.id}
             game={game}
-            onAdd={addToList}
-            isAdded={userList.some((g: any) => g.id === game.id)}
+            onAdd={startAddGame}
+            isAdded={checkIfAdded(game)}
           />
         ))}
       </div>
-
+      {/* Confirmation Dialogue here */}
+      {children}
       <button
         type="button"
         className="absolute text-center right-1 bottom-1 rounded-xl border w-5 h-5 text-sm hover:bg-red-400 transition-colors"
@@ -102,6 +105,6 @@ export default function SearchGames({
       >
         X
       </button>
-    </div>
+    </section>
   );
 }

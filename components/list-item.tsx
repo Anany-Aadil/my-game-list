@@ -22,7 +22,7 @@ export default function ListItem({
         <Image src={cover} width={264} height={352} alt="Game Cover" />
       </div>
       <div className="w-150 text-left">{name}</div>
-      <div className="absolute right-1/4 top-2/5 text-[0.75rem] rounded-lg bg-red-400 hover:bg-red-600 p-0.5 transition-colors">
+      <div className="absolute right-1/4 top-2/5 text-[0.75rem] rounded-lg hover:bg-gray-300 p-0.5 transition-colors">
         {children}
       </div>
       <div className="w-20 flex flex-col text-sm">{platform}</div>
