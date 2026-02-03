@@ -45,7 +45,7 @@ export async function GET(request) {
       id: game.id,
       name: game.name,
       cover: game.cover
-        ? `https://${game.cover.url.replace("t_thumb", "t_cover_big")}`
+        ? `https:${game.cover.url.replace("t_thumb", "t_cover_big")}`
         : null,
       // game.cover?.url?.replace("t_thumb", "t_cover_big"),
       platforms: game.platforms?.map((p) => p.name) ?? [],
