@@ -15,13 +15,22 @@ export default function ListItem({
   children: React.ReactNode;
   score: number;
 }) {
-  console.log("Game cover: ", cover);
+  console.log("Game cover: ", JSON.stringify(cover));
 
   return (
     <div className="text-gray-950 text-center box-border w-250 flex justify-evenly items-center border-gray-300 py-1 mb-0.5 border-2 relative">
       <div className="w-10">{sno}.</div>
       <div className="w-20">
-        <Image src={cover} width={264} height={352} alt={name} />
+        {cover ? (
+          <Image src={cover} width={264} height={352} alt={name} />
+        ) : (
+          <img
+            src={"https://unsplash-assets.imgix.net/empty-states/photos.png"}
+            alt={name}
+            width={264}
+            height={352}
+          />
+        )}
       </div>
       <div className="w-150 text-left">{name}</div>
       <div className="absolute right-1/4 top-2/5 text-[0.75rem] rounded-lg hover:bg-gray-300 p-0.5 transition-colors">
