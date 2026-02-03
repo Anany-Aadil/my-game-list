@@ -119,7 +119,11 @@ export default function Page() {
             sno={index + 1}
             key={game.id}
             name={game.name}
-            cover={game.cover}
+            cover={
+              game.cover
+                ? game.cover
+                : "https://unsplash-assets.imgix.net/empty-states/photos.png"
+            }
             platform={game.chosenPlatforms.join(", ")}
             score={game.score ?? "--"}
           >

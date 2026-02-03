@@ -47,7 +47,7 @@ export async function GET(request) {
       cover: game.cover
         ? `https://${game.cover.url.replace("t_thumb", "t_cover_big")}`
         : null,
-      // cover: game.cover?.url?.replace("t_thumb", "t_cover_big"),
+      // game.cover?.url?.replace("t_thumb", "t_cover_big"),
       platforms: game.platforms?.map((p) => p.name) ?? [],
     }));
 
