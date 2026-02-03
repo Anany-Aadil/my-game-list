@@ -36,7 +36,10 @@ export default function SearchGames({
         `/api/games/?search=${encodeURIComponent(query)}`,
       );
       const data = await res.json();
+
+      console.log("Search Response : ", data);
       setResults(Array.isArray(data.results) ? data.results : []);
+      // setResults(data.results)
     } catch (error) {
       console.error("Search failed: ", error);
     } finally {
