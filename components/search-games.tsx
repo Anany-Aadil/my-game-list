@@ -37,7 +37,7 @@ export default function SearchGames({
       );
       const data = await res.json();
 
-      console.log("Search Response : ", data);
+      // console.log("Search Response : ", data);
       setResults(Array.isArray(data.results) ? data.results : []);
       // setResults(data.results)
     } catch (error) {
