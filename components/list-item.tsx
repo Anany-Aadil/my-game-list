@@ -22,11 +22,11 @@ export default function ListItem({
       <div className="w-10">{sno}.</div>
       <div className="w-20">
         {cover ? (
-          <Image src={cover} width={264} height={352} alt={name} />
+          <Image src={cover} width={264} height={352} alt={name} unoptimized />
         ) : (
           <img
             src={"https://unsplash-assets.imgix.net/empty-states/photos.png"}
-            alt={name}
+            alt="No Image found"
             width={264}
             height={352}
           />
