@@ -15,6 +15,8 @@ export default function ListItem({
   children: React.ReactNode;
   score: number;
 }) {
+  console.log("Game cover: ", cover);
+
   return (
     <div className="text-gray-950 text-center box-border w-250 flex justify-evenly items-center border-gray-300 py-1 mb-0.5 border-2 relative">
       <div className="w-10">{sno}.</div>
