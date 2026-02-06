@@ -1,62 +1,67 @@
+import { prisma } from "@/components/lib/prisma";
 import { NextResponse } from "next/server";
 
-const TWITCH_TOKEN_URL = "https://id.twitch.tv/oauth2/token";
-const IGDB_GAMES_URL = "https://api.igdb.com/v4/games";
-
-async function getAccessToken() {
-  const response = await fetch(
-    `${TWITCH_TOKEN_URL}?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`,
-    { method: "POST" },
-  );
-
-  const data = await response.json();
-
-  return data.access_token;
-}
-
-export async function GET(request) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url);
-    const search = searchParams.get("search");
-
-    if (!search) {
-      return NextResponse.json([]);
-    }
-
-    const access_token = await getAccessToken();
-
-    const igdb_response = await fetch(IGDB_GAMES_URL, {
-      method: "POST",
-      headers: {
-        "Client-ID": process.env.TWITCH_CLIENT_ID,
-        Authorization: `Bearer ${access_token}`,
-        "Content-Type": "text/plain",
-      },
-      body: `
-            search "${search}";
-            fields name, cover.url, platforms.name;
-            limit 5;
-            `,
+    const games = await prisma.game.findMany({
+      orderBy: { createdAt: "asc" },
     });
 
-    const games = await igdb_response.json();
-
-    const cleanGames = games.map((game) => ({
-      id: game.id,
-      name: game.name,
-      cover: game.cover
-        ? `https:${game.cover.url.replace("t_thumb", "t_cover_big")}`
-        : null,
-      // game.cover?.url?.replace("t_thumb", "t_cover_big"),
-      platforms: game.platforms?.map((p) => p.name) ?? [],
-    }));
-
-    return NextResponse.json({ results: cleanGames });
+    return NextResponse.json(games);
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { error: "Failed to fetch games" },
+      { error: "Failed to fetch games list" },
       { status: 500 },
     );
   }
+}
+
+export async function POST(request) {
+  try {
+    const body = await request.json();
+
+    const gameData = await prisma.game.create({
+      data: {
+        id: body.id,
+        name: body.name,
+        cover: body.cover,
+        year: body.year,
+        status: body.status,
+        score: body.score,
+        platforms: body.platforms,
+      },
+    });
+
+    return NextResponse.json(gameData);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: "Failed to add game" }, { status: 500 });
+  }
+}
+
+export async function PUT(request) {
+  const body = await request.json();
+
+  const gameData = await prisma.game.update({
+    where: { id: body.id },
+    data: {
+      status: body.status,
+      platforms: body.platforms,
+      score: body.score,
+    },
+  });
+
+  return NextResponse.json(gameData);
+}
+
+export async function DELETE(request) {
+  const { searchParams } = new URL(request.url);
+  const id = Number(searchParams.get("id"));
+
+  if (!id) return NextResponse.json({ error: "Missing Id" }, { status: 500 });
+
+  await prisma.game.delete({ where: { id } });
+
+  return NextResponse.json({ success: true });
 }

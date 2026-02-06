@@ -1,4 +1,4 @@
-import { statusTypes } from "./misc/status-type";
+import { statusTypes } from "@/components/lib/status-type";
 
 export default function StatusBar({
   onStatusClick,

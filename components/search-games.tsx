@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-// import SearchIcon from "/search.svg";
 import Image from "next/image";
 import SearchItem from "@/components/search-item";
 
@@ -12,14 +11,12 @@ export default function SearchGames({
   children,
   userList,
   startAddGame,
-  // startEditGame,
 }: {
   isOpen: boolean;
   onClose: any;
   children: React.ReactNode;
   userList: React.ComponentState;
   startAddGame: any;
-  // startEditGame: any;
 }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
@@ -33,13 +30,11 @@ export default function SearchGames({
 
     try {
       const res = await fetch(
-        `/api/games/?search=${encodeURIComponent(query)}`,
+        `/api/search/?search=${encodeURIComponent(query)}`,
       );
       const data = await res.json();
 
-      // console.log("Search Response : ", data);
       setResults(Array.isArray(data.results) ? data.results : []);
-      // setResults(data.results)
     } catch (error) {
       console.error("Search failed: ", error);
     } finally {

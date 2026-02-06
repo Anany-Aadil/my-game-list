@@ -7,21 +7,20 @@ import StatusBar from "@/components/status-bar";
 import InfoBar from "@/components/info-bar";
 import ConfirmationDialogue from "@/components/confirmation-dialogue";
 import SideNav from "@/components/side-nav";
+import { Status } from "@prisma/client";
 
 export default function Page() {
   const [userList, setUserList] = useState<any[]>([]);
   const [pendingGame, setPendingGame] = useState<any>(null);
   const [activeStatus, setActiveStatus] = useState("all"); // Defaults to all
 
-  const [editingGame, setEditingGame] = useState(null);
-  const [editingIndex, setEditionIndex] = useState<any>(null);
+  const [editingGame, setEditingGame] = useState<any>(null);
 
   const [selectedStatus, setSelectedStatus] = useState("current"); //default at Currently-Playing
   const [selectedScore, setSelectedScore] = useState<any>(null);
   const [chosenPlatforms, setChosenPlatforms] = useState<any[]>([]);
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  // Open the confirmation dialogue
 
   const startAddGame = (game: any) => {
     setPendingGame(game);
@@ -29,75 +28,75 @@ export default function Page() {
     setSelectedScore(null);
   };
 
-  // Whatever happens after opening the confirmation is here
-
-  const confirmAddGame = (status: any) => {
+  const confirmAddGame = async (status: Status) => {
     if (chosenPlatforms.length === 0) return;
 
-    if (editingGame !== null) {
-      setUserList((prev: any[]) =>
-        prev.map((item: any[], idx: number) =>
-          idx === editingIndex
-            ? {
-                ...item,
-                status,
-                chosenPlatforms,
-                score: selectedScore,
-              }
-            : item,
-        ),
-      );
-    } else {
-      setUserList((prev: any[]) => [
-        ...prev,
-        {
-          ...pendingGame,
-          status,
-          chosenPlatforms,
-          score: selectedScore,
-        },
-      ]);
+    const payload = {
+      id: activeGame.id,
+      name: activeGame.name,
+      cover: activeGame.cover,
+      year: activeGame.year,
+      status,
+      platforms: chosenPlatforms,
+      score: selectedScore,
+    };
+
+    try {
+      if (editingGame !== null) {
+        await fetch("/api/games", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...payload,
+            id: editingGame.id,
+          }),
+        });
+      } else {
+        await fetch("/api/games", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      }
+
+      await fetchGames();
+      closeDialogue();
+    } catch (error) {
+      console.error("Failed to save game: ", error);
     }
-    closeDialogue();
   };
 
   const closeDialogue = () => {
     setPendingGame(null);
     setEditingGame(null);
-    setEditionIndex(null);
-    setChosenPlatforms([]);
     setSelectedScore(null);
+    setChosenPlatforms([]);
   };
 
-  // Remove the item
-
-  const removeFromList = (gameID: string) => {
+  const removeFromList = async (gameID: number) => {
     const confirm = window.confirm("Remove this game?");
     if (!confirm) return;
 
-    setUserList((prev: any[]) => prev.filter((g: any) => g.id !== gameID));
+    await fetch(`/api/games?id=${gameID}`, { method: "DELETE" });
+    await fetchGames();
   };
 
-  // Edit the item
-
-  const startEditGame = (game: any, index: number) => {
+  const startEditGame = (game: any) => {
     setEditingGame(game);
-    setEditionIndex(index);
-
-    setChosenPlatforms(game.chosenPlatforms ?? []);
+    setChosenPlatforms(game.platforms ?? []);
     setSelectedScore(game.score ?? null);
   };
 
   useEffect(() => {
-    const storedList = localStorage.getItem("myGameList");
-
-    if (storedList) setUserList(JSON.parse(storedList));
+    fetchGames();
   }, []);
 
-  useEffect(
-    () => localStorage.setItem("myGameList", JSON.stringify(userList)),
-    [userList],
-  );
+  const fetchGames = async () => {
+    const res = await fetch("/api/games");
+    const data = await res.json();
+
+    setUserList(Array.isArray(data) ? data : []);
+  };
 
   const filteredList =
     activeStatus === "all"
@@ -120,13 +119,13 @@ export default function Page() {
             key={game.id}
             name={game.name}
             cover={game.cover}
-            platform={game.chosenPlatforms.join(", ")}
+            platform={game.platforms.join(", ")}
             score={game.score ?? "--"}
           >
             <button
               className="px-1 hover:underline"
               onClick={() => {
-                startEditGame(game, index);
+                startEditGame(game);
                 setIsSearchOpen(true);
               }}
             >
@@ -146,8 +145,10 @@ export default function Page() {
       <SearchGames
         userList={userList}
         startAddGame={startAddGame}
-        // startEditGame={startEditGame}
-        onClose={() => setIsSearchOpen(false)}
+        onClose={() => {
+          setIsSearchOpen(false);
+          closeDialogue();
+        }}
         isOpen={isSearchOpen}
       >
         {(pendingGame || editingGame) && (

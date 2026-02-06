@@ -1,4 +1,4 @@
-import { statusTypes } from "./misc/status-type";
+import { statusTypes } from "@/components/lib/status-type";
 
 export default function ConfirmationDialogue({
   isEditing,
@@ -54,8 +54,8 @@ export default function ConfirmationDialogue({
             <label key={pf} className="text-sm flex items-center">
               <input
                 type="checkbox"
-                name=""
-                id=""
+                name="platforms"
+                id="platforms"
                 className=""
                 checked={chosenPlatforms.includes(pf)}
                 onChange={(e) => {
