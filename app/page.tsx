@@ -1,3 +1,11 @@
+import AuthButton from "@/components/log-auth-button";
+
 export default function Home() {
-  return <section>Hello World.</section>;
+  return (
+    <section>
+      <nav>
+        <AuthButton />
+      </nav>
+    </section>
+  );
 }
