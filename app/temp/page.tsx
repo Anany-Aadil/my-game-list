@@ -1,7 +1,13 @@
-"use client";
-import { useSession } from "next-auth/react";
+// "use client";
+// import { useSession } from "next-auth/react";
+
+import UserSetup from "@/components/user-setup";
 
 export default function TempPage() {
-  const { data } = useSession();
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  // const { data } = useSession();
+  return (
+    <div>
+      <UserSetup />
+    </div>
+  );
 }

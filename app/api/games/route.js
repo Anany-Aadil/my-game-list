@@ -1,13 +1,17 @@
-import { prisma } from "@/components/lib/prisma";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/components/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { authOptions } from "@/lib/auth";
 
 export async function GET() {
-  try {
-    checkAuth();
+  const session = await getServerSession(authOptions);
+  if (!session)
+    return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
 
+  // console.log("user id: ", session.user.name);
+
+  try {
     const games = await prisma.game.findMany({
       orderBy: { createdAt: "asc" },
       where: { userId: session.user.id },
@@ -15,7 +19,7 @@ export async function GET() {
 
     return NextResponse.json(games);
   } catch (error) {
-    console.error(error);
+    console.error("Error: ", error);
     return NextResponse.json(
       { error: "Failed to fetch games list" },
       { status: 500 },
@@ -24,9 +28,11 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  try {
-    checkAuth();
+  const session = await getServerSession(authOptions);
+  if (!session)
+    return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
 
+  try {
     const body = await request.json();
 
     const gameData = await prisma.game.create({
@@ -50,12 +56,11 @@ export async function POST(request) {
 }
 
 export async function PUT(request) {
-  checkAuth();
-
+  const session = await getServerSession(authOptions);
   const body = await request.json();
 
   const gameData = await prisma.game.update({
-    where: { id: body.id },
+    where: { id: body.id, userId: session.user.id },
     data: {
       status: body.status,
       platforms: body.platforms,
@@ -67,14 +72,14 @@ export async function PUT(request) {
 }
 
 export async function DELETE(request) {
-  checkAuth();
+  const session = await getServerSession(authOptions);
 
   const { searchParams } = new URL(request.url);
   const id = Number(searchParams.get("id"));
 
   if (!id) return NextResponse.json({ error: "Missing Id" }, { status: 500 });
 
-  await prisma.game.delete({ where: { id } });
+  await prisma.game.delete({ where: { id, userId: session.user.id } });
 
   return NextResponse.json({ success: true });
 }

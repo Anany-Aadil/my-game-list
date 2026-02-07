@@ -77,6 +77,7 @@ export default function Page() {
     const confirm = window.confirm("Remove this game?");
     if (!confirm) return;
 
+    setUserList((prev) => prev.filter((g) => g.id !== gameID));
     await fetch(`/api/games?id=${gameID}`, { method: "DELETE" });
     await fetchGames();
   };

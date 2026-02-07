@@ -1,4 +1,4 @@
-import { statusTypes } from "@/components/lib/status-type";
+import { statusTypes } from "@/lib/status-type";
 
 export default function ConfirmationDialogue({
   isEditing,
