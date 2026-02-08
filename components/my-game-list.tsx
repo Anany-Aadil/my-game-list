@@ -12,6 +12,8 @@ import InfoBar from "@/components/ui/navs/info-bar";
 import ConfirmationDialogue from "@/components/ui/searchbox/confirmation-dialogue";
 import SideNav from "@/components/ui/navs/side-nav";
 
+import { sortItems } from "@/lib/sort-items";
+
 export default function MyGameList({
   isOwner,
   userGameList,
@@ -104,8 +106,6 @@ export default function MyGameList({
       fetchGames();
     }, []);
 
-  // console.log("(client) is owner:", isOwner);
-
   const fetchGames = async () => {
     const res = await fetch("/api/games");
     const data = await res.json();
@@ -119,6 +119,8 @@ export default function MyGameList({
       ? userGameList
       : userGameList.filter((game: any) => game.status === activeStatus);
 
+  const sortedGames = sortItems(filteredList, activeStatus);
+
   const activeGame = pendingGame || editingGame;
   const isEditing = Boolean(editingGame);
 
@@ -129,8 +131,8 @@ export default function MyGameList({
       {/* Main List */}
       <InfoBar />
       <main className="">
-        {filteredList.length > 0 ? (
-          filteredList.map((game: any, index: number) => (
+        {sortedGames.length > 0 ? (
+          sortedGames.map((game: any, index: number) => (
             <ListItem
               sno={index + 1}
               key={game.id}
