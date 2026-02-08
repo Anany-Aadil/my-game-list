@@ -38,6 +38,7 @@ export default function ConfirmationDialogue({
           className="border border-gray-700 bg-gray-900 rounded-xl outline-none p-1 mx-2 text-gray-200 text-sm"
           onChange={(e) => setSelectedStatus(e.target.value)}
         >
+          <option value="unselected">-Select-</option>
           {statusTypes.map((status) => (
             <option key={status.type} value={status.value}>
               {status.label}
@@ -101,7 +102,9 @@ export default function ConfirmationDialogue({
               confirmAddGame(selectedStatus);
             }}
             className="rounded-lg border border-black px-1 py-0.5 text-sm bg-gray-400 hover:bg-blue-900 hover:text-gray-200 transition-colors"
-            disabled={chosenPlatforms.length === 0}
+            disabled={
+              chosenPlatforms.length === 0 || selectedStatus === "unselected"
+            }
           >
             Confirm
           </button>

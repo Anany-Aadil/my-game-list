@@ -1,9 +1,10 @@
 import { getServerSession } from "next-auth";
-
-import ListItem from "@/components/list-item";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
+
+// import ListItem from "@/components/list-item";
+import MyGameList from "@/components/my-game-list";
 
 export default async function UserPage({
   params,
@@ -20,24 +21,13 @@ export default async function UserPage({
   if (!user) notFound();
 
   const session = await getServerSession(authOptions);
-
   const isOwner = session?.user?.email === user.email;
 
+  const userGameList = user.games;
+
   return (
-    <div>
-      <h1>User List</h1>
-      {user.games?.map((game: any, index: number) => (
-        <ListItem
-          sno={index + 1}
-          key={game.id}
-          name={game.name}
-          cover={game.cover}
-          platform={game.platforms.join(", ")}
-          score={game.score ?? "--"}
-        >
-          ()
-        </ListItem>
-      ))}
-    </div>
+    <>
+      <MyGameList isOwner={isOwner} userGameList={userGameList} />
+    </>
   );
 }

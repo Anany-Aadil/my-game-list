@@ -11,7 +11,7 @@ export default function SearchItem({
     <div className="flex justify-between px-4 py-1 my-1">
       <div className="">
         <span className="pr-1">{game.name}</span>
-        <span className="pl-1 text-sm">({game.year})</span>
+        <span className="pl-1 text-sm">({game.year ? game.year : "TBA"})</span>
       </div>
       <button
         type="button"

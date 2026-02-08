@@ -1,17 +1,18 @@
 "use client";
 
-// import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function UserSetup() {
   const [userName, setUserName] = useState("");
   const [error, setError] = useState("");
 
-  //   const { data: session } = useSession();
-  //   const userDetail = session?.user;
+  const { data: session } = useSession();
+  const userDetail = session?.user;
 
   const confirmUserName = async () => {
-    const res = await fetch("api/username", {
+    const res = await fetch("/api/username", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userName }),
@@ -27,24 +28,37 @@ export default function UserSetup() {
   };
 
   return (
-    <div className="bg-gray-400 fixed w-1/4 h-2/3 rounded-2xl left-3/8 top-1/6 flex flex-col items-center text-center">
-      <div></div>
-      <div className="p-5">
-        <span>Enter User ID: </span>
+    <div className="bg-gray-400 fixed w-1/4 h-2/3 rounded-2xl left-3/8 top-1/6 flex flex-col items-center text-center shadow-2xl shadow-neutral-900">
+      <div className="flex flex-col items-center-safe my-5 text-2xl">
+        <span className="my-2">Name: {userDetail?.name}</span>
+        <Image
+          src={userDetail?.image ? userDetail.image : "/vercel.svg"}
+          width={75}
+          height={75}
+          alt="User Image"
+          className="m-2 rounded-sm"
+        />
+      </div>
+      <div className="py-5 my-5">
+        <span className="text-xl">Enter Username : </span>
         <br />
         <input
           type="text"
           name="userID"
           id="userID"
-          className="outline-none border rounded-sm p-2"
+          className="outline-none border bg-neutral-400 rounded-sm px-2 py-1"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
         />
+        <br />
+        <span className="text-sm">
+          * Username should be between 3-32 characters
+        </span>
       </div>
       {error && <p>{error}</p>}
       <button
         onClick={confirmUserName}
-        className="py-2 px-5 bg-gray-700 text-gray-100 rounded-lg hover:bg-gray-800"
+        className="py-2 px-5 my-5 bg-gray-700 text-gray-100 rounded-lg hover:bg-gray-800 transition-colors"
       >
         Confirm
       </button>

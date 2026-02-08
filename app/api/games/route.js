@@ -9,8 +9,6 @@ export async function GET() {
   if (!session)
     return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
 
-  // console.log("user id: ", session.user.name);
-
   try {
     const games = await prisma.game.findMany({
       orderBy: { createdAt: "asc" },
@@ -82,12 +80,4 @@ export async function DELETE(request) {
   await prisma.game.delete({ where: { id, userId: session.user.id } });
 
   return NextResponse.json({ success: true });
-}
-
-async function checkAuth() {
-  const session = await getServerSession(authOptions);
-  if (!session)
-    return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
-
-  return session;
 }

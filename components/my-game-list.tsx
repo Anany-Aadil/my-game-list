@@ -1,26 +1,37 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Status } from "@prisma/client";
+
 import SearchGames from "@/components/search-games";
 import ListItem from "@/components/list-item";
+import EditButton from "@/components/edit-button";
 import StatusBar from "@/components/status-bar";
 import InfoBar from "@/components/info-bar";
 import ConfirmationDialogue from "@/components/confirmation-dialogue";
 import SideNav from "@/components/side-nav";
-import { Status } from "@prisma/client";
 
-export default function Page() {
+export default function MyGameList({
+  isOwner,
+  userGameList,
+}: {
+  isOwner: boolean;
+  userGameList: any[];
+}) {
   const [userList, setUserList] = useState<any[]>([]);
   const [pendingGame, setPendingGame] = useState<any>(null);
   const [activeStatus, setActiveStatus] = useState("all"); // Defaults to all
 
   const [editingGame, setEditingGame] = useState<any>(null);
 
-  const [selectedStatus, setSelectedStatus] = useState("current"); //default at Currently-Playing
+  const [selectedStatus, setSelectedStatus] = useState("unselected"); //default at Currently-Playing
   const [selectedScore, setSelectedScore] = useState<any>(null);
   const [chosenPlatforms, setChosenPlatforms] = useState<any[]>([]);
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const router = useRouter();
 
   const startAddGame = (game: any) => {
     setPendingGame(game);
@@ -61,6 +72,7 @@ export default function Page() {
 
       await fetchGames();
       closeDialogue();
+      router.refresh();
     } catch (error) {
       console.error("Failed to save game: ", error);
     }
@@ -88,9 +100,12 @@ export default function Page() {
     setSelectedScore(game.score ?? null);
   };
 
-  useEffect(() => {
-    fetchGames();
-  }, []);
+  if (isOwner)
+    useEffect(() => {
+      fetchGames();
+    }, []);
+
+  // console.log("(client) is owner:", isOwner);
 
   const fetchGames = async () => {
     const res = await fetch("/api/games");
@@ -101,8 +116,8 @@ export default function Page() {
 
   const filteredList =
     activeStatus === "all"
-      ? userList
-      : userList.filter((game: any) => game.status === activeStatus);
+      ? userGameList
+      : userGameList.filter((game: any) => game.status === activeStatus);
 
   const activeGame = pendingGame || editingGame;
   const isEditing = Boolean(editingGame);
@@ -123,25 +138,27 @@ export default function Page() {
             platform={game.platforms.join(", ")}
             score={game.score ?? "--"}
           >
-            <button
-              className="px-1 hover:underline"
-              onClick={() => {
-                startEditGame(game);
-                setIsSearchOpen(true);
-              }}
-            >
-              Edit
-            </button>
-            <button
-              className="px-1 hover:underline"
-              onClick={() => removeFromList(game.id)}
-            >
-              Remove
-            </button>
+            {isOwner ? (
+              <>
+                <EditButton
+                  onPress={() => {
+                    startEditGame(game);
+                    setIsSearchOpen(true);
+                  }}
+                >
+                  Edit
+                </EditButton>
+                <EditButton onPress={() => removeFromList(game.id)}>
+                  Remove
+                </EditButton>
+              </>
+            ) : (
+              ""
+            )}
           </ListItem>
         ))}
       </main>
-      <SideNav onClick={() => setIsSearchOpen(true)} />
+      {isOwner ? <SideNav onClick={() => setIsSearchOpen(true)} /> : null}
 
       <SearchGames
         userList={userList}

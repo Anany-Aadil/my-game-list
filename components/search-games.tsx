@@ -55,7 +55,7 @@ export default function SearchGames({
     userList.some((g: any) => g.id === game.id);
 
   return (
-    <section className="bg-gray-800 fixed w-[50%] h-100 rounded-xl text-gray-200 left-1/4 top-1/4 shadow-2xl shadow-gray-900">
+    <section className="bg-gray-800 fixed w-[75%] h-150 rounded-xl text-gray-200 left-1/8 top-1/10 shadow-2xl shadow-gray-900">
       <search className="border-2 border-gray-200 w-[75%] h-15 items-center justify-between flex rounded-4xl mx-auto my-5">
         <input
           type="text"
