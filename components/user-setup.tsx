@@ -28,7 +28,7 @@ export default function UserSetup() {
   };
 
   return (
-    <div className="bg-gray-400 fixed w-1/4 h-2/3 rounded-2xl left-3/8 top-1/6 flex flex-col items-center text-center shadow-2xl shadow-neutral-900">
+    <div className="bg-neutral-400 fixed w-1/4 h-2/3 rounded-2xl left-3/8 top-1/6 flex flex-col items-center text-center shadow-2xl shadow-neutral-900">
       <div className="flex flex-col items-center-safe my-5 text-2xl">
         <span className="my-2">Name: {userDetail?.name}</span>
         <Image

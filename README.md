@@ -1,8 +1,19 @@
 # Intro
+
 This is a MyAnimeList clone made for Video Games
 
-Uses *IGDB* API provided by Twitch
+Uses _IGDB_ API provided by Twitch
 
 # Database
-TODO : Add a Database
-TODO : Add User authentication
+
+ORM provided by Prisma
+Database hosting provided by Neon
+
+# Authentication
+
+Auth provided via Google
+
+## Future TODOs
+
+Add password based authentication and personal accounts
+Add Trending / Popular games in Home page

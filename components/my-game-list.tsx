@@ -4,13 +4,15 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Status } from "@prisma/client";
 
-import SearchGames from "@/components/search-games";
-import ListItem from "@/components/list-item";
+import SearchGames from "@/components/ui/searchbox/search-games";
+import ListItem from "@/components/ui/list/list-item";
 import EditButton from "@/components/edit-button";
-import StatusBar from "@/components/status-bar";
-import InfoBar from "@/components/info-bar";
-import ConfirmationDialogue from "@/components/confirmation-dialogue";
-import SideNav from "@/components/side-nav";
+import StatusBar from "@/components/ui/navs/status-bar";
+import InfoBar from "@/components/ui/navs/info-bar";
+import ConfirmationDialogue from "@/components/ui/searchbox/confirmation-dialogue";
+import SideNav from "@/components/ui/navs/side-nav";
+
+import { Suspense } from "react";
 
 export default function MyGameList({
   isOwner,
@@ -72,7 +74,6 @@ export default function MyGameList({
 
       await fetchGames();
       closeDialogue();
-      router.refresh();
     } catch (error) {
       console.error("Failed to save game: ", error);
     }
@@ -111,6 +112,7 @@ export default function MyGameList({
     const res = await fetch("/api/games");
     const data = await res.json();
 
+    router.refresh();
     setUserList(Array.isArray(data) ? data : []);
   };
 
@@ -123,46 +125,60 @@ export default function MyGameList({
   const isEditing = Boolean(editingGame);
 
   return (
-    <section className="w-250 m-auto h-1/2">
+    <section className="w-250 m-auto h-1/2 font-sans">
       {/* Status Bar */}
       <StatusBar onStatusClick={setActiveStatus} activeStatus={activeStatus} />
       {/* Main List */}
       <InfoBar />
       <main className="">
-        {filteredList.map((game: any, index: number) => (
-          <ListItem
-            sno={index + 1}
-            key={game.id}
-            name={game.name}
-            cover={game.cover}
-            platform={game.platforms.join(", ")}
-            score={game.score ?? "--"}
-          >
-            {isOwner ? (
-              <>
-                <EditButton
-                  onPress={() => {
-                    startEditGame(game);
-                    setIsSearchOpen(true);
-                  }}
-                >
-                  Edit
-                </EditButton>
-                <EditButton onPress={() => removeFromList(game.id)}>
-                  Remove
-                </EditButton>
-              </>
-            ) : (
-              ""
-            )}
-          </ListItem>
-        ))}
+        {filteredList.length > 0 ? (
+          filteredList.map((game: any, index: number) => (
+            <ListItem
+              sno={index + 1}
+              key={game.id}
+              name={game.name}
+              cover={game.cover}
+              platform={game.platforms.join(", ")}
+              score={game.score ?? "--"}
+            >
+              {isOwner ? (
+                <>
+                  <EditButton
+                    onPress={() => {
+                      startEditGame(game);
+                      setIsSearchOpen(true);
+                    }}
+                  >
+                    Edit
+                  </EditButton>
+                  <EditButton onPress={() => removeFromList(game.id)}>
+                    Remove
+                  </EditButton>
+                </>
+              ) : (
+                ""
+              )}
+            </ListItem>
+          ))
+        ) : (
+          <div className="text-gray-950 text-center box-border w-250 flex justify-center items-center border-gray-300 py-1 mb-0.5 border-2">
+            <span className="mx-5">Add a game to the list... </span>
+            <button
+              className="text-blue-800 hover:text-blue-700 hover:underline mx-5"
+              onClick={() => setIsSearchOpen(true)}
+            >
+              {" "}
+              Click Here{" "}
+            </button>
+          </div>
+        )}
       </main>
       {isOwner ? <SideNav onClick={() => setIsSearchOpen(true)} /> : null}
 
       <SearchGames
         userList={userList}
         startAddGame={startAddGame}
+        // startEditGame={startEditGame}
         onClose={() => {
           setIsSearchOpen(false);
           closeDialogue();

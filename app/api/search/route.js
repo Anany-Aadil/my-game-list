@@ -35,7 +35,7 @@ export async function GET(request) {
       body: `
             search "${search}";
             fields name, cover.url, platforms.name, release_dates.y;
-            limit 5;
+            limit 10;
             `,
     });
 

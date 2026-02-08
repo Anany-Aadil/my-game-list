@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 
-import Image from "next/image";
-import SearchItem from "@/components/search-item";
+import SearchItem from "@/components/ui/searchbox/search-item";
+import { SearchItemsSkeleton } from "../skeletons";
+import { SearchIcon, CloseIcon } from "@/public/icons";
 
 export default function SearchGames({
   isOpen,
@@ -11,12 +12,14 @@ export default function SearchGames({
   children,
   userList,
   startAddGame,
+  // startEditGame,
 }: {
   isOpen: boolean;
   onClose: any;
   children: React.ReactNode;
   userList: React.ComponentState;
   startAddGame: any;
+  // startEditGame: any;
 }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
@@ -55,41 +58,41 @@ export default function SearchGames({
     userList.some((g: any) => g.id === game.id);
 
   return (
-    <section className="bg-gray-800 fixed w-[75%] h-150 rounded-xl text-gray-200 left-1/8 top-1/10 shadow-2xl shadow-gray-900">
-      <search className="border-2 border-gray-200 w-[75%] h-15 items-center justify-between flex rounded-4xl mx-auto my-5">
+    <section className="bg-neutral-900 fixed w-[75%] h-150 rounded-sm text-gray-200 left-1/8 top-1/10 shadow-2xl shadow-gray-900">
+      <search className="border border-neutral-500 w-[75%] h-12 items-center justify-between flex rounded-xl mx-auto mt-10 mb-5">
         <input
           type="text"
           name="gamename"
           id="gamename"
-          className="h-[90%] w-[85%]  mx-2.5 border-none rounded-2xl outline-none px-3 py-0.5"
+          className="flex-1 h-full border-none rounded-l-xl outline-none px-3 py-0.5 bg-neutral-800"
           placeholder="Search for Video Games"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
         <button
-          className="w-10 h-10 rounded-4xl bg-blue-200 border border-blue-800 mx-2.5"
+          className="h-full aspect-square rounded-r-xl bg-neutral-900 border-l border-neutral-700"
           type="button"
           onClick={handleSearch}
         >
-          <Image
-            src="/search.svg"
-            alt="search icon"
-            width={20}
-            height={20}
-            className="mx-auto"
+          <SearchIcon
+            className="mx-auto text-neutral-200"
+            fillColor="currentColor"
           />
         </button>
       </search>
-      {searching && (
-        <div className="mx-auto text-gray-400 text-center">Searching . . .</div>
-      )}
-
-      <div>
+      <div className="max-h-92 overflow-y-auto">
+        {searching && (
+          <div className="mx-auto text-gray-400 text-center">
+            {/* Searching... <br /> */}
+            <SearchItemsSkeleton />
+          </div>
+        )}
         {
           // Array.isArray(results) &&
-          results.map((game: any) => (
+          results.map((game: any, index: number) => (
             <SearchItem
               key={game.id}
+              idx={index}
               game={game}
               onAdd={startAddGame}
               isAdded={checkIfAdded(game)}
@@ -101,10 +104,13 @@ export default function SearchGames({
       {children}
       <button
         type="button"
-        className="absolute text-center right-1 bottom-1 rounded-xl border w-5 h-5 text-sm hover:bg-red-400 transition-colors"
+        className="absolute text-center -right-3 -bottom-3 rounded-4xl w-8 aspect-square hover:bg-neutral-600 transition-colors font-bold bg-neutral-800"
         onClick={handleClose}
       >
-        X
+        <CloseIcon
+          className="w-full h-full text-neutral-200"
+          fillColor="currentColor"
+        />
       </button>
     </section>
   );

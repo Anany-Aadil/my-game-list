@@ -26,7 +26,7 @@ export default function ConfirmationDialogue({
   setEditingGame: React.SetStateAction<any>;
 }) {
   return (
-    <section className="border bg-gray-300 text-black w-4/5 p-2 rounded-2xl mx-auto">
+    <section className="border bg-gray-300 text-black w-4/5 p-2 rounded-2xl my-3 mx-auto">
       <div className="flex justify-evenly items-center">
         <div>
           {isEditing ? "Change" : "Add"} {activeGame.name} to :

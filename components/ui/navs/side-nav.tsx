@@ -1,11 +1,8 @@
 import Image from "next/image";
 export default function SideNav({ onClick }: { onClick: any }) {
   return (
-    <nav className="w-15 h-15 flex flex-col fixed left-0 top-1/2 bg-blue-200 text-center rounded-2xl items-center">
-      <button
-        onClick={onClick}
-        className="hover:bg-blue-300 w-full rounded-2xl h-full pl-3.5 transition-colors"
-      >
+    <nav className="w-15 h-15 flex flex-col fixed left-0 top-1/2 bg-neutral-200 text-center rounded-r-xl items-center transition-colors hover:bg-neutral-300 border border-neutral-300">
+      <button onClick={onClick} className="w-full h-full pl-3.5">
         <Image
           src="/images/add-list.png"
           alt="Add to List"
