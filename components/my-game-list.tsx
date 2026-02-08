@@ -12,8 +12,6 @@ import InfoBar from "@/components/ui/navs/info-bar";
 import ConfirmationDialogue from "@/components/ui/searchbox/confirmation-dialogue";
 import SideNav from "@/components/ui/navs/side-nav";
 
-import { Suspense } from "react";
-
 export default function MyGameList({
   isOwner,
   userGameList,
@@ -140,6 +138,7 @@ export default function MyGameList({
               cover={game.cover}
               platform={game.platforms.join(", ")}
               score={game.score ?? "--"}
+              status={game.status}
             >
               {isOwner ? (
                 <>

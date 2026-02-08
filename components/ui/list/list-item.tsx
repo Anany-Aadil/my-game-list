@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { statusStyles } from "@/lib/status-type";
 
 export default function ListItem({
   sno,
@@ -7,6 +8,7 @@ export default function ListItem({
   platform,
   children,
   score,
+  status,
 }: {
   sno: number;
   name: string;
@@ -14,10 +16,14 @@ export default function ListItem({
   platform: string;
   children: React.ReactNode;
   score: number;
+  status: string;
 }) {
   return (
-    <div className="text-gray-950 text-center box-border w-250 flex justify-evenly items-center border-gray-300 py-1 mb-0.5 border-2 relative">
-      <div className="w-10">{sno}.</div>
+    <div className="text-neutral-950 text-center box-border w-250 flex justify-evenly items-center border-gray-300 py-1 mb-0.5 border-2 relative">
+      <div
+        className={`h-full w-2 absolute ${statusStyles[status]} left-0`}
+      ></div>
+      <div className="w-10 text-sm text-neutral-800">{sno}.</div>
       <div className="w-20">
         {cover ? (
           <Image src={cover} width={264} height={352} alt={name} unoptimized />

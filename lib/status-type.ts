@@ -5,3 +5,11 @@ export const statusTypes = [
   { type: 4, label: "Dropped", value: "DROPPED" },
   { type: 5, label: "Plan to Play", value: "PLAN_TO_PLAY" },
 ];
+
+export const statusStyles: Record<string, string> = {
+  CURRENTLY_PLAYING: "bg-green-600/30",
+  ON_HOLD: "bg-amber-600/30",
+  COMPLETED: "bg-indigo-600/30",
+  DROPPED: "bg-rose-600/30",
+  PLAN_TO_PLAY: "bg-teal-600/30",
+};
