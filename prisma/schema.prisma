@@ -16,26 +16,30 @@ datasource db {
 }
 
 model Game {
-  id Int @id
+  id Int @id //From IGDB
   name String
   cover String?
   year Int?
+
+  userGame UserGame[]
+}
+
+model UserGame {
+  id Int @id @default(autoincrement())
+
+  userId String
+  gameId Int
   status Status
   score String?
   platforms String[]
   chosenPlatforms String[]
   createdAt DateTime @default(now())
 
-  userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
 
-enum Status {
-  CURRENTLY_PLAYING
-  ON_HOLD
-  COMPLETED
-  DROPPED
-  PLAN_TO_PLAY
+  @@unique([userId, gameId])
+  
 }
 
 model User {
@@ -48,7 +52,7 @@ model User {
 
   accounts Account[]
   sessions Session[]
-  games Game[]
+  games UserGame[]
 }
 
 model Account{
@@ -78,4 +82,12 @@ model Session{
   expires DateTime
   
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Status {
+  CURRENTLY_PLAYING
+  ON_HOLD
+  COMPLETED
+  DROPPED
+  PLAN_TO_PLAY
 }

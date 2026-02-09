@@ -29,7 +29,10 @@ export default function ConfirmationDialogue({
     <section className="border bg-gray-300 text-black w-4/5 p-2 rounded-2xl my-3 mx-auto">
       <div className="flex justify-evenly items-center">
         <div>
-          {isEditing ? "Change" : "Add"} {activeGame.name} to :
+          {isEditing
+            ? `Change ${activeGame.game.name}`
+            : `Add ${activeGame.name}`}{" "}
+          to :
         </div>
         <select
           name="status"

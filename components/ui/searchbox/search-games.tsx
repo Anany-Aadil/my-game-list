@@ -55,7 +55,7 @@ export default function SearchGames({
   }
 
   const checkIfAdded = (game: any) =>
-    userList.some((g: any) => g.id === game.id);
+    userList.some((g: any) => g.gameId === game.id);
 
   return (
     <section className="bg-neutral-900 fixed w-[75%] h-150 rounded-sm text-gray-200 left-1/8 top-1/10 shadow-2xl shadow-gray-900">

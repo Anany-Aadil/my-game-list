@@ -15,7 +15,13 @@ export default async function UserPage({
 
   const user = await prisma.user.findUnique({
     where: { userName },
-    include: { games: true },
+    include: {
+      games: {
+        include: {
+          game: true,
+        },
+      },
+    },
   });
 
   if (!user) notFound();
