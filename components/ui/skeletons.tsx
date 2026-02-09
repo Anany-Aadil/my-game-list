@@ -1,15 +1,3 @@
-function ListItemSkeleton() {
-  return (
-    <div className="text-gray-950 text-center box-border w-250 h-28 flex justify-evenly items-center border-gray-300 py-1 mb-0.5 border-2 relative skeleton-shimmer">
-      <div className="bg-neutral-300 h-1/5 w-10"></div>
-      <div className="bg-neutral-300 h-full w-20"></div>
-      <div className="bg-neutral-300 h-1/5 w-150"></div>
-      <div className="bg-neutral-300 h-1/3 w-20"></div>
-      <div className="bg-neutral-300 h-1/5 w-20"></div>
-    </div>
-  );
-}
-
 export function GameListSkeleton() {
   return (
     <div className="m-auto w-250">
@@ -18,6 +6,28 @@ export function GameListSkeleton() {
       {Array.from({ length: 5 }).map((_, i) => (
         <ListItemSkeleton key={i} />
       ))}
+    </div>
+  );
+}
+
+export function SearchItemsSkeleton() {
+  return (
+    <>
+      {Array.from({ length: 10 }).map((_, i) => (
+        <SearchItemSkeleton key={i} idx={i} />
+      ))}
+    </>
+  );
+}
+
+function ListItemSkeleton() {
+  return (
+    <div className="text-gray-950 text-center box-border w-250 h-28 flex justify-evenly items-center border-gray-300 py-1 mb-0.5 border-2 relative skeleton-shimmer">
+      <div className="bg-neutral-300 h-1/5 w-10"></div>
+      <div className="bg-neutral-300 h-full w-20"></div>
+      <div className="bg-neutral-300 h-1/5 w-150"></div>
+      <div className="bg-neutral-300 h-1/3 w-20"></div>
+      <div className="bg-neutral-300 h-1/5 w-20"></div>
     </div>
   );
 }
@@ -43,16 +53,6 @@ function InfoBarSkeleton() {
       <div className="h-5 bg-neutral-400 w-20"></div>
       <div className="h-5 bg-neutral-400 w-20"></div>
     </div>
-  );
-}
-
-export function SearchItemsSkeleton() {
-  return (
-    <>
-      {Array.from({ length: 10 }).map((_, i) => (
-        <SearchItemSkeleton key={i} idx={i} />
-      ))}
-    </>
   );
 }
 

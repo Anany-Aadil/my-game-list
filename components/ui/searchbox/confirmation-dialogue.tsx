@@ -29,7 +29,10 @@ export default function ConfirmationDialogue({
     <section className="border bg-gray-300 text-black w-4/5 p-2 rounded-2xl my-3 mx-auto">
       <div className="flex justify-evenly items-center">
         <div>
-          {isEditing ? "Change" : "Add"} {activeGame.name} to :
+          {isEditing
+            ? `Change ${activeGame.game.name}`
+            : `Add ${activeGame.name}`}{" "}
+          to :
         </div>
         <select
           name="status"
@@ -48,34 +51,37 @@ export default function ConfirmationDialogue({
       </div>
 
       {/* Platform Selection */}
-      <div className="flex justify-evenly items-center">
-        <div>Platform(s):</div>
-        {activeGame.platforms?.length > 0 ? (
-          activeGame.platforms.map((pf: string) => (
-            <label key={pf} className="text-sm flex items-center">
-              <input
-                type="checkbox"
-                name="platforms"
-                id="platforms"
-                className=""
-                checked={chosenPlatforms.includes(pf)}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setChosenPlatforms((prev: any[]) => [...prev, pf]);
-                  } else {
-                    setChosenPlatforms((prev: any[]) =>
-                      prev.filter((p) => p !== pf),
-                    );
-                  }
-                }}
-              />
-              {pf}
-            </label>
-          ))
-        ) : (
-          <span>No Platform data available</span>
-        )}
+      <div className="flex justify-between items-center w-9/10 mx-auto relative">
+        <div className="w-20 mx-5">Platform(s):</div>
+        <div className="flex max-w-full overflow-x-scroll custom-scroll">
+          {activeGame.platforms?.length > 0 ? (
+            activeGame.platforms.map((pf: string) => (
+              <label key={pf} className="text-sm flex items-center">
+                <input
+                  type="checkbox"
+                  name="platforms"
+                  id="platforms"
+                  className=""
+                  checked={chosenPlatforms.includes(pf)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setChosenPlatforms((prev: any[]) => [...prev, pf]);
+                    } else {
+                      setChosenPlatforms((prev: any[]) =>
+                        prev.filter((p) => p !== pf),
+                      );
+                    }
+                  }}
+                />
+                <span className="block">{pf}</span>
+              </label>
+            ))
+          ) : (
+            <span>No Platform data available</span>
+          )}
+        </div>
       </div>
+
       {/* Score */}
       <div className="flex justify-around items-center">
         <span>Score:</span>

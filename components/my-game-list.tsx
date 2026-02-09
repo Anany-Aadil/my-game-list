@@ -132,27 +132,27 @@ export default function MyGameList({
       <InfoBar />
       <main className="">
         {sortedGames.length > 0 ? (
-          sortedGames.map((game: any, index: number) => (
+          sortedGames.map((gameDetail: any, index: number) => (
             <ListItem
               sno={index + 1}
-              key={game.id}
-              name={game.name}
-              cover={game.cover}
-              platform={game.platforms.join(", ")}
-              score={game.score ?? "--"}
-              status={game.status}
+              key={gameDetail.id}
+              name={gameDetail.game.name}
+              cover={gameDetail.game.cover}
+              platform={gameDetail.platforms.join(", ")}
+              score={gameDetail.score ?? "--"}
+              status={gameDetail.status}
             >
               {isOwner ? (
                 <>
                   <EditButton
                     onPress={() => {
-                      startEditGame(game);
+                      startEditGame(gameDetail);
                       setIsSearchOpen(true);
                     }}
                   >
                     Edit
                   </EditButton>
-                  <EditButton onPress={() => removeFromList(game.id)}>
+                  <EditButton onPress={() => removeFromList(gameDetail.id)}>
                     Remove
                   </EditButton>
                 </>
@@ -162,6 +162,7 @@ export default function MyGameList({
             </ListItem>
           ))
         ) : (
+          // Placeholder
           <div className="text-gray-950 text-center box-border w-250 flex justify-center items-center border-gray-300 py-1 mb-0.5 border-2">
             <span className="mx-5">Add a game to the list... </span>
             <button
@@ -179,7 +180,6 @@ export default function MyGameList({
       <SearchGames
         userList={userList}
         startAddGame={startAddGame}
-        // startEditGame={startEditGame}
         onClose={() => {
           setIsSearchOpen(false);
           closeDialogue();
