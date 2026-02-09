@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import SearchItem from "@/components/ui/searchbox/search-item";
 import { SearchItemsSkeleton } from "../skeletons";
-import { SearchIcon, CloseIcon } from "@/public/icons";
+import { SearchIcon, CloseIcon } from "@/components/ui/icons";
 
 export default function SearchGames({
   isOpen,
@@ -12,14 +12,12 @@ export default function SearchGames({
   children,
   userList,
   startAddGame,
-  // startEditGame,
 }: {
   isOpen: boolean;
   onClose: any;
   children: React.ReactNode;
   userList: React.ComponentState;
   startAddGame: any;
-  // startEditGame: any;
 }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
@@ -80,7 +78,7 @@ export default function SearchGames({
           />
         </button>
       </search>
-      <div className="max-h-92 overflow-y-auto">
+      <div className="max-h-80 overflow-y-auto">
         {searching && (
           <div className="mx-auto text-gray-400 text-center">
             {/* Searching... <br /> */}

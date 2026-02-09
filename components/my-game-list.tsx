@@ -97,7 +97,6 @@ export default function MyGameList({
 
   const startEditGame = (game: any) => {
     setEditingGame(game);
-    console.log("Editing game: ", game);
     setChosenPlatforms(game.platforms ?? []);
     setSelectedScore(game.score ?? null);
   };
@@ -111,8 +110,6 @@ export default function MyGameList({
     const res = await fetch("/api/games");
     const data = await res.json();
 
-    // console.log("Data: ", data);
-
     router.refresh();
     setUserList(Array.isArray(data) ? data : []);
   };
@@ -122,7 +119,7 @@ export default function MyGameList({
       ? userGameList
       : userGameList.filter((game: any) => game.status === activeStatus);
 
-  // const sortedGames = sortItems(filteredList, activeStatus);
+  const sortedGames = sortItems(filteredList, activeStatus);
 
   const activeGame = pendingGame || editingGame;
   const isEditing = Boolean(editingGame);
@@ -134,8 +131,8 @@ export default function MyGameList({
       {/* Main List */}
       <InfoBar />
       <main className="">
-        {filteredList.length > 0 ? (
-          filteredList.map((gameDetail: any, index: number) => (
+        {sortedGames.length > 0 ? (
+          sortedGames.map((gameDetail: any, index: number) => (
             <ListItem
               sno={index + 1}
               key={gameDetail.id}
@@ -183,7 +180,6 @@ export default function MyGameList({
       <SearchGames
         userList={userList}
         startAddGame={startAddGame}
-        // startEditGame={startEditGame}
         onClose={() => {
           setIsSearchOpen(false);
           closeDialogue();

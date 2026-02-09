@@ -34,11 +34,19 @@ body {
 
 /* Custom Classes */
 @layer components {
-  .custom-class {
-    @apply m-2 p-2 border;
-  }
-
   .skeleton-shimmer {
     @apply before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-linear-to-r before:from-transparent before:via-white/60 before:to-transparent;
+  }
+
+  .custom-scroll::-webkit-scrollbar {
+    @apply h-1;
+  }
+
+  .custom-scroll::-webkit-scrollbar-thumb {
+    @apply bg-neutral-800 rounded-2xl absolute h-1;
+  }
+
+  .custom-scroll::-webkit-scrollbar-track {
+    @apply bg-neutral-600 rounded-xs;
   }
 }

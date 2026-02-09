@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 
-// import ListItem from "@/components/list-item";
 import MyGameList from "@/components/my-game-list";
 
 export default async function UserPage({
