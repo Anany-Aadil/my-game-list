@@ -8,10 +8,10 @@ export default function StatusBar({
   activeStatus: string;
 }) {
   return (
-    <nav className="flex w-250 bg-neutral-200 text-center justify-between hover:underline-offset-2">
+    <nav className="flex w-250 bg-neutral-200 text-center justify-between hover:underline-offset-2 font-iceberg">
       <button
         onClick={() => onStatusClick("all")}
-        className={`p-4 flex-1 transition-colors hover:bg-neutral-300 ${activeStatus === "all" ? "bg-neutral-300" : ""}`}
+        className={`p-4 flex-1 transition-colors  ${activeStatus === "all" ? "bg-neutral-300" : "hover:bg-neutral-300"}`}
         disabled={activeStatus === "all"}
       >
         All
@@ -21,7 +21,7 @@ export default function StatusBar({
           key={status.type}
           onClick={() => onStatusClick(status.value)}
           disabled={activeStatus === status.value}
-          className={`p-4 flex-1 w-40 transition-colors hover:bg-neutral-300 ${activeStatus === status.value ? "bg-neutral-300" : ""}`}
+          className={`p-4 flex-1 w-40 transition-colors  ${activeStatus === status.value ? "bg-neutral-300" : "hover:bg-neutral-300"}`}
         >
           {status.label}
         </button>

@@ -74,6 +74,7 @@ export default function MyGameList({
 
       await fetchGames();
       closeDialogue();
+      router.refresh();
     } catch (error) {
       console.error("Failed to save game: ", error);
     }
@@ -93,6 +94,7 @@ export default function MyGameList({
     setUserList((prev) => prev.filter((g) => g.id !== gameID));
     await fetch(`/api/games?id=${gameID}`, { method: "DELETE" });
     await fetchGames();
+    router.refresh();
   };
 
   const startEditGame = (game: any) => {
@@ -110,7 +112,6 @@ export default function MyGameList({
     const res = await fetch("/api/games");
     const data = await res.json();
 
-    router.refresh();
     setUserList(Array.isArray(data) ? data : []);
   };
 
@@ -175,7 +176,7 @@ export default function MyGameList({
           </div>
         )}
       </main>
-      {isOwner ? <SideNav onClick={() => setIsSearchOpen(true)} /> : null}
+      {isOwner ? <SideNav onAddClick={() => setIsSearchOpen(true)} /> : null}
 
       <SearchGames
         userList={userList}

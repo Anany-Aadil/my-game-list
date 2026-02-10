@@ -26,19 +26,25 @@ export default function ConfirmationDialogue({
   setEditingGame: React.SetStateAction<any>;
 }) {
   return (
-    <section className="border bg-gray-300 text-black w-4/5 p-2 rounded-2xl my-3 mx-auto">
-      <div className="flex justify-evenly items-center">
-        <div>
-          {isEditing
-            ? `Change ${activeGame.game.name}`
-            : `Add ${activeGame.name}`}{" "}
+    <section className="border bg-neutral-300 text-neutral-900 w-4/5 p-2 rounded-2xl my-4 mx-auto">
+      <div className="flex justify-between w-9/10 mx-auto items-center py-1 border-b border-neutral-400">
+        <div className="mx-5">
+          {isEditing ? (
+            <>
+              Change <span className="font-bold">{activeGame.game.name}</span>
+            </>
+          ) : (
+            <>
+              Add <span className="font-bold">{activeGame.name}</span>
+            </>
+          )}{" "}
           to :
         </div>
         <select
           name="status"
           id="status"
           value={selectedStatus}
-          className="border border-gray-700 bg-gray-900 rounded-xl outline-none p-1 mx-2 text-gray-200 text-sm"
+          className="border border-neutral-700 bg-neutral-900 rounded-xl outline-none p-1 mx-2 text-neutral-200 text-sm font-iceberg"
           onChange={(e) => setSelectedStatus(e.target.value)}
         >
           <option value="unselected">-Select-</option>
@@ -51,17 +57,19 @@ export default function ConfirmationDialogue({
       </div>
 
       {/* Platform Selection */}
-      <div className="flex justify-between items-center w-9/10 mx-auto relative">
+      <div className="flex justify-between w-9/10 mx-auto items-center py-1 border-b border-neutral-400">
         <div className="w-20 mx-5">Platform(s):</div>
-        <div className="flex max-w-full overflow-x-scroll custom-scroll">
+        <div className="max-w-full flex overflow-x-auto custom-horizontal-scroll font-asimovian">
           {activeGame.platforms?.length > 0 ? (
             activeGame.platforms.map((pf: string) => (
-              <label key={pf} className="text-sm flex items-center">
+              <label
+                key={pf}
+                className="text-sm flex items-center px-1 pb-0.5 shrink-0 cursor-pointer"
+              >
                 <input
                   type="checkbox"
                   name="platforms"
-                  id="platforms"
-                  className=""
+                  className="peer hidden"
                   checked={chosenPlatforms.includes(pf)}
                   onChange={(e) => {
                     if (e.target.checked) {
@@ -73,7 +81,10 @@ export default function ConfirmationDialogue({
                     }
                   }}
                 />
-                <span className="block">{pf}</span>
+                <span className="w-3.5 h-3.5 border border-neutral-900 peer-checked:bg-indigo-400 rounded flex items-center justify-center peer-checked:border-indigo-400 peer-checked:text-neutral-900 text-transparent">
+                  ✓
+                </span>
+                <span className="px-2 whitespace-nowrap">{pf}</span>
               </label>
             ))
           ) : (
@@ -83,8 +94,8 @@ export default function ConfirmationDialogue({
       </div>
 
       {/* Score */}
-      <div className="flex justify-around items-center">
-        <span>Score:</span>
+      <div className="flex justify-between w-9/10 mx-auto items-center py-1">
+        <span className="mx-5">Score:</span>
         <select
           name="scores"
           id="score"
@@ -93,7 +104,7 @@ export default function ConfirmationDialogue({
             const val = e.target.value;
             setSelectedScore(val === "" ? null : val);
           }}
-          className="outline-none"
+          className="border border-neutral-700 bg-neutral-900 rounded-lg outline-none p-1 mx-2 text-neutral-200 text-sm w-12 font-exo"
         >
           <option value="">-</option>
           {[...Array(10)].map((_, i) => (
@@ -102,12 +113,12 @@ export default function ConfirmationDialogue({
             </option>
           ))}
         </select>
-        <div className="flex justify-between w-1/4">
+        <div className="flex justify-between w-1/5 font-delius">
           <button
             onClick={() => {
               confirmAddGame(selectedStatus);
             }}
-            className="rounded-lg border border-black px-1 py-0.5 text-sm bg-gray-400 hover:bg-blue-900 hover:text-gray-200 transition-colors"
+            className="rounded-lg border border-neutral-900 px-2 text-sm bg-neutral-400 hover:bg-blue-800 hover:text-neutral-200 transition-colors cursor-pointer"
             disabled={
               chosenPlatforms.length === 0 || selectedStatus === "unselected"
             }
@@ -119,7 +130,7 @@ export default function ConfirmationDialogue({
               setPendingGame(null);
               setEditingGame(null);
             }}
-            className="text-sm border rounded-lg px-1 py-0.5 hover:bg-gray-400 bg-gray-300 transition-colors"
+            className="text-sm border border-neutral-900 rounded-lg px-2 py-0.5 hover:bg-neutral-400 bg-neutral-300 transition-colors cursor-pointer"
           >
             Cancel
           </button>

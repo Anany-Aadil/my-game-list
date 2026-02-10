@@ -7,11 +7,11 @@ export const statusTypes = [
 ];
 
 export const statusStyles: Record<string, string> = {
-  CURRENTLY_PLAYING: "bg-green-600/30",
-  ON_HOLD: "bg-amber-600/30",
-  COMPLETED: "bg-indigo-600/30",
-  DROPPED: "bg-rose-600/30",
-  PLAN_TO_PLAY: "bg-teal-600/30",
+  CURRENTLY_PLAYING: "bg-green-600/30 hover:bg-green-600/40",
+  ON_HOLD: "bg-amber-600/30 hover:bg-amber-600/40",
+  COMPLETED: "bg-indigo-600/30 hover:bg-indigo-600/40",
+  DROPPED: "bg-rose-600/30 hover:bg-rose-600/40",
+  PLAN_TO_PLAY: "bg-teal-600/30 hover:bg-teal-600/40",
 };
 
 export const STATUS_ORDER = [

@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fascinate_Inline } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Fascinate_Inline,
+  Iceberg,
+  Nunito,
+  Asimovian,
+  Delius,
+  Exo,
+} from "next/font/google";
 import "./globals.css";
 
 import Providers from "./providers";
@@ -20,6 +29,32 @@ const fascinateInline = Fascinate_Inline({
   weight: "400",
 });
 
+const iceberg = Iceberg({
+  variable: "--font-iceberg",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const asimovian = Asimovian({
+  variable: "--font-asimovian",
+  subsets: ["latin"],
+  weight: "400",
+});
+const delius = Delius({
+  variable: "--font-delius",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin"],
+});
+const exo = Exo({
+  variable: "--font-exo",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "My Game List",
   description: "A comprehensive list for Video Games",
@@ -33,7 +68,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fascinateInline.variable} antialiased`}
+        className={`
+          ${geistSans.variable} 
+          ${nunito.variable} 
+          ${iceberg.variable} 
+          ${geistMono.variable} 
+          ${fascinateInline.variable}  
+          ${asimovian.variable} 
+          ${delius.variable} 
+          ${exo.variable}
+          antialiased`}
       >
         <Providers>{children}</Providers>
       </body>

@@ -21,9 +21,9 @@ export default function ListItem({
   return (
     <div className="text-neutral-950 text-center box-border w-250 flex justify-between items-center border-neutral-300 py-1 px-0.5 mb-0.5 border-2 relative hover:shadow-lg transition-shadow shadow-neutral-300">
       <div
-        className={`h-full w-2 absolute ${statusStyles[status]} left-0`}
+        className={`h-full w-2 absolute transition-colors ${statusStyles[status]} left-0`}
       ></div>
-      <div className="w-10 text-xs text-neutral-800">{sno}.</div>
+      <div className="w-10 text-xs text-neutral-800 font-mono pl-1">{sno}.</div>
       <div className="w-20">
         {cover ? (
           <Image src={cover} width={264} height={352} alt={name} unoptimized />
@@ -40,8 +40,10 @@ export default function ListItem({
       <div className="absolute right-1/4 top-2/5 text-[0.75rem] rounded-lg hover:bg-neutral-300 p-0.5 transition-colors">
         {children}
       </div>
-      <div className="w-20 text-sm">{platform}</div>
-      <div className="w-20">{score}</div>
+      <div className="w-20 text-xs font-asimovian">{platform}</div>
+      <div className="w-20 tabular-nums tracking-tight font-exo font-medium">
+        {score}
+      </div>
     </div>
   );
 }

@@ -6,7 +6,10 @@ export default function EditButton({
   onPress: any;
 }) {
   return (
-    <button onClick={onPress} className="px-1 hover:underline cursor-pointer">
+    <button
+      onClick={onPress}
+      className="px-1 hover:underline cursor-pointer font-delius"
+    >
       {children}
     </button>
   );

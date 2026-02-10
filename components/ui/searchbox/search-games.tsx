@@ -56,7 +56,7 @@ export default function SearchGames({
     userList.some((g: any) => g.gameId === game.id);
 
   return (
-    <section className="bg-neutral-900 fixed w-[75%] h-150 rounded-sm text-gray-200 left-1/8 top-1/10 shadow-2xl shadow-gray-900">
+    <section className="bg-neutral-900 fixed w-[75%] h-160 rounded-sm text-gray-200 left-1/8 top-1/12 shadow-2xl shadow-gray-900">
       <search className="border border-neutral-500 w-[75%] h-12 items-center justify-between flex rounded-xl mx-auto mt-10 mb-5">
         <input
           type="text"
@@ -68,7 +68,7 @@ export default function SearchGames({
           onChange={(e) => setQuery(e.target.value)}
         />
         <button
-          className="h-full aspect-square rounded-r-xl bg-neutral-900 border-l border-neutral-700"
+          className="h-full aspect-square rounded-r-xl bg-neutral-900 hover:bg-neutral-800 border-l cursor-pointer border-neutral-700"
           type="button"
           onClick={handleSearch}
         >
@@ -78,13 +78,14 @@ export default function SearchGames({
           />
         </button>
       </search>
-      <div className="max-h-80 overflow-y-auto">
+      <div className="max-h-92 overflow-y-auto custom-vertical-scroll">
         {searching && (
           <div className="mx-auto text-gray-400 text-center">
             {/* Searching... <br /> */}
             <SearchItemsSkeleton />
           </div>
         )}
+
         {
           // Array.isArray(results) &&
           results.map((game: any, index: number) => (
