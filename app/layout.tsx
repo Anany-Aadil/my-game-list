@@ -38,6 +38,7 @@ const iceberg = Iceberg({
 const asimovian = Asimovian({
   variable: "--font-asimovian",
   subsets: ["latin"],
+  fallback: ["Arial", "sans-serif"],
   weight: "400",
 });
 const delius = Delius({

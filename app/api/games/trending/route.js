@@ -15,7 +15,7 @@ export async function GET() {
     },
     body: `
             fields name, cover.url, platforms.name, release_dates.y, rating, rating_count;
-            where rating_count > 100;
+            where rating_count > 1000;
             sort rating desc;
             limit 10;
             `,
