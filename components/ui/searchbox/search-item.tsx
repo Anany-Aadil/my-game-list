@@ -20,7 +20,7 @@ export default function SearchItem({
         </span>
         <button
           type="button"
-          className="hover:bg-indigo-500 bg-indigo-700 transition-colors text-center px-2 rounded-lg text-gray-950"
+          className={` transition-colors text-center px-2 rounded-lg text-gray-950 ${isAdded ? "bg-neutral-400" : "hover:bg-indigo-500 bg-indigo-700 cursor-pointer"}`}
           onClick={() => onAdd(game)}
           disabled={isAdded}
         >

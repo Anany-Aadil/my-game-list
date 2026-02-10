@@ -1,17 +1,7 @@
 import { NextResponse } from "next/server";
+import getAccessToken from "@/lib/access-token";
 
-const TWITCH_TOKEN_URL = "https://id.twitch.tv/oauth2/token";
 const IGDB_GAMES_URL = "https://api.igdb.com/v4/games";
-
-async function getAccessToken() {
-  const response = await fetch(
-    `${TWITCH_TOKEN_URL}?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`,
-    { method: "POST" },
-  );
-
-  const data = await response.json();
-  return data.access_token;
-}
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -32,7 +22,8 @@ export async function GET(request) {
     },
     body: `
             search "${search}";
-            fields name, cover.url, platforms.name, release_dates.y, rating;
+            fields name, cover.url, platforms.name, release_dates.y;
+            limit 10;
             `,
   });
 
@@ -46,7 +37,6 @@ export async function GET(request) {
       : null,
     platforms: game.platforms?.map((p) => p.name) ?? [],
     year: game.release_dates?.map((rd) => rd.y)[0],
-    rating: game.rating,
   }));
 
   return NextResponse.json({ results: cleanGames });

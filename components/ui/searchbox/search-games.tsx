@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import SearchItem from "@/components/ui/searchbox/search-item";
 import { SearchItemsSkeleton } from "../skeletons";
@@ -22,6 +22,7 @@ export default function SearchGames({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
+  const [trending, setTrending] = useState<any[]>([]);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
@@ -29,23 +30,28 @@ export default function SearchGames({
     setResults([]);
     setSearching(true);
 
-    try {
-      const res = await fetch(
-        `/api/search/?search=${encodeURIComponent(query)}`,
-      );
-      const data = await res.json();
+    const res = await fetch(
+      `/api/games/search/?search=${encodeURIComponent(query)}`,
+    );
+    const data = await res.json();
 
-      setResults(Array.isArray(data.results) ? data.results : []);
-    } catch (error) {
-      console.error("Search failed: ", error);
-    } finally {
-      setSearching(false);
-    }
+    setResults(Array.isArray(data.results) ? data.results : []);
+    setSearching(false);
   };
+
+  useEffect(() => {
+    if (query.trim() !== "") return;
+
+    fetch("/api/games/trending")
+      .then((res) => res.json())
+      .then(setTrending)
+      .catch(console.error);
+  }, [query]);
 
   const handleClose = () => {
     setResults([]);
     onClose();
+    setQuery("");
   };
 
   if (!isOpen) {
@@ -80,24 +86,39 @@ export default function SearchGames({
       </search>
       <div className="max-h-92 overflow-y-auto custom-vertical-scroll">
         {searching && (
-          <div className="mx-auto text-gray-400 text-center">
-            {/* Searching... <br /> */}
+          <div className="mx-auto text-center">
+            <SmallText>Searching...</SmallText>
             <SearchItemsSkeleton />
           </div>
         )}
 
-        {
-          // Array.isArray(results) &&
-          results.map((game: any, index: number) => (
-            <SearchItem
-              key={game.id}
-              idx={index}
-              game={game}
-              onAdd={startAddGame}
-              isAdded={checkIfAdded(game)}
-            />
-          ))
-        }
+        {results.length === 0 && Array.isArray(trending) ? (
+          <>
+            <SmallText>Top Rated Games</SmallText>
+            {trending.map((game: any, index: number) => (
+              <SearchItem
+                key={game.id}
+                idx={index}
+                game={game}
+                onAdd={startAddGame}
+                isAdded={checkIfAdded(game)}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            <SmallText>Search Results</SmallText>
+            {results.map((game: any, index: number) => (
+              <SearchItem
+                key={game.id}
+                idx={index}
+                game={game}
+                onAdd={startAddGame}
+                isAdded={checkIfAdded(game)}
+              />
+            ))}
+          </>
+        )}
       </div>
       {/* Confirmation Dialogue here */}
       {children}
@@ -112,5 +133,13 @@ export default function SearchGames({
         />
       </button>
     </section>
+  );
+}
+
+function SmallText({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <div className="w-9/10 mx-auto text-neutral-900 bg-indigo-600 text-center text-sm rounded-t">
+      {children}
+    </div>
   );
 }

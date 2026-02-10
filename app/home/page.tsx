@@ -1,4 +1,4 @@
-import AuthButton from "@/components/log-auth-button";
+import AuthButton from "@/components/ui/homepage/log-auth-button";
 import Link from "next/link";
 
 export default function Home() {

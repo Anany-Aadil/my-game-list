@@ -6,7 +6,7 @@ import { Status } from "@prisma/client";
 
 import SearchGames from "@/components/ui/searchbox/search-games";
 import ListItem from "@/components/ui/list/list-item";
-import EditButton from "@/components/edit-button";
+import EditButton from "@/components/ui/list/edit-button";
 import StatusBar from "@/components/ui/navs/status-bar";
 import InfoBar from "@/components/ui/navs/info-bar";
 import ConfirmationDialogue from "@/components/ui/searchbox/confirmation-dialogue";
@@ -27,7 +27,7 @@ export default function MyGameList({
 
   const [editingGame, setEditingGame] = useState<any>(null);
 
-  const [selectedStatus, setSelectedStatus] = useState("unselected"); //default at Currently-Playing
+  const [selectedStatus, setSelectedStatus] = useState("unselected");
   const [selectedScore, setSelectedScore] = useState<any>(null);
   const [chosenPlatforms, setChosenPlatforms] = useState<any[]>([]);
 

@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import UserSetup from "@/components/user-setup";
+import UserSetup from "@/components/ui/homepage/user-setup";
 
 export default async function HomePageLayout({
   children,
