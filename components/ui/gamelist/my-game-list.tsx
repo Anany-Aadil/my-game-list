@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { Status } from "@prisma/client";
 
 import SearchGames from "@/components/ui/searchbox/search-games";
-import ListItem from "@/components/ui/list/list-item";
-import EditButton from "@/components/ui/list/edit-button";
+import ListItem from "@/components/ui/gamelist/list-item";
+import EditButton from "@/components/ui/gamelist/edit-button";
 import StatusBar from "@/components/ui/navs/status-bar";
 import InfoBar from "@/components/ui/navs/info-bar";
 import ConfirmationDialogue from "@/components/ui/searchbox/confirmation-dialogue";

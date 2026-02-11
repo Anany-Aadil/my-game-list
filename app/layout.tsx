@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import {
   Geist,
   Geist_Mono,
-  Fascinate_Inline,
+  // Fascinate_Inline,
+  Jolly_Lodger,
   Iceberg,
   Nunito,
   Asimovian,
@@ -23,7 +24,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const fascinateInline = Fascinate_Inline({
+const fascinateInline = Jolly_Lodger({
   variable: "--font-fascinate-inline",
   subsets: ["latin"],
   weight: "400",

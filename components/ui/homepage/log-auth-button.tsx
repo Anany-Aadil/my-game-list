@@ -7,31 +7,30 @@ import Link from "next/link";
 export default function AuthButton() {
   const { data: session } = useSession();
 
-  if (!session)
-    return (
-      <div className="px-5 mx-5">
-        <LogButton onPress={() => signIn("google")}>Login</LogButton>
-      </div>
-    );
-
-  const userDetail = session.user;
+  const userDetail = session?.user;
 
   return (
-    <div className="flex w-1/3 justify-around items-center-safe">
-      <Link href={`/userlist/${userDetail.userName}`}>
-        <div className="text-sm bg-neutral-400 text-neutral-800 px-2 py-1 hover:bg-neutral-500 hover:text-neutral-900 transition-colors">
-          GameList
-        </div>
-      </Link>
-      <span className="text-sm">{userDetail.name}</span>
+    <div className="flex w-1/4 justify-between items-center-safe text-neutral-100 mx-5">
+      <div className="">
+        <span className="text-sm mx-2">
+          {userDetail?.name ? userDetail.name : "Welcome"}
+        </span>
+        <span className="text-sm mx-2">
+          {userDetail?.userName ? <>({userDetail.userName})</> : "Gamer"}
+        </span>
+      </div>
       <Image
-        src={userDetail.image ? userDetail.image : "/vercel.svg"}
+        src={userDetail?.image ? userDetail.image : "/images/acc.png"}
         width={25}
         height={25}
-        alt={userDetail.name ? userDetail.name : "No User Found"}
-        className="rounded-sm"
+        alt={userDetail?.name ? userDetail.name : "No User Found"}
+        className="rounded-sm mx-2"
       />
-      <LogButton onPress={() => signOut()}>Logout</LogButton>
+      {session ? (
+        <LogButton onPress={() => signOut()}>Logout</LogButton>
+      ) : (
+        <LogButton onPress={() => signIn("google")}>Login</LogButton>
+      )}
     </div>
   );
 }
@@ -46,7 +45,7 @@ function LogButton({
   return (
     <button
       onClick={onPress}
-      className="bg-neutral-600 h-6 w-20 rounded-sm text-amber-50 mx-5 text-sm hover:bg-neutral-400 transition-colors hover:text-neutral-900 font-delius cursor-pointer"
+      className="bg-neutral-600 h-6 w-20 rounded-sm text-neutral-50 mx-5 text-sm hover:bg-neutral-400 transition-colors hover:text-neutral-900 font-delius cursor-pointer"
     >
       {children}
     </button>
