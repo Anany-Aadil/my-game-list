@@ -4,8 +4,6 @@
 import Image from "next/image";
 
 export default function Banner({ currentGame }: { currentGame: any }) {
-  console.log(currentGame);
-
   return (
     <section className="w-full h-[75vh]">
       {currentGame && (
@@ -15,8 +13,8 @@ export default function Banner({ currentGame }: { currentGame: any }) {
               src={currentGame?.background_image}
               alt={currentGame?.name}
               fill
-              objectFit="cover"
-              className=""
+              className="opacity-75 object-cover"
+              loading="eager"
             />
           </div>
           <div className="w-full h-screen bg-radial from-transparent to-neutral-900/50 absolute blur"></div>

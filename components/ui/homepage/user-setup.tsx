@@ -28,40 +28,42 @@ export default function UserSetup() {
   };
 
   return (
-    <div className="bg-neutral-400 fixed w-1/4 h-2/3 rounded-2xl left-3/8 top-1/6 flex flex-col items-center text-center shadow-2xl shadow-neutral-900">
-      <div className="flex flex-col items-center-safe my-5 text-2xl">
-        <span className="my-2">Name: {userDetail?.name}</span>
+    <section className="bg-neutral-400 fixed w-1/4 h-2/3 rounded-2xl left-3/8 top-1/6 flex flex-col items-center text-center shadow-2xl shadow-neutral-900 z-50 font-nunito justify-between">
+      <div className="flex flex-col items-center-safe mt-5 text-2xl">
+        <span className="my-2">
+          Name: {userDetail?.name ? userDetail.name : "Where is it?"}
+        </span>
         <Image
-          src={userDetail?.image ? userDetail.image : "/vercel.svg"}
-          width={75}
-          height={75}
+          src={userDetail?.image ? userDetail.image : "/images/acc.png"}
+          width={100}
+          height={100}
           alt="User Image"
           className="m-2 rounded-sm"
         />
       </div>
-      <div className="py-5 my-5">
+      <div className="my-5">
         <span className="text-xl">Enter Username : </span>
         <br />
         <input
           type="text"
           name="userID"
           id="userID"
-          className="outline-none border bg-neutral-400 rounded-sm px-2 py-1"
+          className="outline-none border text-sm bg-neutral-500 rounded-lg px-4 py-2"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
         />
         <br />
-        <span className="text-sm">
-          * Username should be between 3-32 characters
+        <span className="text-xs">
+          *Username should be between 3-32 characters
         </span>
+        {error && <p className="text-red-600 text-sm font-semibold">{error}</p>}
       </div>
-      {error && <p>{error}</p>}
       <button
         onClick={confirmUserName}
-        className="py-2 px-5 my-5 bg-gray-700 text-gray-100 rounded-lg hover:bg-gray-800 transition-colors"
+        className="py-2 px-5 my-5 bg-gray-700 text-gray-100 rounded-lg hover:bg-gray-800 font-delius cursor-pointer transition-colors smoothing"
       >
         Confirm
       </button>
-    </div>
+    </section>
   );
 }

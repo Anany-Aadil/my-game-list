@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const fascinateInline = Jolly_Lodger({
+const jollyRoger = Jolly_Lodger({
   variable: "--font-fascinate-inline",
   subsets: ["latin"],
   weight: "400",
@@ -75,11 +75,11 @@ export default function RootLayout({
           ${nunito.variable} 
           ${iceberg.variable} 
           ${geistMono.variable} 
-          ${fascinateInline.variable}  
+          ${jollyRoger.variable}  
           ${asimovian.variable} 
           ${delius.variable} 
           ${exo.variable}
-          antialiased`}
+          antialiased custom-vertical-scroll h-screen`}
       >
         <Providers>{children}</Providers>
       </body>

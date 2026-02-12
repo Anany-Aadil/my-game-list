@@ -51,10 +51,14 @@ body {
     @apply w-2;
   }
   .custom-vertical-scroll::-webkit-scrollbar-thumb {
-    @apply bg-neutral-800 rounded-sm;
+    @apply bg-neutral-950 rounded-sm;
   }
 
   .custom-vertical-scroll::-webkit-scrollbar-track {
-    @apply bg-neutral-600 rounded-sm;
+    @apply bg-neutral-800;
+  }
+
+  .smoothing {
+    @apply duration-300 ease-in-out;
   }
 }

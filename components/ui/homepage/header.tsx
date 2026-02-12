@@ -23,12 +23,12 @@ export default function Header() {
 
   return (
     <nav
-      className={` ${isScrolled ? "bg-neutral-900" : "from-neutral-900/50 bg-linear-to-b to-transparent"} fixed top-0 h-20 w-full flex items-center justify-between transition-colors`}
+      className={` ${isScrolled ? "bg-neutral-900" : "from-neutral-900/50 bg-linear-to-b to-transparent"} fixed top-0 h-20 w-full flex items-center justify-between transition-colors smoothing`}
     >
       <div className="flex items-center">
         <Link
           href={"/home"}
-          className="mx-5 px-5 text-4xl font-fascinate text-red-600"
+          className="mx-5 px-5 text-4xl font-fascinate text-indigo-600 text-shadow-xs"
         >
           MyGameList
         </Link>
@@ -44,7 +44,7 @@ export default function Header() {
 function GameListLink({ username }: { username: string }) {
   return (
     <Link href={`/userlist/${username}`}>
-      <div className="text-sm text-neutral-100 py-1 mx-2 px-5 hover:text-neutral-300 transition-colors">
+      <div className="text-sm font-delius text-neutral-100 py-1 mx-2 px-5 hover:text-neutral-300 transition-colors">
         GameList
       </div>
     </Link>

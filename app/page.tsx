@@ -9,8 +9,7 @@ export default function Home() {
         src={backgroundImage}
         alt="background Image"
         fill
-        className="opacity-50"
-        objectFit="cover"
+        className="opacity-50 object-cover"
       />
       <div className="fixed top-1/3 left-1/3 text-center bg-neutral-300 p-10 rounded-2xl">
         <div className="py-5">
