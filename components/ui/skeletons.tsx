@@ -69,3 +69,31 @@ function SearchItemSkeleton({ idx }: { idx: number }) {
     </div>
   );
 }
+
+export function BannerSkeleton() {
+  return (
+    <section className="w-full h-[75vh] bg-neutral-800 skeleton-shimmer">
+      <div className="absolute top-0 left-0 h-[95vh] w-full"></div>
+      <div className="w-full h-screen bg-radial from-transparent to-neutral-900/50 absolute blur"></div>
+      <div className="absolute top-1/3 left-20 bg-neutral-200 w-64 h-20 text-shadow-lg font-medium blur-2xl"></div>
+    </section>
+  );
+}
+
+export function RowSkeleton() {
+  return (
+    <main className="bg-neutral-900 ml-10 pl-10 my-5 space-y-2">
+      <div className="flex overflow-hidden items-center space-x-2">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <ThumbnailSkeleton key={i} />
+        ))}
+      </div>
+    </main>
+  );
+}
+
+function ThumbnailSkeleton() {
+  return (
+    <div className="w-5xl aspect-video rounded-lg m-2 bg-neutral-100 animate-ping"></div>
+  );
+}
