@@ -136,7 +136,7 @@ export default function MyGameList({
           sortedGames.map((gameDetail: any, index: number) => (
             <ListItem
               sno={index + 1}
-              key={gameDetail.id}
+              key={gameDetail.gameId}
               name={gameDetail.game.name}
               cover={gameDetail.game.cover}
               platform={gameDetail.platforms.join(", ")}

@@ -10,10 +10,10 @@ export const sortItems = (games: any[], activeStatus: string) => {
 
       if (statusDiff !== 0) return statusDiff;
 
-      return a.name.localeCompare(b.name);
+      return a.game.name.localeCompare(b.game.name);
     });
   } else {
-    sorted.sort((a, b) => a.name.localeCompare(b.name));
+    sorted.sort((a, b) => a.game.name.localeCompare(b.game.name));
   }
 
   return sorted;
