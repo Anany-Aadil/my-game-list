@@ -6,13 +6,16 @@ import { Status } from "@prisma/client";
 
 import SearchGames from "@/components/ui/searchbox/search-games";
 import ListItem from "@/components/ui/gamelist/list-item";
-import EditButton from "@/components/ui/gamelist/edit-button";
 import StatusBar from "@/components/ui/navs/status-bar";
 import InfoBar from "@/components/ui/navs/info-bar";
 import ConfirmationDialogue from "@/components/ui/searchbox/confirmation-dialogue";
 import SideNav from "@/components/ui/navs/side-nav";
 
+import removeIco from "@/public/square-minus-regular-full.svg";
+import editIco from "@/public/pen-to-square-solid-full.svg";
+
 import { sortItems } from "@/lib/sort-items";
+import Image from "next/image";
 
 export default function MyGameList({
   isOwner,
@@ -126,12 +129,12 @@ export default function MyGameList({
   const isEditing = Boolean(editingGame);
 
   return (
-    <section className="w-250 m-auto h-1/2 font-sans">
+    <section className="md:w-250 max-w-full m-auto h-1/2 font-sans">
       {/* Status Bar */}
       <StatusBar onStatusClick={setActiveStatus} activeStatus={activeStatus} />
       {/* Main List */}
       <InfoBar />
-      <main className="">
+      <main className="grid grid-cols-2 md:block w-full gap-1">
         {sortedGames.length > 0 ? (
           sortedGames.map((gameDetail: any, index: number) => (
             <ListItem
@@ -151,10 +154,24 @@ export default function MyGameList({
                       setIsSearchOpen(true);
                     }}
                   >
-                    Edit
+                    <span className="hidden md:inline">Edit</span>
+                    <Image
+                      src={editIco}
+                      alt="Edit Icon"
+                      width={20}
+                      height={20}
+                      className="md:hidden"
+                    />
                   </EditButton>
                   <EditButton onPress={() => removeFromList(gameDetail.id)}>
-                    Remove
+                    <span className="hidden md:inline">Remove</span>
+                    <Image
+                      src={removeIco}
+                      alt="Remove Icon"
+                      width={20}
+                      height={20}
+                      className="md:hidden"
+                    />
                   </EditButton>
                 </>
               ) : (
@@ -204,5 +221,22 @@ export default function MyGameList({
         )}
       </SearchGames>
     </section>
+  );
+}
+
+function EditButton({
+  children,
+  onPress,
+}: {
+  children: React.ReactNode;
+  onPress: any;
+}) {
+  return (
+    <button
+      onClick={onPress}
+      className="px-1 hover:underline cursor-pointer font-delius"
+    >
+      {children}
+    </button>
   );
 }
