@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import {
   Geist,
   Geist_Mono,
@@ -81,6 +82,7 @@ export default function RootLayout({
           ${exo.variable}
           antialiased custom-vertical-scroll h-screen`}
       >
+        <SpeedInsights />
         <Providers>{children}</Providers>
       </body>
     </html>
