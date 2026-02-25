@@ -27,7 +27,7 @@ export default function ConfirmationDialogue({
 }) {
   return (
     <section className="border bg-neutral-300 text-neutral-900 w-4/5 p-2 rounded-2xl my-4 mx-auto">
-      <div className="flex justify-between w-9/10 mx-auto items-center py-1 border-b border-neutral-400">
+      <div className="flex flex-col md:flex-row justify-between w-9/10 mx-auto items-center py-1 border-b border-neutral-400 md:text-center">
         <div className="mx-5">
           {isEditing ? (
             <>
@@ -113,12 +113,12 @@ export default function ConfirmationDialogue({
             </option>
           ))}
         </select>
-        <div className="flex justify-between w-1/5 font-delius">
+        <div className="flex justify-between flex-1 md:w-1/5 font-delius">
           <button
             onClick={() => {
               confirmAddGame(selectedStatus);
             }}
-            className="rounded-lg border border-neutral-900 px-2 text-sm bg-neutral-400 hover:bg-blue-800 hover:text-neutral-200 transition-colors cursor-pointer"
+            className="rounded-lg border border-neutral-900 px-2 md:text-sm text-xs bg-neutral-400 hover:bg-blue-800 hover:text-neutral-200 transition-colors cursor-pointer"
             disabled={
               chosenPlatforms.length === 0 || selectedStatus === "unselected"
             }
@@ -130,7 +130,7 @@ export default function ConfirmationDialogue({
               setPendingGame(null);
               setEditingGame(null);
             }}
-            className="text-sm border border-neutral-900 rounded-lg px-2 py-0.5 hover:bg-neutral-400 bg-neutral-300 transition-colors cursor-pointer"
+            className="md:text-sm text-xs border border-neutral-900 rounded-lg px-2 md:py-0.5 hover:bg-neutral-400 bg-neutral-300 transition-colors cursor-pointer"
           >
             Cancel
           </button>

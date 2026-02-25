@@ -21,17 +21,24 @@ export async function GET() {
             `,
   });
 
-  const trendingGames = await igdb_response.json();
+  if (!igdb_response.ok)
+    return NextResponse.json({ error: "IGDB API Failed" }, { status: 500 });
 
-  const cleanTrendingGames = trendingGames.map((game) => ({
-    id: game.id,
-    name: game.name,
-    cover: game.cover
-      ? `https:${game.cover.url.replace("t_thumb", "t_cover_big")}`
-      : null,
-    platforms: game.platforms?.map((p) => p.name) ?? [],
-    year: game.release_dates?.map((rd) => rd.y)[0],
-  }));
+  try {
+    const trendingGames = await igdb_response.json();
 
-  return NextResponse.json(cleanTrendingGames);
+    const cleanTrendingGames = trendingGames.map((game) => ({
+      id: game.id,
+      name: game.name,
+      cover: game.cover
+        ? `https:${game.cover.url.replace("t_thumb", "t_cover_big")}`
+        : null,
+      platforms: game.platforms?.map((p) => p.name) ?? [],
+      year: game.release_dates?.map((rd) => rd.y)[0],
+    }));
+
+    return NextResponse.json(cleanTrendingGames);
+  } catch (error) {
+    return NextResponse.json({ error: "Network Error" }, { status: 500 });
+  }
 }

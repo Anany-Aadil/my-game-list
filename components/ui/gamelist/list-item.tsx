@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { statusStyles } from "@/lib/status-type";
+import { statusStylesDesktop, statusStylesMobile } from "@/lib/status-type";
 
 export default function ListItem({
   sno,
@@ -21,7 +21,7 @@ export default function ListItem({
   return (
     <div className="md:text-neutral-950 text-neutral-100 md:text-center text-left box-border md:w-250 w-full md:flex justify-between items-center border-neutral-300 md:py-1 md:px-0.5 mb-0.5 border-2 relative hover:shadow-lg transition-shadow shadow-neutral-300 md:aspect-auto aspect-4/3">
       <div
-        className={`h-full w-2 absolute transition-colors ${statusStyles[status]} left-0 hidden md:block`}
+        className={`h-full w-2 absolute transition-colors ${statusStylesDesktop[status]} left-0 hidden md:block`}
       ></div>
       <div className="w-10 text-xs text-neutral-800 font-mono pl-1 hidden md:block">
         {sno}.
@@ -48,7 +48,7 @@ export default function ListItem({
       <MobTitle name={name} platforms={platform} score={score} />
       <div className="w-150 text-left hidden md:block">{name}</div>
       <div
-        className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStyles[status]} md:bg-transparent`}
+        className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStylesMobile[status]} md:bg-transparent`}
       >
         {children}
       </div>
@@ -73,7 +73,7 @@ function MobTitle({
 }) {
   return (
     <div className="absolute md:hidden block bg-linear-to-t from-neutral-900 to-neutral-900/75 w-full h-10 bottom-0">
-      <div className="absolute left-0 top-0 font-medium">
+      <div className="absolute left-0 top-0 font-medium text-shadow-sm">
         {name.length > 24 ? name.slice(0, 24) + "..." : name}
       </div>
       <div className="absolute left-0 bottom-0 text-xs font-asimovian">

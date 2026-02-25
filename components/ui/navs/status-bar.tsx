@@ -62,8 +62,9 @@ function MobileNav({
       id="statuses"
       value={activeStatus}
       onChange={(e) => onStatusClick(e.target.value)}
-      className="w-9/10 bg-neutral-600 text-neutral-100 rounded-lg outline-1 h-10 p-2 my-2 mx-auto text-center font-iceberg"
+      className="w-9/10 bg-neutral-600 text-neutral-100 rounded-lg outline-1 h-10 p-2 my-2 mx-[5%] text-center font-iceberg"
     >
+      <option value="all">All Games</option>
       {statusTypes.map((status) => (
         <option value={status.value} key={status.type}>
           {status.label}

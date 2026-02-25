@@ -194,7 +194,6 @@ export default function MyGameList({
         )}
       </main>
       {isOwner ? <SideNav onAddClick={() => setIsSearchOpen(true)} /> : null}
-
       <SearchGames
         userList={userList}
         startAddGame={startAddGame}

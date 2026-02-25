@@ -48,7 +48,7 @@ body {
   }
 
   .custom-vertical-scroll::-webkit-scrollbar {
-    @apply w-2;
+    @apply w-2 hidden md:block;
   }
   .custom-vertical-scroll::-webkit-scrollbar-thumb {
     @apply bg-neutral-950 rounded-sm;

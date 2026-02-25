@@ -33,10 +33,21 @@ export default function SearchGames({
     const res = await fetch(
       `/api/games/search/?search=${encodeURIComponent(query)}`,
     );
-    const data = await res.json();
+    if (!res.ok) {
+      console.error("Search failed: ", res.status);
+      return;
+    }
 
-    setResults(Array.isArray(data.results) ? data.results : []);
-    setSearching(false);
+    let data;
+
+    try {
+      data = await res.json();
+      setResults(Array.isArray(data.results) ? data.results : []);
+      setSearching(false);
+    } catch (err) {
+      console.error("Invalid Json: ", err);
+      return;
+    }
   };
 
   useEffect(() => {
@@ -62,8 +73,8 @@ export default function SearchGames({
     userList.some((g: any) => g.gameId === game.id);
 
   return (
-    <section className="bg-neutral-900 fixed w-[75%] h-160 rounded-sm text-gray-200 left-1/8 top-1/12 shadow-2xl shadow-gray-900">
-      <search className="border border-neutral-500 w-[75%] h-12 items-center justify-between flex rounded-xl mx-auto mt-10 mb-5">
+    <section className="bg-neutral-900 fixed md:w-3/4 w-9/10 md:h-160 h-4/5 rounded-sm text-gray-200 md:left-1/8 left-1/20 top-1/12 shadow-2xl shadow-gray-900">
+      <search className="border border-neutral-500 w-9/10 h-12 items-center justify-between flex rounded-xl mx-auto mt-10 mb-5">
         <input
           type="text"
           name="gamename"
