@@ -124,7 +124,7 @@ export default function GamePage() {
                 alt={s_game.name}
                 width={264}
                 height={352}
-                // sizes="16rem"
+                unoptimized
                 className="min-w-32 aspect-3/4 object-cover rounded"
               />
               <div className="left-0 bottom-0 text-xs p-1 text-neutral-200">
