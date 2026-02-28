@@ -1,36 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import AuthButton from "./log-auth-button";
 import Link from "next/link";
 
-export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
+import AuthButton from "./log-auth-button";
 
+export default function Header() {
   const { data: session } = useSession();
   const userName = session?.user.userName;
 
-  const handleScroll = () => {
-    if (window.scrollY > 0) setIsScrolled(true);
-    else setIsScrolled(false);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <nav
-      className={` ${isScrolled ? "bg-neutral-900" : "from-neutral-900/50 bg-linear-to-b to-transparent"} fixed top-0 h-20 w-full flex items-center justify-between transition-colors smoothing`}
+      className="
+      bg-neutral-900 fixed top-0 md:h-20 h-15 w-full flex px-[5%] items-center justify-between transition-colors smoothing
+      "
     >
       <div className="flex items-center">
         <Link
           href={"/home"}
-          className="mx-5 px-5 text-4xl font-fascinate text-indigo-600 text-shadow-xs"
+          className="md:mx-5 md:px-5 text-4xl font-jolly text-indigo-600 text-shadow-xs"
         >
-          MyGameList
+          <span className="hidden md:inline">MyGameList</span>
+          <span className="md:hidden">MGL</span>
         </Link>
 
         {session ? <GameListLink username={userName} /> : null}
@@ -44,8 +35,11 @@ export default function Header() {
 function GameListLink({ username }: { username: string }) {
   return (
     <Link href={`/userlist/${username}`}>
-      <div className="text-sm font-delius text-neutral-100 py-1 mx-2 px-5 hover:text-neutral-300 transition-colors">
-        GameList
+      <div className="text-sm font-delius text-neutral-100 md:pb-1 pt-1 mx-2 px-5 md:flex-1 hover:text-neutral-300 transition-colors">
+        <span className="hidden md:inline">GameList</span>
+        <span className="md:hidden">
+          <i className="fa-list fa-solid text-2xl"></i>
+        </span>
       </div>
     </Link>
   );

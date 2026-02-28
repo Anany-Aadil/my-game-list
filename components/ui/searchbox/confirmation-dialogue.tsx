@@ -113,26 +113,32 @@ export default function ConfirmationDialogue({
             </option>
           ))}
         </select>
-        <div className="flex justify-between flex-1 md:w-1/5 font-delius">
+        <div className="flex justify-between md:w-2/5 pt-2 md:p-0 font-delius">
           <button
             onClick={() => {
               confirmAddGame(selectedStatus);
             }}
-            className="rounded-lg border border-neutral-900 px-2 md:text-sm text-xs bg-neutral-400 hover:bg-blue-800 hover:text-neutral-200 transition-colors cursor-pointer"
+            className="rounded-lg md:border border-neutral-900 md:px-2 md:bg-neutral-400 hover:bg-indigo-800 hover:text-neutral-200 transition-colors cursor-pointer"
             disabled={
               chosenPlatforms.length === 0 || selectedStatus === "unselected"
             }
           >
-            Confirm
+            <span className="hidden md:inline text-sm">Confirm</span>
+            <span className="md:hidden">
+              <i className="fa-circle-check fa-solid text-xl px-2"></i>
+            </span>
           </button>
           <button
             onClick={() => {
               setPendingGame(null);
               setEditingGame(null);
             }}
-            className="md:text-sm text-xs border border-neutral-900 rounded-lg px-2 md:py-0.5 hover:bg-neutral-400 bg-neutral-300 transition-colors cursor-pointer"
+            className="md:border border-neutral-900 rounded-lg px-2 md:py-0.5 hover:bg-neutral-400 md:bg-neutral-300 transition-colors cursor-pointer"
           >
-            Cancel
+            <span className="hidden md:inline text-sm">Cancel</span>
+            <span className="md:hidden ">
+              <i className="fa-square-xmark fa-solid text-xl px-2"></i>
+            </span>
           </button>
         </div>
       </div>

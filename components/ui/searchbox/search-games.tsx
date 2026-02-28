@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 import SearchItem from "@/components/ui/searchbox/search-item";
 import { SearchItemsSkeleton } from "../skeletons";
-import { SearchIcon, CloseIcon } from "@/components/ui/icons";
 
 export default function SearchGames({
   isOpen,
@@ -12,12 +11,14 @@ export default function SearchGames({
   children,
   userList,
   startAddGame,
+  isEditing,
 }: {
   isOpen: boolean;
   onClose: any;
   children: React.ReactNode;
   userList: React.ComponentState;
   startAddGame: any;
+  isEditing: boolean;
 }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
@@ -73,7 +74,7 @@ export default function SearchGames({
     userList.some((g: any) => g.gameId === game.id);
 
   return (
-    <section className="bg-neutral-900 fixed md:w-3/4 w-9/10 md:h-160 h-4/5 rounded-sm text-gray-200 md:left-1/8 left-1/20 top-1/12 shadow-2xl shadow-gray-900">
+    <section className="bg-neutral-900 fixed md:w-3/4 w-9/10 md:h-160 h-4/5 rounded-sm text-neutral-200 md:left-1/8 left-1/20 top-1/12 shadow-2xl shadow-neutral-900">
       <search className="border border-neutral-500 w-9/10 h-12 items-center justify-between flex rounded-xl mx-auto mt-10 mb-5">
         <input
           type="text"
@@ -89,10 +90,7 @@ export default function SearchGames({
           type="button"
           onClick={handleSearch}
         >
-          <SearchIcon
-            className="mx-auto text-neutral-200"
-            fillColor="currentColor"
-          />
+          <i className="fa-magnifying-glass fa-solid"></i>
         </button>
       </search>
       <div className="max-h-92 overflow-y-auto custom-vertical-scroll">
@@ -109,6 +107,7 @@ export default function SearchGames({
             {trending.map((game: any, index: number) => (
               <SearchItem
                 key={game.id}
+                isEditing={isEditing}
                 idx={index}
                 game={game}
                 onAdd={startAddGame}
@@ -122,6 +121,7 @@ export default function SearchGames({
             {results.map((game: any, index: number) => (
               <SearchItem
                 key={game.id}
+                isEditing={isEditing}
                 idx={index}
                 game={game}
                 onAdd={startAddGame}
@@ -135,13 +135,10 @@ export default function SearchGames({
       {children}
       <button
         type="button"
-        className="absolute text-center -right-3 -bottom-3 rounded-4xl w-8 aspect-square hover:bg-neutral-600 transition-colors font-bold bg-neutral-800"
+        className="absolute text-center -right-3 -bottom-3 rounded-4xl w-8 aspect-square hover:bg-neutral-600 transition-colors font-bold bg-neutral-800 cursor-pointer"
         onClick={handleClose}
       >
-        <CloseIcon
-          className="w-full h-full text-neutral-200"
-          fillColor="currentColor"
-        />
+        <i className="fa-circle-xmark fa-regular text-2xl pt-1 md:pt-0.5"></i>
       </button>
     </section>
   );

@@ -3,11 +3,13 @@ export default function SearchItem({
   onAdd,
   isAdded,
   idx,
+  isEditing,
 }: {
   game: any;
   onAdd: any;
   isAdded: boolean;
   idx: number;
+  isEditing: boolean;
 }) {
   return (
     <div
@@ -24,7 +26,7 @@ export default function SearchItem({
           type="button"
           className={` transition-colors text-center md:px-2 px-1.5 md:rounded-lg rounded-md text-gray-950 ${isAdded ? "bg-neutral-400" : "hover:bg-indigo-500 bg-indigo-700 cursor-pointer"}`}
           onClick={() => onAdd(game)}
-          disabled={isAdded}
+          disabled={isAdded || isEditing}
         >
           <span className="md:text-sm text-xs font-delius">
             {isAdded ? "Added" : "Add"}

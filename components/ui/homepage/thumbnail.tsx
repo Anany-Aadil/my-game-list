@@ -1,8 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Thumbnail({ gameDetail }: { gameDetail: any }) {
   return (
-    <div className="h-36 min-w-64 relative overflow-hidden rounded-sm m-2">
+    <Link
+      className="h-36 min-w-64 relative overflow-hidden rounded-sm m-2"
+      href={`/game/${gameDetail.slug}`}
+    >
       <div className="peer top-0 bottom-0 left-0 right-0 absolute">
         <Image
           src={gameDetail.background_image}
@@ -16,6 +20,6 @@ export default function Thumbnail({ gameDetail }: { gameDetail: any }) {
       <div className="absolute bottom-3 left-3 text-sm opacity-0 peer-hover:opacity-100 transition-opacity smoothing font-semibold text-shadow-sm">
         {gameDetail.name}
       </div>
-    </div>
+    </Link>
   );
 }

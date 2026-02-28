@@ -11,11 +11,7 @@ import InfoBar from "@/components/ui/navs/info-bar";
 import ConfirmationDialogue from "@/components/ui/searchbox/confirmation-dialogue";
 import SideNav from "@/components/ui/navs/side-nav";
 
-import removeIco from "@/public/square-minus-regular-full.svg";
-import editIco from "@/public/pen-to-square-solid-full.svg";
-
 import { sortItems } from "@/lib/sort-items";
-import Image from "next/image";
 
 export default function MyGameList({
   isOwner,
@@ -139,6 +135,7 @@ export default function MyGameList({
           sortedGames.map((gameDetail: any, index: number) => (
             <ListItem
               sno={index + 1}
+              id={gameDetail.gameId}
               key={gameDetail.gameId}
               name={gameDetail.game.name}
               cover={gameDetail.game.cover}
@@ -155,23 +152,15 @@ export default function MyGameList({
                     }}
                   >
                     <span className="hidden md:inline">Edit</span>
-                    <Image
-                      src={editIco}
-                      alt="Edit Icon"
-                      width={20}
-                      height={20}
-                      className="md:hidden"
-                    />
+                    <span className="md:hidden">
+                      <i className="fa-pen-to-square fa-solid text-neutral-900 text-lg pt-0.5"></i>
+                    </span>
                   </EditButton>
                   <EditButton onPress={() => removeFromList(gameDetail.id)}>
                     <span className="hidden md:inline">Remove</span>
-                    <Image
-                      src={removeIco}
-                      alt="Remove Icon"
-                      width={20}
-                      height={20}
-                      className="md:hidden"
-                    />
+                    <span className="md:hidden">
+                      <i className="fa-square-minus fa-regular text-neutral-900 text-lg pt-0.5"></i>
+                    </span>
                   </EditButton>
                 </>
               ) : (
@@ -193,32 +182,37 @@ export default function MyGameList({
           </div>
         )}
       </main>
-      {isOwner ? <SideNav onAddClick={() => setIsSearchOpen(true)} /> : null}
-      <SearchGames
-        userList={userList}
-        startAddGame={startAddGame}
-        onClose={() => {
-          setIsSearchOpen(false);
-          closeDialogue();
-        }}
-        isOpen={isSearchOpen}
-      >
-        {(pendingGame || editingGame) && (
-          <ConfirmationDialogue
+      {isOwner ? (
+        <>
+          <SideNav onAddClick={() => setIsSearchOpen(true)} />
+          <SearchGames
+            userList={userList}
+            startAddGame={startAddGame}
+            onClose={() => {
+              setIsSearchOpen(false);
+              closeDialogue();
+            }}
+            isOpen={isSearchOpen}
             isEditing={isEditing}
-            activeGame={activeGame}
-            setPendingGame={setPendingGame}
-            setEditingGame={setEditingGame}
-            selectedStatus={selectedStatus}
-            setSelectedStatus={setSelectedStatus}
-            selectedScore={selectedScore}
-            setSelectedScore={setSelectedScore}
-            chosenPlatforms={chosenPlatforms}
-            setChosenPlatforms={setChosenPlatforms}
-            confirmAddGame={confirmAddGame}
-          />
-        )}
-      </SearchGames>
+          >
+            {(pendingGame || editingGame) && (
+              <ConfirmationDialogue
+                isEditing={isEditing}
+                activeGame={activeGame}
+                setPendingGame={setPendingGame}
+                setEditingGame={setEditingGame}
+                selectedStatus={selectedStatus}
+                setSelectedStatus={setSelectedStatus}
+                selectedScore={selectedScore}
+                setSelectedScore={setSelectedScore}
+                chosenPlatforms={chosenPlatforms}
+                setChosenPlatforms={setChosenPlatforms}
+                confirmAddGame={confirmAddGame}
+              />
+            )}
+          </SearchGames>
+        </>
+      ) : null}
     </section>
   );
 }

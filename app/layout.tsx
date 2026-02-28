@@ -3,7 +3,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import {
   Geist,
   Geist_Mono,
-  // Fascinate_Inline,
   Jolly_Lodger,
   Iceberg,
   Nunito,
@@ -14,6 +13,7 @@ import {
 import "./globals.css";
 
 import Providers from "./providers";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +26,7 @@ const geistMono = Geist_Mono({
 });
 
 const jollyRoger = Jolly_Lodger({
-  variable: "--font-fascinate-inline",
+  variable: "--font-jolly",
   subsets: ["latin"],
   weight: "400",
 });
@@ -70,6 +70,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://kit.fontawesome.com/9e1096b839.js"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body
         className={`
           ${geistSans.variable} 
