@@ -25,7 +25,8 @@ export default function SearchGames({
   const [searching, setSearching] = useState(false);
   const [trending, setTrending] = useState<any[]>([]);
 
-  const handleSearch = async () => {
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!query.trim()) return;
 
     setResults([]);
@@ -75,7 +76,11 @@ export default function SearchGames({
 
   return (
     <section className="bg-neutral-900 fixed md:w-3/4 w-9/10 md:h-160 h-4/5 rounded-sm text-neutral-200 md:left-1/8 left-1/20 top-1/12 shadow-2xl shadow-neutral-900">
-      <search className="border border-neutral-500 w-9/10 h-12 items-center justify-between flex rounded-xl mx-auto mt-10 mb-5">
+      <form
+        id="list_search"
+        className="border border-neutral-500 w-9/10 h-12 items-center justify-between flex rounded-xl mx-auto mt-10 mb-5"
+        onSubmit={handleSearch}
+      >
         <input
           type="text"
           name="gamename"
@@ -87,12 +92,12 @@ export default function SearchGames({
         />
         <button
           className="h-full aspect-square rounded-r-xl bg-neutral-900 hover:bg-neutral-800 border-l cursor-pointer border-neutral-700"
-          type="button"
-          onClick={handleSearch}
+          type="submit"
+          form="list_search"
         >
           <i className="fa-magnifying-glass fa-solid"></i>
         </button>
-      </search>
+      </form>
       <div className="max-h-92 overflow-y-auto custom-vertical-scroll">
         {searching && (
           <div className="mx-auto text-center">

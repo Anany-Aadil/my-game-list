@@ -29,7 +29,7 @@ export default function ListItem({
       <div className="w-10 text-xs text-neutral-800 font-mono pl-1 hidden md:block">
         {sno}.
       </div>
-      <div className="md:w-20">
+      <Link href={`/game/${id}`} className="md:w-20">
         {cover ? (
           <Image
             src={cover}
@@ -47,10 +47,16 @@ export default function ListItem({
             height={352}
           />
         )}
-      </div>
+      </Link>
       <MobTitle name={name} platforms={platform} score={score} />
       <div className="w-150 text-left hidden md:block">
-        <Link href={`/game/${id}`}>{name}</Link>
+        <Link
+          href={`/game/${id}`}
+          className="hover:text-indigo-950 relative group transition-color smoothing"
+        >
+          {name}
+          <span className="absolute w-full h-0.5 bg-indigo-950 bottom-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity smoothing"></span>
+        </Link>
       </div>
       <div
         className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStylesMobile[status]} md:bg-transparent`}

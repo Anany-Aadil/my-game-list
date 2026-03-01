@@ -17,7 +17,7 @@ export async function GET(request) {
       "Content-Type": "text/plain",
     },
     body: `
-            fields name, storyline, summary, cover.url, platforms.name, release_dates.y, rating, involved_companies.company.name, similar_games.name, similar_games.cover.url, genres.name;
+            fields name, storyline, summary, cover.url, platforms.name, release_dates.y, rating, involved_companies.company.name, similar_games.name, similar_games.cover.url, genres.name, age_ratings.rating_category.rating, franchises.name;
             where id = ${gameId};
             `,
   });
@@ -44,6 +44,8 @@ export async function GET(request) {
     year: game.release_dates?.map((rd) => rd.y)[0],
     rating: game.rating,
     genres: game.genres?.map((g) => g.name) ?? [],
+    ageRating: game.age_ratings?.map((ar) => ar.rating_category.rating) ?? [],
+    franchise: game.franchises?.map((f) => f.name) ?? [],
   };
 
   return NextResponse.json(cleanedGame);
