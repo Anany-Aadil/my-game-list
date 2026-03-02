@@ -5,7 +5,7 @@ const IGDB_GAMES_URL = "https://api.igdb.com/v4/games";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  const gameId = searchParams.get("slug");
+  const gameId = searchParams.get("gameId");
 
   const access_token = await getAccessToken();
 
