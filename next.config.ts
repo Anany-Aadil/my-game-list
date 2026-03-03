@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
       new URL("https://media.rawg.io/media/games/**"),
     ],
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/home",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

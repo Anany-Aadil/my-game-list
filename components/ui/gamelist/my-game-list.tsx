@@ -28,9 +28,11 @@ export default function MyGameList({
 
   const [selectedStatus, setSelectedStatus] = useState("unselected");
   const [selectedScore, setSelectedScore] = useState<any>(null);
-  const [chosenPlatforms, setChosenPlatforms] = useState<any[]>([]);
+  const [chosenPlatforms, setChosenPlatforms] = useState<string[]>([]);
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const [confirming, setConfirming] = useState(false);
 
   const router = useRouter();
 
@@ -41,6 +43,8 @@ export default function MyGameList({
   };
 
   const confirmAddGame = async (status: Status) => {
+    setConfirming(true);
+
     if (chosenPlatforms.length === 0) return;
 
     const payload = {
@@ -73,6 +77,7 @@ export default function MyGameList({
 
       await fetchGames();
       closeDialogue();
+      setConfirming(false);
       router.refresh();
     } catch (error) {
       console.error("Failed to save game: ", error);
@@ -208,6 +213,7 @@ export default function MyGameList({
                 chosenPlatforms={chosenPlatforms}
                 setChosenPlatforms={setChosenPlatforms}
                 confirmAddGame={confirmAddGame}
+                confirming={confirming}
               />
             )}
           </SearchGames>

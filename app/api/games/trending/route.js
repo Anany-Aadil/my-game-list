@@ -14,7 +14,7 @@ export async function GET() {
       "Content-Type": "text/plain",
     },
     body: `
-            fields name, cover.url, platforms.name, release_dates.y, rating, rating_count;
+            fields name, cover.url, platforms.name, release_dates.y;
             where rating_count > 1000;
             sort rating desc;
             limit 10;

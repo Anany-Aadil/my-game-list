@@ -1,75 +1,110 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
-import Banner from "./banner";
-import Row from "./row";
-
-import { BannerSkeleton, RowSkeleton } from "../skeletons";
 
 export default function MainPage() {
-  const [topRated, setTopRated] = useState<any[]>([]);
-  const [action, setAction] = useState<any[]>([]);
-  const [indie, setIndie] = useState<any[]>([]);
-  const [multiplayer, setMultiplayer] = useState<any[]>([]);
-  const [rpg, setRpg] = useState<any[]>([]);
+  const [upcomingGames, setUpcomingGames] = useState<any[]>([]);
+  const [recentGames, setRecentGames] = useState<any[]>([]);
+  const [topRatedGames, setTopRatedGames] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const [currentGame, setCurrentGame] = useState<any>(null);
 
-  const fetchAllTypes = async () => {
+  const fetchUpcoming = async () => {
     setLoading(true);
-    const [
-      topRatedGames,
-      actionGames,
-      indieGames,
-      multiplayerGames,
-      rolePlayGames,
-    ] = await Promise.all([
-      fetch(`/api/homepage?filter=metacritic=90,100`).then((res) => res.json()),
-      fetch(`/api/homepage?filter=tags=16`).then((res) => res.json()),
-      fetch(`/api/homepage?filter=genres=51`).then((res) => res.json()),
-      fetch(`/api/homepage?filter=tags=7`).then((res) => res.json()),
-      fetch(`/api/homepage?filter=tags=233`).then((res) => res.json()),
+
+    const [anticipated, newly, top] = await Promise.all([
+      fetch(`/api/homepage`).then((res) => res.json()),
+      fetch(`/api/homepage/recent`).then((res) => res.json()),
+      fetch(`/api/games/trending`).then((res) => res.json()),
     ]);
-    setTopRated(Array.isArray(topRatedGames) ? topRatedGames : []);
-    setAction(Array.isArray(actionGames) ? actionGames : []);
-    setIndie(Array.isArray(indieGames) ? indieGames : []);
-    setMultiplayer(Array.isArray(multiplayerGames) ? multiplayerGames : []);
-    setRpg(Array.isArray(rolePlayGames) ? rolePlayGames : []);
+    setUpcomingGames(Array.isArray(anticipated) ? anticipated : []);
+    setRecentGames(Array.isArray(newly) ? newly : []);
+    setTopRatedGames(Array.isArray(top) ? top : []);
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchAllTypes();
+    fetchUpcoming();
   }, []);
 
-  useEffect(() => {
-    let randomGame = Math.floor(Math.random() * topRated.length);
-    setCurrentGame(topRated[randomGame]);
-  }, [topRated]);
+  if (loading) return <div className="mt-20">Loading...</div>;
 
   return (
-    <section className="w-full bg-neutral-900">
-      {loading ? (
-        <>
-          <BannerSkeleton />
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i}>
-              <div className="w-40 h-15 pl-2 bg-neutral-100 blur"></div>
-              <RowSkeleton />
-            </div>
-          ))}
-        </>
-      ) : (
-        <>
-          <Banner currentGame={currentGame} />
-          <div className="bg-linear-to-t from-neutral-900 via-neutral-900 to-transparent h-[30vh] w-full absolute -bottom-18.75" />
-          <Row category={topRated} title="Top Rated" />
-          <Row category={action} title="Horror Games" />
-          <Row category={indie} title="Indie Games" />
-          <Row category={multiplayer} title="Multiplayer Games" />
-          <Row category={rpg} title="Role-Playing Games" />
-        </>
-      )}
+    <section className="w-4/5 mt-20 mx-auto">
+      <div className="flex justify-between">
+        <main className="w-3/4 my-2">
+          <div className="w-full h-100 border flex"></div>
+          <div className="font-bold my-2 mx-1.5 text-xl font-nunito">
+            Recent Titles
+          </div>
+          <div className="flex overflow-x-scroll max-w-full custom-horizontal-scroll">
+            {recentGames.map((game) => (
+              <Link
+                href={`/game/${game.id}`}
+                className="min-w-32 m-2 relative border border-neutral-400 overflow-hidden"
+                key={game.id}
+              >
+                <Image
+                  src={game.cover}
+                  alt={game.name}
+                  width={264}
+                  height={352}
+                  className="w-full hover:scale-105 transition-transform smoothing"
+                  unoptimized
+                />
+                <div className="w-full absolute bottom-0 text-xs text-neutral-100 overflow-hidden shadow-2xs font-medium px-2 py-1 text-nowrap">
+                  {game.name.length > 18
+                    ? game.name.slice(0, 18) + "..."
+                    : game.name}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </main>
+        <div>
+          <SideList
+            gameCategory={upcomingGames}
+            title="Most Anticipated Games"
+          />
+          <SideList gameCategory={topRatedGames} title="Top Rated Games" />
+        </div>
+      </div>
     </section>
+  );
+}
+
+function SideList({
+  gameCategory,
+  title,
+}: {
+  gameCategory: any;
+  title: string;
+}) {
+  return (
+    <div className="w-64 border mt-2 ml-2">
+      <div className="border-b px-3 py-1 font-bold">{title}</div>
+      {gameCategory.slice(0, 5).map((game: any, idx: number) => (
+        <div key={game.id} className="flex w-full my-2">
+          <div className="w-8 px-2">{idx + 1}</div>
+          <Link
+            href={`/game/${game.id}`}
+            className="w-20 border border-neutral-400 overflow-hidden"
+          >
+            <Image
+              src={game.cover}
+              alt={game.name}
+              width={264}
+              height={352}
+              className="w-full hover:scale-105 transition-transform smoothing"
+              unoptimized
+            />
+          </Link>
+          <Link href={`/game/${game.id}`} className="text-neutral-800 p-2 w-36">
+            {game.name}
+          </Link>
+        </div>
+      ))}
+    </div>
   );
 }

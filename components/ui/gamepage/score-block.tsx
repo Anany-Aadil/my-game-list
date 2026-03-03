@@ -7,7 +7,7 @@ export default function ScoreBlock({ rating }: { rating: number }) {
       <span className="md:hidden">
         <i className="fa-star fa-regular"></i>
       </span>
-      <span className="font-exo md:text-2xl text-lg md:font-semibold">
+      <span className="font-exo md:text-2xl text-lg md:font-semibold text-nowrap">
         {rating ? Math.round(rating * 10) / 100 : "No User Rating Available"}
       </span>
     </div>

@@ -6,6 +6,9 @@ const IGDB_GAMES_URL = "https://api.igdb.com/v4/games";
 export async function GET() {
   const access_token = await getAccessToken();
 
+  const currentTime = Math.round(Date.now() / 1000);
+  const yearAgo = Math.round(new Date("2025-12-06").getTime() / 1000);
+
   const igdb_response = await fetch(IGDB_GAMES_URL, {
     method: "POST",
     headers: {
@@ -15,9 +18,9 @@ export async function GET() {
     },
     body: `
             fields name, cover.url;
-            where release_dates.date > ${Math.round(Date.now() / 1000)} | release_dates.human = "TBD" & rating > 50;
-            sort hypes desc;
-            limit 5;
+            where release_dates.date < ${currentTime} & release_dates.date > ${yearAgo} & hypes > 40 & id > 20000;
+            sort release_dates asc;
+            limit 10;
             `,
   });
 
@@ -25,9 +28,9 @@ export async function GET() {
     return NextResponse.json({ error: "IGDB API Failed" }, { status: 500 });
 
   try {
-    const trendingGames = await igdb_response.json();
+    const newlyReleasedGames = await igdb_response.json();
 
-    const cleanTrendingGames = trendingGames.map((game) => ({
+    const cleanedGames = newlyReleasedGames.map((game) => ({
       id: game.id,
       name: game.name,
       cover: game.cover
@@ -35,7 +38,7 @@ export async function GET() {
         : null,
     }));
 
-    return NextResponse.json(cleanTrendingGames);
+    return NextResponse.json(cleanedGames);
   } catch (error) {
     return NextResponse.json({ error: "Network Error" }, { status: 500 });
   }

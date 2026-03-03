@@ -5,11 +5,17 @@ const IGDB_GAMES_URL = "https://api.igdb.com/v4/games";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  const search = searchParams.get("search");
+  const searchQuery = searchParams.get("search");
 
-  if (!search) {
+  if (!searchQuery) {
     return NextResponse.json([]);
   }
+
+  const queryBody = `
+              search "${searchQuery}";
+              fields name, cover.url, platforms.name, release_dates.y;
+              limit 10;
+              `;
 
   const access_token = await getAccessToken();
 
@@ -20,11 +26,7 @@ export async function GET(request) {
       Authorization: `Bearer ${access_token}`,
       "Content-Type": "text/plain",
     },
-    body: `
-            search "${search}";
-            fields name, cover.url, platforms.name, release_dates.y;
-            limit 10;
-            `,
+    body: queryBody,
   });
 
   const games = await igdb_response.json();

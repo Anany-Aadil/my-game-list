@@ -12,8 +12,7 @@ export default function Header() {
   return (
     <nav
       className="
-      bg-neutral-900 fixed top-0 md:h-20 h-15 w-full flex px-[5%] items-center justify-between transition-colors smoothing
-      "
+      bg-neutral-900 fixed top-0 md:h-20 h-15 w-full md:w-4/5 md:mx-[10%] flex px-[5%] items-center justify-between transition-colors smoothing"
     >
       <div className="flex items-center">
         <Link

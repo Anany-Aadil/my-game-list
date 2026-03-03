@@ -12,6 +12,7 @@ export default function ConfirmationDialogue({
   confirmAddGame,
   setPendingGame,
   setEditingGame,
+  confirming,
 }: {
   isEditing: boolean;
   activeGame: React.ComponentState;
@@ -24,6 +25,7 @@ export default function ConfirmationDialogue({
   confirmAddGame: any;
   setPendingGame: React.SetStateAction<any>;
   setEditingGame: React.SetStateAction<any>;
+  confirming: boolean;
 }) {
   return (
     <section className="border bg-neutral-300 text-neutral-900 w-4/5 p-2 rounded-2xl my-4 mx-auto">
@@ -118,14 +120,21 @@ export default function ConfirmationDialogue({
             onClick={() => {
               confirmAddGame(selectedStatus);
             }}
-            className="rounded-lg md:border border-neutral-900 md:px-2 md:bg-neutral-400 hover:bg-indigo-800 hover:text-neutral-200 transition-colors cursor-pointer"
+            className="rounded-lg md:border border-neutral-900 md:px-2 md:bg-neutral-400 hover:bg-indigo-800 hover:text-neutral-200 transition-colors cursor-pointer relative min-w-7"
             disabled={
               chosenPlatforms.length === 0 || selectedStatus === "unselected"
             }
           >
-            <span className="hidden md:inline text-sm">Confirm</span>
-            <span className="md:hidden">
-              <i className="fa-circle-check fa-solid text-xl px-2"></i>
+            <span className={confirming ? "hidden" : "inline"}>
+              <span className="hidden md:inline text-sm">Confirm</span>
+              <span className="md:hidden">
+                <i className="fa-circle-check fa-solid text-xl px-2"></i>
+              </span>
+            </span>
+            <span
+              className={`animate-spin absolute left-0 top-0 bottom-0 right-0 text-center ${confirming ? "inline" : "hidden"}`}
+            >
+              <i className="fa-circle-notch fa-solid pt-1.5"></i>
             </span>
           </button>
           <button

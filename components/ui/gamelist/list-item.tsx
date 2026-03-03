@@ -29,7 +29,10 @@ export default function ListItem({
       <div className="w-10 text-xs text-neutral-800 font-mono pl-1 hidden md:block">
         {sno}.
       </div>
-      <Link href={`/game/${id}`} className="md:w-20">
+      <Link
+        href={`/game/${id}`}
+        className={`md:w-20 md:border md:border-neutral-400/90 overflow-hidden`}
+      >
         {cover ? (
           <Image
             src={cover}
@@ -37,7 +40,7 @@ export default function ListItem({
             height={352}
             alt={name}
             unoptimized
-            className="w-full"
+            className="w-full hover:scale-105 transition-transform smoothing"
           />
         ) : (
           <img
@@ -59,7 +62,7 @@ export default function ListItem({
         </Link>
       </div>
       <div
-        className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStylesMobile[status]} md:bg-transparent`}
+        className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStylesMobile[status]} md:hover:bg-neutral-300/75 md:bg-transparent`}
       >
         {children}
       </div>

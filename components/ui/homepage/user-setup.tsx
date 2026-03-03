@@ -50,7 +50,7 @@ export default function UserSetup() {
           id="userID"
           className="outline-none border text-sm bg-neutral-500 rounded-lg px-4 py-2"
           value={userName}
-          onChange={(e) => setUserName(e.target.value)}
+          onChange={(e) => setUserName(e.target.value.replace(" ", "-"))}
         />
         <br />
         <span className="text-xs">
