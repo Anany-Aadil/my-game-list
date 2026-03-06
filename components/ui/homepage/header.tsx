@@ -17,7 +17,7 @@ export default function Header() {
       <div className="flex items-center">
         <Link
           href={"/home"}
-          className="md:mx-5 md:px-5 text-4xl font-jolly text-indigo-600 text-shadow-xs"
+          className="md:mr-5 md:pr-5 text-4xl font-jolly text-indigo-600 text-shadow-xs"
         >
           <span className="hidden md:inline">MyGameList</span>
           <span className="md:hidden">MGL</span>
@@ -33,7 +33,7 @@ export default function Header() {
 
 function GameListLink({ username }: { username: string }) {
   return (
-    <Link href={`/userlist/${username}`}>
+    <Link href={`/gamelist/${username}`}>
       <div className="text-sm font-delius text-neutral-100 md:pb-1 pt-1 mx-2 px-5 md:flex-1 hover:text-neutral-300 transition-colors">
         <span className="hidden md:inline">GameList</span>
         <span className="md:hidden">

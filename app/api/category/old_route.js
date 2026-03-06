@@ -2,12 +2,10 @@ import { NextResponse } from "next/server";
 
 const RAWG_API_URL = "https://api.rawg.io/api/games";
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const filterType = searchParams.get("filter");
+export async function GET() {
   try {
     const res = await fetch(
-      `${RAWG_API_URL}?key=${process.env.RAWG_API_KEY}&${filterType}`,
+      `${RAWG_API_URL}?key=${process.env.RAWG_API_KEY}&metacritic=90,100`,
     );
     const data = await res.json();
     const gameData = data.results.slice(0, 10);

@@ -59,7 +59,7 @@ export default function MyGameList({
 
     try {
       if (editingGame !== null) {
-        await fetch("/api/games", {
+        await fetch("/api/gamelist", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -68,7 +68,7 @@ export default function MyGameList({
           }),
         });
       } else {
-        await fetch("/api/games", {
+        await fetch("/api/gamelist", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -96,7 +96,7 @@ export default function MyGameList({
     if (!confirm) return;
 
     setUserList((prev) => prev.filter((g) => g.id !== gameID));
-    await fetch(`/api/games?id=${gameID}`, { method: "DELETE" });
+    await fetch(`/api/gamelist?id=${gameID}`, { method: "DELETE" });
     await fetchGames();
     router.refresh();
   };
@@ -113,7 +113,7 @@ export default function MyGameList({
     }, []);
 
   const fetchGames = async () => {
-    const res = await fetch("/api/games");
+    const res = await fetch("/api/gamelist");
     const data = await res.json();
 
     setUserList(Array.isArray(data) ? data : []);

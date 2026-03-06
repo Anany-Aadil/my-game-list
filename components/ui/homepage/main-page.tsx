@@ -14,9 +14,9 @@ export default function MainPage() {
     setLoading(true);
 
     const [anticipated, newly, top] = await Promise.all([
-      fetch(`/api/homepage`).then((res) => res.json()),
-      fetch(`/api/homepage/recent`).then((res) => res.json()),
-      fetch(`/api/games/trending`).then((res) => res.json()),
+      fetch(`/api/category/anticipated`).then((res) => res.json()),
+      fetch(`/api/category/recent`).then((res) => res.json()),
+      fetch(`/api/category/toprated`).then((res) => res.json()),
     ]);
     setUpcomingGames(Array.isArray(anticipated) ? anticipated : []);
     setRecentGames(Array.isArray(newly) ? newly : []);
@@ -61,6 +61,7 @@ export default function MainPage() {
               </Link>
             ))}
           </div>
+          <div className="w-full h-100 border flex"></div>
         </main>
         <div>
           <SideList

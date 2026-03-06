@@ -11,7 +11,7 @@ export default function GamePage() {
   const gameId = params.gamepage;
 
   const fetchGame = async () => {
-    const gameObject = await fetch(`/api/games/game?gameId=${gameId}`);
+    const gameObject = await fetch(`/api/game/?gameId=${gameId}`);
     const game = await gameObject.json();
     setGame(game);
   };

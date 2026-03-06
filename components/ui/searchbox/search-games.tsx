@@ -33,7 +33,7 @@ export default function SearchGames({
     setSearching(true);
 
     const res = await fetch(
-      `/api/games/search/?search=${encodeURIComponent(query)}`,
+      `/api/gamelist/search/?search=${encodeURIComponent(query)}`,
     );
     if (!res.ok) {
       console.error("Search failed: ", res.status);
@@ -55,7 +55,7 @@ export default function SearchGames({
   useEffect(() => {
     if (query.trim() !== "") return;
 
-    fetch("/api/games/trending")
+    fetch("/api/category/toprated")
       .then((res) => res.json())
       .then(setTrending)
       .catch(console.error);
