@@ -5,7 +5,7 @@ export default function Thumbnail({ game }: { game: any }) {
   return (
     <Link
       href={`/game/${game.id}`}
-      className="min-w-32 m-2 relative border border-neutral-400 overflow-hidden"
+      className="min-w-32 my-2 relative border border-neutral-400 overflow-hidden"
     >
       <Image
         src={game.cover}

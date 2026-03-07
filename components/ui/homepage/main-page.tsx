@@ -111,8 +111,8 @@ function DeskView({
   fade: React.ComponentState;
 }) {
   return (
-    <section className="w-4/5 mt-20 mx-auto md:flex justify-between hidden">
-      <main className="w-3/4 my-2 flex flex-col justify-between">
+    <section className="w-4/5 pt-20 mx-auto md:flex justify-between hidden bg-neutral-100">
+      <main className="w-3/4 m-2 flex flex-col justify-between">
         <WelcomeBox />
         <Row category={recentGames} title="Recent Titles" />
         <div className="w-full h-100 border flex mb-2 mt-4 bg-neutral-700">
@@ -120,7 +120,7 @@ function DeskView({
         </div>
         <Footer />
       </main>
-      <main className="w-fit">
+      <main className="w-fit mr-2">
         <SideList gameCategory={upcomingGames} title="Most Anticipated Games" />
         <SideList gameCategory={topRatedGames} title="Top Rated Games" />
       </main>

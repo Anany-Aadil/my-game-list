@@ -1,26 +1,29 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { Metadata } from "next";
 import GameSpecificPage from "@/components/ui/gamepage/game-page";
 
-export default function GamePage() {
-  const [game, setGame] = useState<any>(null);
+export default async function GamePage({
+  params,
+}: {
+  params: { gamepage: number };
+}) {
+  const { gamepage } = await params;
+  return <GameSpecificPage gameId={gamepage} />;
+}
 
-  const params = useParams();
-  const gameId = params.gamepage;
+export async function generateMetadata({
+  params,
+}: {
+  params: { gamepage: number };
+}): Promise<Metadata> {
+  const { gamepage } = await params;
 
-  const fetchGame = async () => {
-    const gameObject = await fetch(`/api/game/?gameId=${gameId}`);
-    const game = await gameObject.json();
-    setGame(game);
+  const res = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/game/?gameId=${await gamepage}`,
+  );
+  const game = await res.json();
+
+  return {
+    title: game.name,
+    description: game.summary.slice(0, 32),
   };
-
-  useEffect(() => {
-    fetchGame();
-  }, []);
-
-  if (!game) return <div>Loading...</div>;
-
-  return <GameSpecificPage game={game} />;
 }

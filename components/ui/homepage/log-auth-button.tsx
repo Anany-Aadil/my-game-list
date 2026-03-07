@@ -39,7 +39,12 @@ export default function AuthButton() {
           </span>
         </LogButton>
       ) : (
-        <LogButton onPress={() => signIn("google")}>Login</LogButton>
+        <LogButton onPress={() => signIn("google")}>
+          <span className="hidden md:inline">Login</span>
+          <span className="md:hidden">
+            <i className="fa-user fa-solid"></i>
+          </span>
+        </LogButton>
       )}
     </div>
   );

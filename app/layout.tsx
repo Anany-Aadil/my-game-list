@@ -59,7 +59,10 @@ const exo = Exo({
 });
 
 export const metadata: Metadata = {
-  title: "My Game List",
+  title: {
+    default: "MyGameList",
+    template: "%s | MyGameList",
+  },
   description: "A comprehensive list for Video Games",
 };
 
@@ -89,7 +92,7 @@ export default function RootLayout({
           ${exo.variable}
           antialiased custom-vertical-scroll h-screen`}
       >
-        <SpeedInsights />
+        {/* <SpeedInsights /> */}
         <Providers>{children}</Providers>
       </body>
     </html>

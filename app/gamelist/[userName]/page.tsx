@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 
 import MyGameList from "@/components/ui/gamelist/my-game-list";
+import { Metadata } from "next";
 
 export default async function UserPage({
   params,
@@ -30,9 +31,16 @@ export default async function UserPage({
 
   const userGameList = user.games;
 
-  return (
-    <>
-      <MyGameList isOwner={isOwner} userGameList={userGameList} />
-    </>
-  );
+  return <MyGameList isOwner={isOwner} userGameList={userGameList} />;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { userName: string };
+}): Promise<Metadata> {
+  const { userName } = await params;
+  return {
+    title: `${userName}'s Game List`,
+  };
 }
