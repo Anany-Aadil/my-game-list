@@ -92,7 +92,7 @@ export default function RootLayout({
           ${exo.variable}
           antialiased custom-vertical-scroll h-screen`}
       >
-        {/* <SpeedInsights /> */}
+        <SpeedInsights />
         <Providers>{children}</Providers>
       </body>
     </html>
