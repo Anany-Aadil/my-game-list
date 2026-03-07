@@ -15,9 +15,9 @@ export async function GET() {
     },
     body: `
             fields name, cover.url;
-            where release_dates.date > ${Math.round(Date.now() / 1000)} | release_dates.human = "TBD" & rating > 50;
+            where release_dates.date > ${Math.round(Date.now() / 1000)} | release_dates.human = "TBD" & rating = null;
             sort hypes desc;
-            limit 5;
+            limit 10;
             `,
   });
 

@@ -1,3 +1,4 @@
+import Footer from "../homepage/footer";
 import DeskView from "./desktop-view";
 import MobView from "./mobile-view";
 import SimilarGames from "./similar-games";
@@ -11,6 +12,7 @@ export default function GameSpecificPage({ game }: { game: any }) {
       <MobView game={game} />
       <DeskView game={game} />
       <SimilarGames similarGames={game.similarGames} />
+      <Footer />
     </section>
   );
 }

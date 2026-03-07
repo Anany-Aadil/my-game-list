@@ -7,7 +7,9 @@ export async function GET() {
   const access_token = await getAccessToken();
 
   const currentTime = Math.round(Date.now() / 1000);
-  const yearAgo = Math.round(new Date("2025-12-06").getTime() / 1000);
+  const oneYearAgo = Math.round(
+    new Date(new Date().setMonth(new Date().getMonth() - 3)).getTime() / 1000,
+  );
 
   const igdb_response = await fetch(IGDB_GAMES_URL, {
     method: "POST",
@@ -18,7 +20,7 @@ export async function GET() {
     },
     body: `
             fields name, cover.url;
-            where release_dates.date < ${currentTime} & release_dates.date > ${yearAgo} & hypes > 40 & id > 20000;
+            where release_dates.date < ${currentTime} & release_dates.date > ${oneYearAgo} & hypes > 40 & id > 20000;
             sort release_dates asc;
             limit 10;
             `,

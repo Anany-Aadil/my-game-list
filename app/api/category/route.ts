@@ -4,13 +4,17 @@ const RAWG_API_URL = "https://api.rawg.io/api/games";
 
 export async function GET() {
   try {
-    const res = await fetch(
-      `${RAWG_API_URL}?key=${process.env.RAWG_API_KEY}&metacritic=90,100`,
-    );
+    const res = await fetch(`${RAWG_API_URL}?key=${process.env.RAWG_API_KEY}&`);
     const data = await res.json();
     const gameData = data.results.slice(0, 10);
 
-    return NextResponse.json(gameData);
+    const cleanedData = gameData.map((game: any) => ({
+      id: game.id,
+      name: game.name,
+      cover: game.background_image,
+    }));
+
+    return NextResponse.json(cleanedData);
   } catch (error) {
     console.error(error);
   }

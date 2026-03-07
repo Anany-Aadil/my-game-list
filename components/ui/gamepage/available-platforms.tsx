@@ -5,7 +5,7 @@ export default function AvailPlatforms({
 }) {
   return (
     <div className="border-b border-t md:border-b-0 md:mt-5 border-neutral-400 py-2 text-lg max-w-[97%]">
-      <div className="px-2">Available Platforms :</div>
+      <div className="p-2 font-medium">Available Platforms :</div>
       <div className="overflow-x-scroll custom-horizontal-scroll flex">
         {platforms.map((pf: string) => (
           <div

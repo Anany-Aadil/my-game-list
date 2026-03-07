@@ -3,9 +3,9 @@ import Header from "@/components/ui/homepage/header";
 
 export default function Home() {
   return (
-    <section className="font-sans">
-      <MainPage />
+    <section className="font-sans bg-neutral-200">
       <Header />
+      <MainPage />
     </section>
   );
 }

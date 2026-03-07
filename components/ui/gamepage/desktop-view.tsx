@@ -11,14 +11,14 @@ export default function DeskView({ game }: { game: any }) {
       <div className="w-64 border-r border-neutral-400 mx-4 my-2">
         <ImageBlock cover={game.cover} alt={game.name} />
         <YearORe year={game.year} />
-        <div className="text-md">
+        <div className="text-md font-mono">
           Age Rating:{" "}
           <span className="font-medium font-exo">
             {game.ageRating.join(", ")}
           </span>
         </div>
         {game.franchise.length > 0 ? (
-          <div className="text-md">
+          <div className="text-md font-mono">
             Franchise:{" "}
             <span className="font-medium">{game.franchise.join(", ")}</span>
           </div>

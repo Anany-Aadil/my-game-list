@@ -30,7 +30,7 @@ function DesktopNav({
     <nav className="flex w-250 bg-neutral-200 text-center justify-between hover:underline-offset-2 font-iceberg">
       <button
         onClick={() => onStatusClick("all")}
-        className={`p-4 flex-1 transition-colors  ${activeStatus === "all" ? "bg-neutral-300" : "hover:bg-neutral-300"}`}
+        className={`p-4 flex-1 transition-colors relative ${activeStatus === "all" ? "bg-neutral-300" : "hover:bg-neutral-300 cursor-pointer group"}`}
         disabled={activeStatus === "all"}
       >
         All
@@ -40,7 +40,7 @@ function DesktopNav({
           key={status.type}
           onClick={() => onStatusClick(status.value)}
           disabled={activeStatus === status.value}
-          className={`p-4 flex-1 w-40 transition-colors  ${activeStatus === status.value ? "bg-neutral-300" : "hover:bg-neutral-300"}`}
+          className={`p-4 flex-1 w-40 transition-colors ${activeStatus === status.value ? "bg-neutral-300" : "hover:bg-neutral-300 cursor-pointer"}`}
         >
           {status.label}
         </button>

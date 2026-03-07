@@ -1,14 +1,22 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useState, useEffect } from "react";
+
+import WelcomeBox from "./welcome-box";
+import SideList from "./side-list";
+import Footer from "./footer";
+import Banner from "./banner";
+import Thumbnail from "./thumbnail";
+import Row from "./stack-link";
 
 export default function MainPage() {
   const [upcomingGames, setUpcomingGames] = useState<any[]>([]);
   const [recentGames, setRecentGames] = useState<any[]>([]);
   const [topRatedGames, setTopRatedGames] = useState<any[]>([]);
+  const [bannerGame, setBannerGame] = useState<any | null>(null);
   const [loading, setLoading] = useState(false);
+  const [fade, setFade] = useState(true);
+  const [bannerList, setBannerList] = useState<any[]>([]);
 
   const fetchUpcoming = async () => {
     setLoading(true);
@@ -18,94 +26,104 @@ export default function MainPage() {
       fetch(`/api/category/recent`).then((res) => res.json()),
       fetch(`/api/category/toprated`).then((res) => res.json()),
     ]);
+
     setUpcomingGames(Array.isArray(anticipated) ? anticipated : []);
     setRecentGames(Array.isArray(newly) ? newly : []);
     setTopRatedGames(Array.isArray(top) ? top : []);
+
     setLoading(false);
+  };
+
+  const chooseBannerGame = async () => {
+    const res = await fetch(`/api/category`);
+    const data = await res.json();
+
+    setBannerList(Array.isArray(data) ? data : []);
   };
 
   useEffect(() => {
     fetchUpcoming();
+    chooseBannerGame();
   }, []);
 
-  if (loading) return <div className="mt-20">Loading...</div>;
+  useEffect(() => {
+    if (!Array.isArray(bannerList) || bannerList.length === 0) return;
+
+    const pickRandom = () => {
+      let newGame;
+
+      do {
+        newGame = bannerList[Math.floor(Math.random() * bannerList.length)];
+      } while (newGame.id === bannerGame?.id);
+
+      setBannerGame(newGame);
+    };
+
+    pickRandom();
+
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        pickRandom();
+        setFade(true);
+      }, 700);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [bannerList]);
+
+  if (loading) return <div className="md:mt-20 mt-15">Loading...</div>;
 
   return (
-    <section className="w-4/5 mt-20 mx-auto">
-      <div className="flex justify-between">
-        <main className="w-3/4 my-2">
-          <div className="w-full h-100 border flex"></div>
-          <div className="font-bold my-2 mx-1.5 text-xl font-nunito">
-            Recent Titles
-          </div>
-          <div className="flex overflow-x-scroll max-w-full custom-horizontal-scroll">
-            {recentGames.map((game) => (
-              <Link
-                href={`/game/${game.id}`}
-                className="min-w-32 m-2 relative border border-neutral-400 overflow-hidden"
-                key={game.id}
-              >
-                <Image
-                  src={game.cover}
-                  alt={game.name}
-                  width={264}
-                  height={352}
-                  className="w-full hover:scale-105 transition-transform smoothing"
-                  unoptimized
-                />
-                <div className="w-full absolute bottom-0 text-xs text-neutral-100 overflow-hidden shadow-2xs font-medium px-2 py-1 text-nowrap">
-                  {game.name.length > 18
-                    ? game.name.slice(0, 18) + "..."
-                    : game.name}
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="w-full h-100 border flex"></div>
-        </main>
-        <div>
-          <SideList
-            gameCategory={upcomingGames}
-            title="Most Anticipated Games"
-          />
-          <SideList gameCategory={topRatedGames} title="Top Rated Games" />
+    <>
+      <DeskView
+        bannerGame={bannerGame}
+        recentGames={recentGames}
+        upcomingGames={upcomingGames}
+        fade={fade}
+        topRatedGames={topRatedGames}
+      />
+      <section className="mt-15 md:hidden">
+        <div className=" relative">
+          <WelcomeBox />
+          <div className="h-10 w-full md:hidden bg-linear-to-t from-neutral-200 via-neutral-200/50 to-transparent absolute -bottom-0.5"></div>
         </div>
-      </div>
-    </section>
+        <Row category={recentGames} title="Recent Titles" />
+        <Row category={upcomingGames} title="Most Anticipated Titles" />
+        <Row category={topRatedGames} title="Top Rated Titles" />
+        <Footer />
+      </section>
+    </>
   );
 }
 
-function SideList({
-  gameCategory,
-  title,
+function DeskView({
+  recentGames,
+  bannerGame,
+  upcomingGames,
+  topRatedGames,
+  fade,
 }: {
-  gameCategory: any;
-  title: string;
+  recentGames: React.ComponentState;
+  bannerGame: React.ComponentState;
+  upcomingGames: React.ComponentState;
+  topRatedGames: React.ComponentState;
+  fade: React.ComponentState;
 }) {
   return (
-    <div className="w-64 border mt-2 ml-2">
-      <div className="border-b px-3 py-1 font-bold">{title}</div>
-      {gameCategory.slice(0, 5).map((game: any, idx: number) => (
-        <div key={game.id} className="flex w-full my-2">
-          <div className="w-8 px-2">{idx + 1}</div>
-          <Link
-            href={`/game/${game.id}`}
-            className="w-20 border border-neutral-400 overflow-hidden"
-          >
-            <Image
-              src={game.cover}
-              alt={game.name}
-              width={264}
-              height={352}
-              className="w-full hover:scale-105 transition-transform smoothing"
-              unoptimized
-            />
-          </Link>
-          <Link href={`/game/${game.id}`} className="text-neutral-800 p-2 w-36">
-            {game.name}
-          </Link>
+    <section className="w-4/5 mt-20 mx-auto md:flex justify-between hidden">
+      <main className="w-3/4 my-2 flex flex-col justify-between">
+        <WelcomeBox />
+        <Row category={recentGames} title="Recent Titles" />
+        <div className="w-full h-100 border flex mb-2 mt-4 bg-neutral-700">
+          {bannerGame && <Banner bannerGame={bannerGame} fade={fade} />}
         </div>
-      ))}
-    </div>
+        <Footer />
+      </main>
+      <main className="w-fit">
+        <SideList gameCategory={upcomingGames} title="Most Anticipated Games" />
+        <SideList gameCategory={topRatedGames} title="Top Rated Games" />
+      </main>
+    </section>
   );
 }
