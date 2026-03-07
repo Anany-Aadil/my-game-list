@@ -130,7 +130,7 @@ export default function MyGameList({
   const isEditing = Boolean(editingGame);
 
   return (
-    <section className="md:w-250 max-w-full m-auto h-1/2 font-sans">
+    <section className="md:w-250 max-w-full m-auto h-1/2 font-sans md:mt-0 mt-15">
       {/* Status Bar */}
       <StatusBar onStatusClick={setActiveStatus} activeStatus={activeStatus} />
       {/* Main List */}

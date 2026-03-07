@@ -6,17 +6,13 @@ import WelcomeBox from "./welcome-box";
 import SideList from "./side-list";
 import Footer from "./footer";
 import Banner from "./banner";
-import Thumbnail from "./thumbnail";
-import Row from "./stack-link";
+import Row from "./row";
 
 export default function MainPage() {
   const [upcomingGames, setUpcomingGames] = useState<any[]>([]);
   const [recentGames, setRecentGames] = useState<any[]>([]);
   const [topRatedGames, setTopRatedGames] = useState<any[]>([]);
-  const [bannerGame, setBannerGame] = useState<any | null>(null);
   const [loading, setLoading] = useState(false);
-  const [fade, setFade] = useState(true);
-  const [bannerList, setBannerList] = useState<any[]>([]);
 
   const fetchUpcoming = async () => {
     setLoading(true);
@@ -34,96 +30,60 @@ export default function MainPage() {
     setLoading(false);
   };
 
-  const chooseBannerGame = async () => {
-    const res = await fetch(`/api/category`);
-    const data = await res.json();
-
-    setBannerList(Array.isArray(data) ? data : []);
-  };
-
   useEffect(() => {
     fetchUpcoming();
-    chooseBannerGame();
   }, []);
 
-  useEffect(() => {
-    if (!Array.isArray(bannerList) || bannerList.length === 0) return;
-
-    const pickRandom = () => {
-      let newGame;
-
-      do {
-        newGame = bannerList[Math.floor(Math.random() * bannerList.length)];
-      } while (newGame.id === bannerGame?.id);
-
-      setBannerGame(newGame);
-    };
-
-    pickRandom();
-
-    const interval = setInterval(() => {
-      setFade(false);
-      setTimeout(() => {
-        pickRandom();
-        setFade(true);
-      }, 700);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [bannerList]);
-
-  if (loading) return <div className="md:mt-20 mt-15">Loading...</div>;
+  if (loading)
+    return <div className="md:mt-20 mt-15 w-4/5 mx-auto">Loading...</div>;
 
   return (
     <>
       <DeskView
-        bannerGame={bannerGame}
         recentGames={recentGames}
         upcomingGames={upcomingGames}
-        fade={fade}
         topRatedGames={topRatedGames}
       />
-      <section className="mt-15 md:hidden">
-        <div className=" relative">
-          <WelcomeBox />
-          <div className="h-10 w-full md:hidden bg-linear-to-t from-neutral-200 via-neutral-200/50 to-transparent absolute -bottom-0.5"></div>
-        </div>
-        <Row category={recentGames} title="Recent Titles" />
-        <Row category={upcomingGames} title="Most Anticipated Titles" />
-        <Row category={topRatedGames} title="Top Rated Titles" />
-        <Footer />
-      </section>
     </>
   );
 }
 
 function DeskView({
   recentGames,
-  bannerGame,
   upcomingGames,
   topRatedGames,
-  fade,
 }: {
   recentGames: React.ComponentState;
-  bannerGame: React.ComponentState;
   upcomingGames: React.ComponentState;
   topRatedGames: React.ComponentState;
-  fade: React.ComponentState;
 }) {
   return (
-    <section className="w-4/5 pt-20 mx-auto md:flex justify-between hidden bg-neutral-100">
-      <main className="max-w-3/4 m-2 flex flex-col justify-between">
+    <section className="md:w-4/5 md:pt-20 mt-15 md:mt-0 mx-auto md:flex md:justify-between bg-neutral-100">
+      <main className="md:max-w-3/4 md:m-2 md:flex md:flex-col md:justify-between relative">
         <WelcomeBox />
-        <Row category={recentGames} title="Recent Titles" />
-        <div className="w-full h-100 border flex mb-2 mt-4 bg-neutral-700">
-          {bannerGame && <Banner bannerGame={bannerGame} fade={fade} />}
+        <div className="h-10 w-full md:hidden bg-linear-to-t from-neutral-200 via-neutral-200/50 to-transparent absolute -bottom-0.5"></div>
+        <div className="md:block hidden">
+          <Row category={recentGames} title="Recent Titles" />
         </div>
-        <Footer />
+        <div className="w-full h-100 border md:flex mb-2 mt-4 bg-neutral-700 hidden">
+          <Banner />
+        </div>
+        <div className="hidden md:block">
+          <Footer />
+        </div>
       </main>
-      <main className="mr-2">
+      <main className="mx-2 md:hidden">
+        <Row category={recentGames} title="Recent Titles" />
+        <Row category={upcomingGames} title="Most Anticipated Titles" />
+        <Row category={topRatedGames} title="Top Rated Titles" />
+      </main>
+      <main className="mr-2 hidden md:block">
         <SideList gameCategory={upcomingGames} title="Most Anticipated Games" />
         <SideList gameCategory={topRatedGames} title="Top Rated Games" />
       </main>
+      <div className="md:hidden">
+        <Footer />
+      </div>
     </section>
   );
 }

@@ -18,6 +18,7 @@ export default function WelcomeBox() {
         alt="bg-image"
         fill
         sizes="90vw"
+        loading="lazy"
       />
       <div className="top-0 bottom-0 left-0 right-0 bg-radial from-transparent to-neutral-900 absolute"></div>
       <div className="p-5 text-neutral-300 z-1 md:w-4/5 w-full text-shadow-sm text-shadow-neutral-800">

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import MyGameList from "@/components/ui/gamelist/my-game-list";
 import { Metadata } from "next";
+import Header from "@/components/ui/homepage/header";
 
 export default async function UserPage({
   params,
@@ -31,7 +32,14 @@ export default async function UserPage({
 
   const userGameList = user.games;
 
-  return <MyGameList isOwner={isOwner} userGameList={userGameList} />;
+  return (
+    <>
+      <header className="md:hidden">
+        <Header />
+      </header>
+      <MyGameList isOwner={isOwner} userGameList={userGameList} />;
+    </>
+  );
 }
 
 export async function generateMetadata({
