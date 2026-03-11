@@ -32,29 +32,22 @@ export default function MainPage() {
     <section className="md:w-4/5 md:pt-20 mt-15 md:mt-0 mx-auto md:flex md:justify-between bg-neutral-100">
       <main className="md:max-w-3/4 md:m-2 md:flex md:flex-col md:justify-between relative">
         <WelcomeBox />
-        <div className="h-10 w-full md:hidden bg-linear-to-t from-neutral-200 via-neutral-200/50 to-transparent absolute -bottom-0.5"></div>
-        <div className="md:block hidden">
+        <div className="mx-2 md:mx-0 relative">
           <Row category={recentGames} title="Recent Titles" />
+        </div>
+        <div className="mx-2 md:hidden relative">
+          <Row category={upcomingGames} title="Most Anticipated Titles" />
+          <Row category={topRatedGames} title="Top Rated Titles" />
         </div>
         <div className="w-full h-100 border md:flex mb-2 mt-4 bg-neutral-700 hidden relative">
           <Banner bannerList={topRatedGames} />
         </div>
-        <div className="hidden md:block">
-          <Footer />
-        </div>
-      </main>
-      <main className="mx-2 md:hidden">
-        <Row category={recentGames} title="Recent Titles" />
-        <Row category={upcomingGames} title="Most Anticipated Titles" />
-        <Row category={topRatedGames} title="Top Rated Titles" />
+        <Footer />
       </main>
       <main className="mr-2 hidden md:block">
         <SideList gameCategory={upcomingGames} title="Most Anticipated Games" />
         <SideList gameCategory={topRatedGames} title="Top Rated Games" />
       </main>
-      <div className="md:hidden">
-        <Footer />
-      </div>
     </section>
   );
 }

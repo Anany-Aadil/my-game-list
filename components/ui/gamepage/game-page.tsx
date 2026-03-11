@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import Footer from "../homepage/footer";
 import DeskView from "./desktop-view";
 import MobView from "./mobile-view";
-import SimilarGames from "./similar-games";
 import { GamePageSkeleton } from "../skeletons";
+import Row from "../homepage/row";
 
 export default function GameSpecificPage({ gameId }: { gameId: number }) {
   const [game, setGame] = useState<any>(null);
@@ -29,7 +29,10 @@ export default function GameSpecificPage({ gameId }: { gameId: number }) {
       </div>
       <MobView game={game} />
       <DeskView game={game} />
-      <SimilarGames similarGames={game.similarGames} />
+      {/* <SimilarGames similarGames={game.similarGames} /> */}
+      <div className="mx-4 md:border-t md:my-5 border-neutral-400 relative">
+        <Row title="Similar Games" category={game.similarGames} rounded />
+      </div>
       <Footer />
     </section>
   );

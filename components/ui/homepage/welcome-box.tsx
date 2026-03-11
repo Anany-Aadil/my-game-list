@@ -17,7 +17,7 @@ export default function WelcomeBox() {
         src={backgroundImage}
         alt="bg-image"
         fill
-        sizes="16rem"
+        sizes="70vw"
       />
       <div className="top-0 bottom-0 left-0 right-0 bg-radial from-transparent to-neutral-900 absolute"></div>
       <div className="p-5 text-neutral-300 z-1 md:w-4/5 w-full text-shadow-sm text-shadow-neutral-800">
@@ -36,6 +36,7 @@ export default function WelcomeBox() {
             : "Search for a title and start your list!"}
         </p>
       </div>
+      <div className="h-10 w-full md:hidden bg-linear-to-t from-neutral-200 via-neutral-200/50 to-transparent absolute -bottom-0.5"></div>
     </div>
   );
 }

@@ -61,4 +61,8 @@ body {
   .smoothing {
     @apply duration-300 ease-in-out;
   }
+
+  .chev-ico {
+    @apply text-4xl hover:scale-110 hover:opacity-80 opacity-60 cursor-pointer transition-all text-shadow-md text-shadow-neutral-100;
+  }
 }

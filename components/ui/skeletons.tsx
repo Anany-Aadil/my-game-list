@@ -127,7 +127,7 @@ function SideListSkeleton() {
 
 export function GamePageSkeleton() {
   return (
-    <section className="md:mt-20 mt-15 bg-neutral-100 md:w-4/5 mx-auto">
+    <section className="md:mt-20 mt-15 bg-neutral-100 md:w-4/5 mx-auto skeleton-shimmer">
       <div className="bg-neutral-300 w-full h-12"></div>
       <div className="md:flex w-full grid grid-cols-2">
         <div className="md:w-64 w-full border-neutral-400 md:mx-4 md:my-2 pr-2 md:border-r">
