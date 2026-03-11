@@ -130,12 +130,12 @@ export default function MyGameList({
   const isEditing = Boolean(editingGame);
 
   return (
-    <section className="md:w-250 max-w-full m-auto h-1/2 font-sans md:mt-0 mt-15">
+    <section className="md:w-250 max-w-full m-auto font-sans md:mt-0 mt-15">
       {/* Status Bar */}
       <StatusBar onStatusClick={setActiveStatus} activeStatus={activeStatus} />
       {/* Main List */}
       <InfoBar />
-      <main className="grid grid-cols-2 md:block w-full gap-1">
+      <main className="grid grid-cols-2 md:block w-full gap-1 relative">
         {sortedGames.length > 0 ? (
           sortedGames.map((gameDetail: any, index: number) => (
             <ListItem
@@ -173,18 +173,22 @@ export default function MyGameList({
               )}
             </ListItem>
           ))
-        ) : (
+        ) : isOwner ? (
           // Placeholder
-          <div className="text-gray-950 text-center box-border w-250 flex justify-center items-center border-gray-300 py-1 mb-0.5 border-2">
-            <span className="mx-5">Add a game to the list... </span>
+          <Placeholder>
+            <span className="md:mx-5">Add a game to the list... </span>
             <button
-              className="text-blue-800 hover:text-blue-700 hover:underline mx-5"
+              className="text-indigo-800 hover:text-indigo-700 transition-colors smoothing hover:underline md:mx-5"
               onClick={() => setIsSearchOpen(true)}
             >
               {" "}
               Click Here{" "}
             </button>
-          </div>
+          </Placeholder>
+        ) : (
+          <Placeholder>
+            <span className="mx-5">Nothing to See here </span>
+          </Placeholder>
         )}
       </main>
       {isOwner ? (
@@ -237,5 +241,13 @@ function EditButton({
     >
       {children}
     </button>
+  );
+}
+
+function Placeholder({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="text-gray-950 text-center box-border md:w-250 w-full flex justify-center items-center border-gray-300 py-1 mb-0.5 border-2 md:static absolute">
+      {children}
+    </div>
   );
 }

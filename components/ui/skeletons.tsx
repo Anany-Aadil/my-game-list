@@ -1,11 +1,13 @@
 export function GameListSkeleton() {
   return (
-    <div className="m-auto w-250">
+    <div className="m-auto md:w-250 w-full">
       <StatusBarSkeleton />
       <InfoBarSkeleton />
-      {Array.from({ length: 5 }).map((_, i) => (
-        <ListItemSkeleton key={i} />
-      ))}
+      <div className="md:block grid grid-cols-2 gap-1 relative">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <ListItemSkeleton key={i} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -22,31 +24,34 @@ export function SearchItemsSkeleton() {
 
 function ListItemSkeleton() {
   return (
-    <div className="text-gray-950 text-center box-border w-250 h-28 flex justify-evenly items-center border-gray-300 py-1 mb-0.5 border-2 relative skeleton-shimmer">
-      <div className="bg-neutral-300 h-1/5 w-10"></div>
-      <div className="bg-neutral-300 h-full w-20"></div>
-      <div className="bg-neutral-300 h-1/5 w-150"></div>
-      <div className="bg-neutral-300 h-1/3 w-20"></div>
-      <div className="bg-neutral-300 h-1/5 w-20"></div>
+    <div className="text-gray-950 text-center box-border md:w-250 w-full md:h-28 flex justify-evenly items-center border-gray-300 py-1 mb-0.5 border-2 relative skeleton-shimmer">
+      <div className="bg-neutral-300 hidden md:block h-1/5 w-10"></div>
+      <div className="bg-neutral-300 w-full aspect-3/4 md:aspect-auto md:h-full md:w-20"></div>
+      <div className="bg-neutral-300 hidden md:block h-1/5 w-150"></div>
+      <div className="bg-neutral-300 hidden md:block h-1/3 w-20"></div>
+      <div className="bg-neutral-300 hidden md:block h-1/5 w-20"></div>
     </div>
   );
 }
 
 function StatusBarSkeleton() {
   return (
-    <nav className="flex w-250 bg-gray-200 text-center justify-between skeleton-shimmer">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="p-5 w-40">
-          <div className="bg-neutral-400 w-20 h-5"></div>
-        </div>
-      ))}
-    </nav>
+    <>
+      <nav className="md:flex w-250 hidden bg-gray-200 text-center justify-between skeleton-shimmer">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="p-5 w-40">
+            <div className="bg-neutral-400 w-20 h-5"></div>
+          </div>
+        ))}
+      </nav>
+      <nav className="w-9/10 bg-neutral-600 rounded-lg mx-[5%] mt-17 mb-2 h-10"></nav>
+    </>
   );
 }
 
 function InfoBarSkeleton() {
   return (
-    <div className="bg-neutral-300 text-center flex w-250 justify-evenly p-0.5 *:my-0.5 *:mx-2">
+    <div className="bg-neutral-300 text-center md:flex w-250 justify-evenly p-0.5 *:my-0.5 *:mx-2 hidden">
       <div className="h-5 bg-neutral-400 w-10"></div>
       <div className="h-5 bg-neutral-400 w-20"></div>
       <div className="h-5 bg-neutral-400 w-150 text-left"></div>
@@ -80,20 +85,76 @@ export function BannerSkeleton() {
   );
 }
 
-export function RowSkeleton() {
+export function HomePageSkeleton() {
   return (
-    <main className="bg-neutral-900 ml-10 pl-10 my-5 space-y-2">
-      <div className="flex overflow-hidden items-center space-x-2">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <ThumbnailSkeleton key={i} />
-        ))}
-      </div>
-    </main>
+    <section className="w-4/5 mx-auto mt-20 flex justify-between bg-neutral-100 skeleton-shimmer">
+      <main className="w-3/4 flex flex-col">
+        <HeroSkeleton />
+        <RowSkeleton />
+        <HeroSkeleton />
+      </main>
+      <main className="w-64 mr-4">
+        <SideListSkeleton />
+        <SideListSkeleton />
+      </main>
+    </section>
   );
 }
 
-function ThumbnailSkeleton() {
+export function RowSkeleton() {
   return (
-    <div className="w-5xl aspect-video rounded-lg m-2 bg-neutral-100 animate-ping"></div>
+    <>
+      <div className="w-32 h-10 mx-2 bg-neutral-900/80 blur"></div>
+      <div className="w-full overflow-hidden flex mx-2 my-1 mb-4 gap-4 border-r-2">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <div
+            key={i}
+            className="min-w-32 aspect-3/4 bg-neutral-200 border border-neutral-200"
+          ></div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function HeroSkeleton() {
+  return <div className="w-full h-100 bg-neutral-200 m-2"></div>;
+}
+
+function SideListSkeleton() {
+  return <div className="mt-2 ml-2 bg-neutral-200 w-full h-152"></div>;
+}
+
+export function GamePageSkeleton() {
+  return (
+    <section className="md:mt-20 mt-15 bg-neutral-100 md:w-4/5 mx-auto">
+      <div className="bg-neutral-300 w-full h-12"></div>
+      <div className="md:flex w-full grid grid-cols-2">
+        <div className="md:w-64 w-full border-neutral-400 md:mx-4 md:my-2 pr-2 md:border-r">
+          <div className="bg-neutral-400 w-full aspect-3/4"></div>
+        </div>
+        <div className="w-full flex-col flex justify-around md:hidden">
+          <div className="blur h-10 w-4/5 bg-neutral-700"></div>
+          <div className="blur h-8 w-30 bg-neutral-700"></div>
+          <div className="blur h-10 w-9/10 bg-neutral-700"></div>
+        </div>
+      </div>
+      <div className="md:hidden">
+        <div className="border-t border-b border-neutral-400 h-10 w-full"></div>
+        <div className="w-full h-36"></div>
+        <div className="border-t border-b border-neutral-400 h-20 w-full"></div>
+      </div>
+      <div className="w-full md:h-20 h-10"></div>
+      <div className="md:mx-4 mx-2">
+        <div className="w-full overflow-hidden flex space-x-2 md:border-t border-neutral-400 py-5">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <div
+              key={i}
+              className="min-w-32 aspect-3/4 rounded bg-neutral-400"
+            ></div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

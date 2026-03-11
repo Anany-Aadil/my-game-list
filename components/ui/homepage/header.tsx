@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import AuthButton from "./log-auth-button";
@@ -9,10 +10,11 @@ export default function Header() {
   const { data: session } = useSession();
   const userName = session?.user.userName;
 
+  const pathname = usePathname();
+
   return (
     <nav
-      className="
-      bg-neutral-900 fixed top-0 md:h-20 h-15 w-full md:w-4/5 md:mx-[10%] flex px-[5%] items-center justify-between transition-colors smoothing z-10"
+      className={`bg-neutral-900 fixed top-0 md:h-20 h-15 w-full md:w-4/5 md:mx-[10%] flex px-[5%] items-center justify-between transition-colors smoothing z-10 ${pathname.slice(1, 9) === "gamelist" && "md:hidden"}`}
     >
       <div className="flex items-center">
         <Link

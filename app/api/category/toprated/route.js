@@ -14,7 +14,7 @@ export async function GET() {
       "Content-Type": "text/plain",
     },
     body: `
-            fields name, cover.url, platforms.name, release_dates.y;
+            fields name, cover.url, platforms.name, release_dates.y, artworks.url, summary;
             where rating_count > 1000;
             sort rating desc;
             limit 10;
@@ -35,6 +35,11 @@ export async function GET() {
         : null,
       platforms: game.platforms?.map((p) => p.name) ?? [],
       year: game.release_dates?.map((rd) => rd.y)[0],
+      artworks:
+        game.artworks?.map(
+          (a) => `https:${a.url.replace("t_thumb", "t_1080p")}`,
+        ) ?? [],
+      summary: game.summary,
     }));
 
     return NextResponse.json(cleanTrendingGames);

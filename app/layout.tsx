@@ -14,6 +14,7 @@ import "./globals.css";
 
 import Providers from "./providers";
 import Script from "next/script";
+import Header from "@/components/ui/homepage/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -93,7 +94,10 @@ export default function RootLayout({
           antialiased custom-vertical-scroll h-screen`}
       >
         <SpeedInsights />
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );
