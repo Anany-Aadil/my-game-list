@@ -44,7 +44,7 @@ function StatusBarSkeleton() {
           </div>
         ))}
       </nav>
-      <nav className="w-9/10 bg-neutral-600 rounded-lg mx-[5%] mt-17 mb-2 h-10"></nav>
+      <nav className="w-9/10 bg-neutral-600 rounded-lg mx-[5%] mt-17 mb-2 h-10 md:hidden"></nav>
     </>
   );
 }

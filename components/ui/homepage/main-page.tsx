@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import WelcomeBox from "./welcome-box";
 import SideList from "./side-list";
-import Footer from "./footer";
+import Footer from "../shared/footer";
 import Banner from "./banner";
-import Row from "./row";
+import Row from "../shared/row";
 
 export default function MainPage() {
   const [upcomingGames, setUpcomingGames] = useState<any[]>([]);
@@ -29,7 +29,7 @@ export default function MainPage() {
   }, []);
 
   return (
-    <section className="md:w-4/5 md:pt-20 mt-15 md:mt-0 mx-auto md:flex md:justify-between bg-neutral-100">
+    <section className="md:w-4/5 md:pt-20 mt-15 md:mt-0 mx-auto md:flex md:justify-between bg-neutral-100 font-sans">
       <main className="md:max-w-3/4 md:m-2 md:flex md:flex-col md:justify-between relative">
         <WelcomeBox />
         <div className="mx-2 md:mx-0 relative">

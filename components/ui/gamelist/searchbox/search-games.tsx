@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-import SearchItem from "@/components/ui/searchbox/search-item";
-import { SearchItemsSkeleton } from "../skeletons";
+import SearchItem from "./search-item";
+import { SearchItemsSkeleton } from "../../skeletons";
 
 export default function SearchGames({
   isOpen,
@@ -14,10 +14,10 @@ export default function SearchGames({
   isEditing,
 }: {
   isOpen: boolean;
-  onClose: any;
+  onClose: CallableFunction;
   children: React.ReactNode;
-  userList: React.ComponentState;
-  startAddGame: any;
+  userList: Array<any>;
+  startAddGame: CallableFunction;
   isEditing: boolean;
 }) {
   const [query, setQuery] = useState("");
@@ -111,33 +111,21 @@ export default function SearchGames({
             </div>
           )}
           {results.length === 0 && Array.isArray(trending) ? (
-            <>
-              <SmallText>Top Rated Games</SmallText>
-              {trending.map((game: any, index: number) => (
-                <SearchItem
-                  key={game.id}
-                  isEditing={isEditing}
-                  idx={index}
-                  game={game}
-                  onAdd={startAddGame}
-                  isAdded={checkIfAdded(game)}
-                />
-              ))}
-            </>
+            <Results
+              category={trending}
+              isEditing={isEditing}
+              startAddGame={startAddGame}
+              checkIfAdded={checkIfAdded}
+              text="Top Rated Games"
+            />
           ) : (
-            <>
-              <SmallText>Search Results</SmallText>
-              {results.map((game: any, index: number) => (
-                <SearchItem
-                  key={game.id}
-                  isEditing={isEditing}
-                  idx={index}
-                  game={game}
-                  onAdd={startAddGame}
-                  isAdded={checkIfAdded(game)}
-                />
-              ))}
-            </>
+            <Results
+              category={results}
+              isEditing={isEditing}
+              startAddGame={startAddGame}
+              checkIfAdded={checkIfAdded}
+              text="Search Results"
+            />
           )}
         </div>
         {/* Confirmation Dialogue here */}
@@ -159,5 +147,35 @@ function SmallText({ children }: Readonly<{ children: React.ReactNode }>) {
     <div className="w-9/10 mx-auto text-neutral-900 bg-indigo-600 text-center text-sm rounded-t">
       {children}
     </div>
+  );
+}
+
+function Results({
+  text,
+  category,
+  isEditing,
+  startAddGame,
+  checkIfAdded,
+}: {
+  text: string;
+  category: Array<any>;
+  isEditing: boolean;
+  startAddGame: CallableFunction;
+  checkIfAdded: CallableFunction;
+}) {
+  return (
+    <>
+      <SmallText>{text}</SmallText>
+      {category.map((game: any, index: number) => (
+        <SearchItem
+          key={game.id}
+          isEditing={isEditing}
+          idx={index}
+          game={game}
+          onAdd={startAddGame}
+          isAdded={checkIfAdded(game)}
+        />
+      ))}
+    </>
   );
 }

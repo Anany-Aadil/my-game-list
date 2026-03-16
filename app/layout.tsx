@@ -14,7 +14,7 @@ import "./globals.css";
 
 import Providers from "./providers";
 import Script from "next/script";
-import Header from "@/components/ui/homepage/header";
+import Header from "@/components/ui/shared/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,7 +91,7 @@ export default function RootLayout({
           ${asimovian.variable} 
           ${delius.variable} 
           ${exo.variable}
-          antialiased custom-vertical-scroll h-screen`}
+          antialiased custom-vertical-scroll`}
       >
         <SpeedInsights />
         <Providers>

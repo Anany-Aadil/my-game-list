@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Status } from "@prisma/client";
 
-import SearchGames from "@/components/ui/searchbox/search-games";
+import SearchGames from "./searchbox/search-games";
 import ListItem from "@/components/ui/gamelist/list-item";
-import StatusBar from "@/components/ui/navs/status-bar";
-import InfoBar from "@/components/ui/navs/info-bar";
-import ConfirmationDialogue from "@/components/ui/searchbox/confirmation-dialogue";
-import SideNav from "@/components/ui/navs/side-nav";
+import StatusBar from "@/components/ui/gamelist/navs/status-bar";
+import InfoBar from "@/components/ui/gamelist/navs/info-bar";
+import ConfirmationDialogue from "./searchbox/confirmation-dialogue";
+import SideNav from "@/components/ui/gamelist/navs/side-nav";
 
 import { sortItems } from "@/lib/sort-items";
 
@@ -232,7 +232,7 @@ function EditButton({
   onPress,
 }: {
   children: React.ReactNode;
-  onPress: any;
+  onPress: React.MouseEventHandler<HTMLButtonElement>;
 }) {
   return (
     <button

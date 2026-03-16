@@ -22,7 +22,7 @@ export default function ListItem({
   status: string;
 }) {
   return (
-    <div className="md:text-neutral-950 text-neutral-100 md:text-center text-left box-border md:w-250 w-full md:flex justify-between items-center border-neutral-300 md:py-1 md:px-0.5 mb-0.5 border-2 relative hover:shadow-lg transition-shadow shadow-neutral-300 md:aspect-auto aspect-4/3">
+    <div className="md:text-neutral-950 text-neutral-100 md:text-center text-left box-border md:w-250 w-full md:flex justify-between items-center border-neutral-300 md:py-1 md:px-0.5 mb-0.5 border-2 relative hover:shadow-lg hover:z-1 transition-shadow smoothing shadow-neutral-400 md:aspect-auto aspect-4/3 bg-neutral-100">
       <div
         className={`h-full w-2 absolute transition-colors ${statusStylesDesktop[status]} left-0 hidden md:block`}
       ></div>

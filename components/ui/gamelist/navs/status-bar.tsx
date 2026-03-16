@@ -4,7 +4,7 @@ export default function StatusBar({
   onStatusClick,
   activeStatus,
 }: {
-  onStatusClick: any;
+  onStatusClick: CallableFunction;
   activeStatus: string;
 }) {
   return (
