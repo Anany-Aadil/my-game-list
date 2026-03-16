@@ -35,7 +35,11 @@ export default function Banner({ bannerList }: { bannerList: any }) {
   }, [bannerList]);
 
   if (!bannerGame)
-    return <div className="skeleton-shimmer absolute w-full h-full"></div>;
+    return (
+      <div className="relative w-full h-full overflow-hidden">
+        <div className="skeleton-shimmer relative w-full h-full"></div>
+      </div>
+    );
 
   return (
     <div
