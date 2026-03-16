@@ -42,7 +42,7 @@ export default function Row({
       </button>
       <div
         ref={rowRef}
-        className="flex overflow-x-scroll max-w-full custom-horizontal-scroll mb-4 gap-4 md:border-r-2"
+        className="flex overflow-x-scroll max-w-full custom-horizontal-scroll mb-4 gap-4 md:border-r-2 dark:border-neutral-600"
       >
         {category.map((game) => (
           <Thumbnail game={game} key={game.id} rounded={rounded} />

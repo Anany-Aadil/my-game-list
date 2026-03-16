@@ -13,7 +13,7 @@ export default function SearchItem({
 }) {
   return (
     <div
-      className={`flex w-9/10 mx-auto justify-between p-2 border-b border-neutral-700 ${idx % 2 === 0 ? "bg-neutral-800" : ""} `}
+      className={`flex w-9/10 mx-auto justify-between p-2 border-b border-neutral-700 ${idx % 2 === 0 ? "bg-neutral-900" : ""} `}
     >
       <span className="px-1 overflow-x-hidden text-nowrap max-w-2/3">
         {game.name}

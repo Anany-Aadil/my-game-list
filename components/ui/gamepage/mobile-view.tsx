@@ -33,7 +33,7 @@ export default function MobView({ game }: { game: any }) {
         className="w-full text-end py-2 relative md:hidden"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <div className="w-full absolute -top-5 h-5 bg-linear-to-t from-neutral-100 to-transparent"></div>
+        <div className="w-full absolute -top-5 h-5 bg-linear-to-t from-neutral-100 dark:from-neutral-900 to-transparent"></div>
         {isExpanded ? (
           <>
             Close <i className="fa-angle-up fa-solid"></i>

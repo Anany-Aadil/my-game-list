@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { statusStylesDesktop, statusStylesMobile } from "@/lib/status-type";
+import { statusStyles } from "@/lib/status-type";
 import Link from "next/link";
 
 export default function ListItem({
@@ -22,16 +22,14 @@ export default function ListItem({
   status: string;
 }) {
   return (
-    <div className="md:text-neutral-950 text-neutral-100 md:text-center text-left box-border md:w-250 w-full md:flex justify-between items-center border-neutral-300 md:py-1 md:px-0.5 mb-0.5 border-2 relative hover:shadow-lg hover:z-1 transition-shadow smoothing shadow-neutral-400 md:aspect-auto aspect-4/3 bg-neutral-100">
+    <div className="md:text-neutral-950 text-neutral-100 dark:md:text-neutral-200 md:text-center text-left box-border md:w-250 w-full md:flex justify-between items-center border-neutral-300 dark:border-neutral-800 md:py-1 md:px-0.5 mb-0.5 border-2 relative hover:shadow-lg hover:z-1 transition-shadow smoothing shadow-neutral-400 dark:shadow-neutral-600 md:aspect-auto aspect-4/3 bg-neutral-100 dark:bg-neutral-900">
       <div
-        className={`h-full w-2 absolute transition-colors ${statusStylesDesktop[status]} left-0 hidden md:block`}
+        className={`h-full w-2 absolute transition-opacity opacity-30 hover:opacity-40 dark:opacity-50 dark:hover:opacity-70 ${statusStyles[status]} left-0 hidden md:block`}
       ></div>
-      <div className="w-10 text-xs text-neutral-800 font-mono pl-1 hidden md:block">
-        {sno}.
-      </div>
+      <div className="w-10 text-xs font-mono pl-1 hidden md:block">{sno}.</div>
       <Link
         href={`/game/${id}`}
-        className={`md:w-20 md:border md:border-neutral-400/90 overflow-hidden`}
+        className={`md:w-20 md:border md:border-neutral-400/90 dark:md:border-neutral-700/90 overflow-hidden`}
       >
         {cover ? (
           <Image
@@ -55,14 +53,14 @@ export default function ListItem({
       <div className="w-150 text-left hidden md:block">
         <Link
           href={`/game/${id}`}
-          className="hover:text-indigo-950 relative group transition-color smoothing"
+          className="hover:text-indigo-950 dark:hover:text-indigo-700 relative group transition-color smoothing"
         >
           {name}
-          <span className="absolute w-full h-0.5 bg-indigo-950 bottom-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity smoothing"></span>
+          <span className="absolute w-full h-0.5 bg-indigo-950 dark:bg-indigo-700 -bottom-0.5 left-0 opacity-0 group-hover:opacity-100 transition-opacity smoothing"></span>
         </Link>
       </div>
       <div
-        className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStylesMobile[status]} md:hover:bg-neutral-300/75 md:bg-transparent`}
+        className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStyles[status]} opacity-75 md:hover:bg-neutral-300 dark:md:hover:bg-neutral-700 md:bg-transparent`}
       >
         {children}
       </div>

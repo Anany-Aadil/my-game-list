@@ -9,8 +9,8 @@ export default function SideList({
   title: string;
 }) {
   return (
-    <div className="w-64 border border-neutral-500 mt-2 ml-2">
-      <div className="border-b border-neutral-500 px-3 py-1 font-bold font-iceberg">
+    <div className="w-64 border border-neutral-500 dark:border-neutral-600 mt-2 ml-2">
+      <div className="border-b border-neutral-500 dark:border-neutral-600 px-3 py-1 font-bold font-iceberg">
         {title}
       </div>
       {gameCategory.slice(0, 5).map((game: any, idx: number) => (
@@ -18,7 +18,7 @@ export default function SideList({
           <div className="w-8 px-2">{idx + 1}</div>
           <Link
             href={`/game/${game.id}`}
-            className="w-20 border border-neutral-400 overflow-hidden"
+            className="w-20 border border-neutral-400 dark:border-neutral-700 overflow-hidden"
           >
             <Image
               src={game.cover}
@@ -29,10 +29,7 @@ export default function SideList({
               unoptimized
             />
           </Link>
-          <Link
-            href={`/game/${game.id}`}
-            className="text-neutral-800 p-2 w-36 hover:underline"
-          >
+          <Link href={`/game/${game.id}`} className="p-2 w-36 hover:underline">
             {game.name}
           </Link>
         </div>

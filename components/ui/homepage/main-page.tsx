@@ -29,7 +29,7 @@ export default function MainPage() {
   }, []);
 
   return (
-    <section className="md:w-4/5 md:pt-20 mt-15 md:mt-0 mx-auto md:flex md:justify-between bg-neutral-100 font-sans">
+    <section className="md:w-4/5 md:pt-20 mt-15 md:mt-0 mx-auto md:flex md:justify-between bg-gray-100 font-sans dark:bg-neutral-800">
       <main className="md:max-w-3/4 md:m-2 md:flex md:flex-col md:justify-between relative">
         <WelcomeBox />
         <div className="mx-2 md:mx-0 relative">
@@ -39,7 +39,7 @@ export default function MainPage() {
           <Row category={upcomingGames} title="Most Anticipated Titles" />
           <Row category={topRatedGames} title="Top Rated Titles" />
         </div>
-        <div className="w-full h-100 border md:flex mb-2 mt-4 bg-neutral-700 hidden relative">
+        <div className="w-full h-100 border dark:border-neutral-600 md:flex mb-2 mt-4 bg-neutral-700 hidden relative">
           <Banner bannerList={topRatedGames} />
         </div>
         <Footer />

@@ -11,7 +11,7 @@ export default function Thumbnail({
   return (
     <Link
       href={`/game/${game.id}`}
-      className={`min-w-32 my-2 relative overflow-hidden ${rounded ? "rounded" : "border border-neutral-400"}`}
+      className={`min-w-32 my-2 relative overflow-hidden ${rounded ? "rounded" : "border border-neutral-400 dark:border-neutral-600"}`}
     >
       <Image
         src={game.cover}

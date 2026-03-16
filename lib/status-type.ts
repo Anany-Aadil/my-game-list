@@ -6,22 +6,13 @@ export const statusTypes = [
   { type: 5, label: "Plan to Play", value: "PLAN_TO_PLAY" },
 ];
 
-export const statusStylesDesktop: Record<string, string> = {
-  CURRENTLY_PLAYING: "md:bg-emerald-600/30 md:hover:bg-emerald-600/40",
-  ON_HOLD: "md:bg-amber-600/30 md:hover:bg-amber-600/40",
-  COMPLETED: "md:bg-indigo-600/30 md:hover:bg-indigo-600/40",
-  DROPPED: "md:bg-rose-600/30 md:hover:bg-rose-600/40",
-  PLAN_TO_PLAY: "md:bg-teal-600/30 md:hover:bg-teal-600/40",
+export const statusStyles: Record<string, string> = {
+  CURRENTLY_PLAYING: "bg-emerald-600",
+  ON_HOLD: "bg-amber-600",
+  COMPLETED: "bg-indigo-600",
+  DROPPED: "bg-rose-600",
+  PLAN_TO_PLAY: "bg-teal-600",
 };
-
-export const statusStylesMobile: Record<string, string> = {
-  CURRENTLY_PLAYING: "bg-emerald-600/75",
-  ON_HOLD: "bg-amber-600/75",
-  COMPLETED: "bg-indigo-600/75",
-  DROPPED: "bg-rose-600/75",
-  PLAN_TO_PLAY: "bg-teal-600/75",
-};
-
 export const STATUS_ORDER = [
   "CURRENTLY_PLAYING",
   "COMPLETED",

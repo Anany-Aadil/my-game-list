@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="w-full my-5 p-6 flex flex-col md:gap-3 border-t md:border border-neutral-400">
+    <footer className="w-full my-5 p-6 flex flex-col md:gap-3 border-t md:border border-neutral-400 dark:border-neutral-600">
       <div className="md:text-2xl text-lg font-exo font-semibold">
         Built With:
       </div>
@@ -46,11 +46,11 @@ function StackLink({
       <a
         href={url}
         target="_blank"
-        className="md:py-1 hover:text-violet-900 text-indigo-800 group transition-colors smoothing font-delius relative"
+        className="md:py-1 hover:text-violet-900 text-indigo-800 dark:text-indigo-600 dark:hover:text-violet-700 group transition-colors smoothing font-delius relative"
         rel="noopener noreferrer"
       >
         {name}
-        <span className="absolute h-0.5 w-full bg-violet-900 bottom-0 left-0 opacity-0 group-hover:opacity-90 transition-opacity smoothing"></span>
+        <span className="absolute h-0.5 w-full bg-violet-900 dark:bg-violet-700 bottom-0 left-0 opacity-0 group-hover:opacity-90 transition-opacity smoothing"></span>
       </a>
     </div>
   );

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+import { ThemeProvider } from "next-themes";
 import {
   Geist,
   Geist_Mono,
@@ -73,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <Script
           src="https://kit.fontawesome.com/9e1096b839.js"
@@ -91,12 +93,14 @@ export default function RootLayout({
           ${asimovian.variable} 
           ${delius.variable} 
           ${exo.variable}
-          antialiased custom-vertical-scroll`}
+          antialiased custom-vertical-scroll transition-colors smoothing`}
       >
         <SpeedInsights />
         <Providers>
-          <Header />
-          {children}
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Header />
+            {children}
+          </ThemeProvider>
         </Providers>
       </body>
     </html>

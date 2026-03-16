@@ -10,7 +10,7 @@ export default function AvailPlatforms({
         {platforms.map((pf: string) => (
           <div
             key={pf}
-            className="border border-emerald-800 mx-2 px-1 rounded-sm text-sm text-nowrap text-emerald-800 font-nunito"
+            className="border border-emerald-800 mx-2 px-1 rounded-sm text-sm text-nowrap text-emerald-800 font-nunito dark:text-emerald-500"
           >
             {pf}
           </div>

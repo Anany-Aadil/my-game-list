@@ -33,27 +33,33 @@ export default function DeskView({
         ) : null}
       </div>
       <div className="max-w-3/4">
-        <div className="flex border border-neutral-400 w-fit max-w-9/10 my-2 bg-neutral-200">
+        <div className="flex border border-neutral-400 dark:border-neutral-700 w-fit max-w-9/10 my-2 bg-neutral-200 dark:bg-neutral-800">
           <ScoreBlock rating={game.rating} />
           <GenreBlock genres={game.genres} />
         </div>
         {userGame && (
-          <div className="flex border border-neutral-400 w-fit max-w-9/10 my-2 bg-neutral-200 text-xs">
-            <div className="mx-4 my-2 bg-neutral-400 py-0.5 px-2 border-neutral-300 border rounded-lg">
+          <div className="flex border border-neutral-400 dark:border-neutral-600 w-fit max-w-9/10 my-2 bg-neutral-200 dark:bg-neutral-800 text-xs">
+            <UserStat>
               {
                 statusTypes.find((stat) => stat.value === userGame.status)
                   ?.label
               }
-            </div>
-            <div className="mx-4 my-2 bg-neutral-400 py-0.5 px-2 border-neutral-300 border rounded-lg">
-              Score: {userGame.score ? userGame.score : "--"}
-            </div>
+            </UserStat>
+            <UserStat>Score: {userGame.score ? userGame.score : "--"}</UserStat>
           </div>
         )}
 
         <StoryNSummary storyline={game.storyline} summary={game.summary} />
         <AvailPlatforms platforms={game.platforms} />
       </div>
+    </div>
+  );
+}
+
+function UserStat({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-4 my-2 bg-neutral-400 dark:bg-neutral-700 py-0.5 px-2 border-neutral-300 dark:border-neutral-600 border rounded-lg">
+      {children}
     </div>
   );
 }

@@ -30,8 +30,8 @@ export default function GameSpecificPage({
   if (!game) return <GamePageSkeleton />;
 
   return (
-    <section className="bg-neutral-100 mt-15 md:mt-20 w-full font-sans text-neutral-900 md:w-4/5 mx-auto">
-      <div className="text-2xl font-semibold p-2 w-full bg-neutral-300">
+    <section className="bg-neutral-100 dark:bg-neutral-800/50 mt-15 md:mt-20 w-full font-sans md:w-4/5 mx-auto transition-colors smoothing">
+      <div className="text-2xl font-semibold p-2 w-full bg-neutral-300 dark:bg-neutral-800">
         {game.name}
       </div>
 
