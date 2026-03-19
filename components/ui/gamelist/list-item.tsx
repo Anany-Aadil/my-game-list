@@ -60,7 +60,7 @@ export default function ListItem({
         </Link>
       </div>
       <div
-        className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStyles[status]} opacity-75 md:hover:bg-neutral-300 dark:md:hover:bg-neutral-700 md:bg-transparent`}
+        className={`absolute md:right-1/4 md:top-2/5 right-1 top-1 text-[0.75rem] rounded-lg p-0.5 transition-colors flex ${statusStyles[status]} opacity-90 md:opacity-100 md:hover:bg-neutral-300 dark:md:hover:bg-neutral-700 md:bg-transparent`}
       >
         {children}
       </div>

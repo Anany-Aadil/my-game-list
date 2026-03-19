@@ -103,17 +103,14 @@ export function HomePageSkeleton() {
 
 export function RowSkeleton() {
   return (
-    <>
-      <div className="w-32 h-10 mx-2 bg-neutral-900/80 blur"></div>
-      <div className="w-full overflow-hidden flex mx-2 my-1 mb-4 gap-4 border-r-2">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <div
-            key={i}
-            className="min-w-32 aspect-3/4 bg-neutral-200 border border-neutral-200"
-          ></div>
-        ))}
-      </div>
-    </>
+    <div className="w-full overflow-hidden flex my-2 gap-4 relative skeleton-shimmer">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <div
+          key={i}
+          className="min-w-32 aspect-3/4 bg-neutral-300 border border-neutral-400 dark:bg-neutral-700"
+        ></div>
+      ))}
+    </div>
   );
 }
 
@@ -123,9 +120,17 @@ function HeroSkeleton() {
   );
 }
 
-function SideListSkeleton() {
+export function SideListSkeleton() {
   return (
-    <div className="mt-2 ml-2 bg-neutral-200 w-full h-152 relative skeleton-shimmer"></div>
+    <>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div key={i} className="flex w-full my-2">
+          <div className="w-8 px-2">{i + 1}.</div>
+          <div className="w-20 aspect-3/4 bg-neutral-300 dark:bg-neutral-600 border border-neutral-400 dark:border-neutral-700"></div>
+          <div className="p-2 w-32 h-5 bg-neutral-700 dark:bg-neutral-300 blur-xs"></div>
+        </div>
+      ))}
+    </>
   );
 }
 
@@ -154,7 +159,7 @@ export function GamePageSkeleton() {
           {Array.from({ length: 10 }).map((_, i) => (
             <div
               key={i}
-              className="min-w-32 aspect-3/4 rounded bg-neutral-400  dark:bg-neutral-700"
+              className="min-w-32 aspect-3/4 rounded bg-neutral-400 dark:bg-neutral-700"
             ></div>
           ))}
         </div>

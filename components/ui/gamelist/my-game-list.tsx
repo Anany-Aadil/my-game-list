@@ -12,6 +12,8 @@ import ConfirmationDialogue from "./searchbox/confirmation-dialogue";
 import SideNav from "@/components/ui/gamelist/navs/side-nav";
 
 import { sortItems } from "@/lib/sort-items";
+import EditButton from "./edit-button";
+import Placeholder from "./placeholder";
 
 export default function MyGameList({
   isOwner,
@@ -193,7 +195,10 @@ export default function MyGameList({
       </main>
       {isOwner ? (
         <>
-          <SideNav onAddClick={() => setIsSearchOpen(true)} />
+          <SideNav
+            usersList={userGameList}
+            onAddClick={() => setIsSearchOpen(true)}
+          />
           <SearchGames
             userList={userList}
             startAddGame={startAddGame}
@@ -224,30 +229,5 @@ export default function MyGameList({
         </>
       ) : null}
     </section>
-  );
-}
-
-function EditButton({
-  children,
-  onPress,
-}: {
-  children: React.ReactNode;
-  onPress: React.MouseEventHandler<HTMLButtonElement>;
-}) {
-  return (
-    <button
-      onClick={onPress}
-      className="px-1 hover:underline cursor-pointer font-delius"
-    >
-      {children}
-    </button>
-  );
-}
-
-function Placeholder({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="text-center box-border md:w-250 w-full flex justify-center items-center border-gray-300 dark:border-neutral-800 py-1 mb-0.5 border-2 md:static absolute">
-      {children}
-    </div>
   );
 }

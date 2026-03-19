@@ -54,7 +54,7 @@ body {
   }
 
   .custom-vertical-scroll::-webkit-scrollbar-track {
-    @apply bg-neutral-800 dark:border border-neutral-800 rounded-sm;
+    @apply bg-neutral-800 dark:border border-neutral-800 dark:rounded-sm;
   }
 
   .smoothing {

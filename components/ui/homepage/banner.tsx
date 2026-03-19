@@ -67,7 +67,7 @@ export default function Banner({ bannerList }: { bannerList: any }) {
       </div>
       <Link
         href={`/game/${bannerGame.id}`}
-        className="bg-neutral-100/80 hover:bg-neutral-200 transition-colors smoothing absolute bottom-1/5 left-12 text-2xl rounded px-3 font-delius py-2"
+        className="bg-neutral-100/80 dark:bg-neutral-800/80 hover:bg-neutral-200 dark:hover:bg-neutral-900 transition-colors smoothing absolute bottom-1/5 left-12 text-2xl rounded px-3 font-delius py-2 dark:border border-neutral-500"
       >
         Info
         <i className="fa-circle-info fa-solid"></i>

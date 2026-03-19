@@ -44,7 +44,7 @@ export default function MainPage() {
         </div>
         <Footer />
       </main>
-      <main className="mr-2 hidden md:block">
+      <main className="mr-2 hidden md:flex flex-col justify-between mb-7">
         <SideList gameCategory={upcomingGames} title="Most Anticipated Games" />
         <SideList gameCategory={topRatedGames} title="Top Rated Games" />
       </main>

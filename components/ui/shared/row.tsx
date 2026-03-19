@@ -3,13 +3,14 @@
 import { useRef, useState } from "react";
 
 import Thumbnail from "./thumbnail";
+import { RowSkeleton } from "../skeletons";
 
 export default function Row({
   category,
   title,
   rounded = false,
 }: {
-  category: any[];
+  category: Array<any>;
   title: string;
   rounded?: boolean;
 }) {
@@ -42,11 +43,16 @@ export default function Row({
       </button>
       <div
         ref={rowRef}
-        className="flex overflow-x-scroll max-w-full custom-horizontal-scroll mb-4 gap-4 md:border-r-2 dark:border-neutral-600"
+        onScroll={() => setIsMoved(true)}
+        className="flex overflow-x-scroll max-w-full custom-horizontal-scroll mb-4 gap-4 md:border-r-2 dark:border-neutral-600 relative"
       >
-        {category.map((game) => (
-          <Thumbnail game={game} key={game.id} rounded={rounded} />
-        ))}
+        {category.length !== 0 ? (
+          category.map((game) => (
+            <Thumbnail game={game} key={game.id} rounded={rounded} />
+          ))
+        ) : (
+          <RowSkeleton />
+        )}
       </div>
       <button
         className="absolute hidden md:block -right-3 top-[48%] z-1"

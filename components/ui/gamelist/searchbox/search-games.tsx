@@ -80,7 +80,7 @@ export default function SearchGames({
         onClick={handleClose}
         className="fixed w-screen h-screen bg-transparent top-0 bottom-0 left-0 right-0"
       ></div>
-      <section className="bg-neutral-950 fixed md:w-3/4 w-9/10 md:h-160 h-4/5 rounded-sm text-neutral-200 md:left-1/8 left-1/20 top-1/12 shadow-2xl shadow-neutral-900">
+      <section className="bg-neutral-950 fixed md:w-3/4 w-9/10 md:h-160 h-180 rounded-sm text-neutral-200 md:left-1/8 left-1/20 top-1/12 shadow-2xl shadow-neutral-900">
         <form
           id="list_search"
           className="border border-neutral-500 w-9/10 h-12 items-center justify-between flex rounded-xl mx-auto mt-10 mb-5"
