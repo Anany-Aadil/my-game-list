@@ -15,7 +15,7 @@ export default function Header() {
 
   return (
     <nav
-      className={`dark:bg-neutral-950 bg-neutral-900 fixed top-0 md:h-20 h-15 w-full md:w-4/5 md:mx-[10%] flex px-[5%] items-center justify-between transition-colors smoothing z-10 ${pathname.slice(1, 9) === "gamelist" && "md:hidden"}`}
+      className={`dark:bg-neutral-950 bg-neutral-900 fixed top-0 md:h-20 h-15 w-full md:w-4/5 md:mx-[10%] flex px-[5%] items-center justify-between transition-colors smoothing z-10 ${pathname.slice(1, 9) === "gamelist" && "md:hidden"} text-neutral-200`}
     >
       <div className="flex items-center">
         <Link
@@ -28,7 +28,9 @@ export default function Header() {
 
         {session ? <GameListLink username={userName} /> : null}
       </div>
-      <DarkModeButton />
+      <button className="">
+        <DarkModeButton />
+      </button>
       <AuthButton />
     </nav>
   );

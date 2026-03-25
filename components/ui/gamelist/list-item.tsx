@@ -29,6 +29,7 @@ export default function ListItem({
       <div className="w-10 text-xs font-mono pl-1 hidden md:block">{sno}.</div>
       <Link
         href={`/game/${id}`}
+        target="_blank"
         className={`md:w-20 md:border md:border-neutral-400/90 dark:md:border-neutral-700/90 overflow-hidden`}
       >
         {cover ? (

@@ -39,7 +39,7 @@ body {
 /* Custom Classes */
 @layer components {
   .skeleton-shimmer {
-    @apply before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-linear-to-r before:from-transparent before:via-neutral-50/60 dark:before:via-neutral-500/60 before:to-transparent;
+    @apply before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-linear-to-r before:from-transparent before:via-neutral-50/60 dark:before:via-neutral-500/60 before:to-transparent before:blur;
   }
 
   .custom-horizontal-scroll::-webkit-scrollbar {
@@ -62,6 +62,6 @@ body {
   }
 
   .chev-ico {
-    @apply text-4xl hover:scale-110 hover:opacity-80 opacity-60 cursor-pointer transition-all text-shadow-md text-shadow-neutral-100 text-neutral-800;
+    @apply hover:scale-110 hover:opacity-80 opacity-40 cursor-pointer transition-all text-shadow-md text-shadow-neutral-100 text-neutral-800;
   }
 }

@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       new URL("https://images.igdb.com/igdb/image/upload/**"),
       new URL("https://lh3.googleusercontent.com/**"),
-      new URL("https://media.rawg.io/media/games/**"),
+      new URL("https://unsplash-assets.imgix.net/**"),
     ],
   },
 

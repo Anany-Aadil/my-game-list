@@ -21,7 +21,7 @@ export default function SearchGames({
   isEditing: boolean;
 }) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searching, setSearching] = useState(false);
   const [trending, setTrending] = useState<any[]>([]);
 
@@ -29,7 +29,7 @@ export default function SearchGames({
     e.preventDefault();
     if (!query.trim()) return;
 
-    setResults([]);
+    setSearchResults([]);
     setSearching(true);
 
     const res = await fetch(
@@ -42,9 +42,22 @@ export default function SearchGames({
 
     let data;
 
+    const dummyData = {
+      id: 0,
+      name: "Oops! Couldn't Find anything. Try something different",
+      year: "",
+      platforms: [""],
+      cover: "https://unsplash-assets.imgix.net/empty-states/photos.png",
+    };
+
     try {
       data = await res.json();
-      setResults(Array.isArray(data.results) ? data.results : []);
+      setSearchResults(
+        Array.isArray(data.results) && data.results.length > 0
+          ? data.results
+          : [dummyData],
+      );
+      console.log(searchResults);
       setSearching(false);
     } catch (err) {
       console.error("Invalid Json: ", err);
@@ -62,7 +75,7 @@ export default function SearchGames({
   }, [query]);
 
   const handleClose = () => {
-    setResults([]);
+    setSearchResults([]);
     onClose();
     setQuery("");
   };
@@ -103,14 +116,14 @@ export default function SearchGames({
             <i className="fa-magnifying-glass fa-solid"></i>
           </button>
         </form>
-        <div className="max-h-92 overflow-y-auto custom-vertical-scroll">
+        <main className="max-h-92 overflow-y-auto custom-vertical-scroll relative">
           {searching && (
             <div className="mx-auto text-center">
               <SmallText>Searching...</SmallText>
               <SearchItemsSkeleton />
             </div>
           )}
-          {results.length === 0 && Array.isArray(trending) ? (
+          {searchResults.length === 0 && Array.isArray(trending) ? (
             <Results
               category={trending}
               isEditing={isEditing}
@@ -120,14 +133,14 @@ export default function SearchGames({
             />
           ) : (
             <Results
-              category={results}
+              category={searchResults}
               isEditing={isEditing}
               startAddGame={startAddGame}
               checkIfAdded={checkIfAdded}
               text="Search Results"
             />
           )}
-        </div>
+        </main>
         {/* Confirmation Dialogue here */}
         {children}
         <button
@@ -135,7 +148,7 @@ export default function SearchGames({
           className="absolute text-center -right-3 -bottom-3 rounded-4xl w-8 aspect-square hover:bg-neutral-800 transition-colors font-bold bg-neutral-950 cursor-pointer"
           onClick={handleClose}
         >
-          <i className="fa-circle-xmark fa-regular text-2xl pt-1 md:pt-0.5"></i>
+          <i className="fa-circle-xmark fa-regular text-2xl py-1 md:py-0.5"></i>
         </button>
       </section>
     </>
@@ -166,16 +179,18 @@ function Results({
   return (
     <>
       <SmallText>{text}</SmallText>
-      {category.map((game: any, index: number) => (
-        <SearchItem
-          key={game.id}
-          isEditing={isEditing}
-          idx={index}
-          game={game}
-          onAdd={startAddGame}
-          isAdded={checkIfAdded(game)}
-        />
-      ))}
+      <div className="relative md:block grid grid-cols-2 w-9/10 md:w-full mx-auto gap-1">
+        {category.map((game: any, index: number) => (
+          <SearchItem
+            key={game.id}
+            isEditing={isEditing}
+            idx={index}
+            game={game}
+            onAdd={startAddGame}
+            isAdded={checkIfAdded(game)}
+          />
+        ))}
+      </div>
     </>
   );
 }

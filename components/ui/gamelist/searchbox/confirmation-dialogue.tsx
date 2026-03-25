@@ -1,4 +1,9 @@
+"use client";
+
+import { useRef } from "react";
+
 import { statusTypes } from "@/lib/status-type";
+import Scroller from "../../shared/scroller";
 
 export default function ConfirmationDialogue({
   isEditing,
@@ -27,6 +32,8 @@ export default function ConfirmationDialogue({
   setEditingGame: React.SetStateAction<any>;
   confirming: boolean;
 }) {
+  const rowRef = useRef<HTMLDivElement>(null);
+
   return (
     <section className="border bg-neutral-300 text-neutral-900 w-4/5 p-2 rounded-2xl my-4 mx-auto">
       <div className="flex flex-col md:flex-row justify-between w-9/10 mx-auto items-center py-1 border-b border-neutral-400 md:text-center">
@@ -59,40 +66,45 @@ export default function ConfirmationDialogue({
       </div>
 
       {/* Platform Selection */}
-      <div className="flex justify-between w-9/10 mx-auto items-center py-1 border-b border-neutral-400">
+      <div className="flex justify-between w-9/10 mx-auto items-center relative py-1 border-b border-neutral-400">
         <div className="w-20 mx-5">Platform(s):</div>
-        <div className="max-w-full flex overflow-x-auto custom-horizontal-scroll font-asimovian">
-          {activeGame.platforms?.length > 0 ? (
-            activeGame.platforms.map((pf: string) => (
-              <label
-                key={pf}
-                className="text-sm flex items-center px-1 pb-0.5 shrink-0 cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  name="platforms"
-                  className="peer hidden"
-                  checked={chosenPlatforms.includes(pf)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setChosenPlatforms((prev: any[]) => [...prev, pf]);
-                    } else {
-                      setChosenPlatforms((prev: any[]) =>
-                        prev.filter((p) => p !== pf),
-                      );
-                    }
-                  }}
-                />
-                <span className="w-3.5 h-3.5 border border-neutral-900 peer-checked:bg-indigo-400 rounded flex items-center justify-center peer-checked:border-indigo-400 peer-checked:text-neutral-900 text-transparent">
-                  ✓
-                </span>
-                <span className="px-2 whitespace-nowrap">{pf}</span>
-              </label>
-            ))
-          ) : (
-            <span>No Platform data available</span>
-          )}
-        </div>
+        <Scroller rowRef={rowRef}>
+          <div
+            ref={rowRef}
+            className="max-w-full flex overflow-x-auto custom-horizontal-scroll font-asimovian"
+          >
+            {activeGame.platforms?.length > 0 ? (
+              activeGame.platforms.map((pf: string) => (
+                <label
+                  key={pf}
+                  className="text-sm flex items-center px-1 pb-0.5 shrink-0 cursor-pointer"
+                >
+                  <input
+                    type="checkbox"
+                    name="platforms"
+                    className="peer hidden"
+                    checked={chosenPlatforms.includes(pf)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setChosenPlatforms((prev: any[]) => [...prev, pf]);
+                      } else {
+                        setChosenPlatforms((prev: any[]) =>
+                          prev.filter((p) => p !== pf),
+                        );
+                      }
+                    }}
+                  />
+                  <span className="w-3.5 h-3.5 border border-neutral-900 peer-checked:bg-indigo-400 rounded flex items-center justify-center peer-checked:border-indigo-400 peer-checked:text-neutral-900 text-transparent">
+                    ✓
+                  </span>
+                  <span className="px-2 whitespace-nowrap">{pf}</span>
+                </label>
+              ))
+            ) : (
+              <span>No Platform data available</span>
+            )}
+          </div>
+        </Scroller>
       </div>
 
       {/* Score */}

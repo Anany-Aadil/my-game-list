@@ -7,6 +7,7 @@ import DeskView from "./desktop-view";
 import MobView from "./mobile-view";
 import { GamePageSkeleton } from "../skeletons";
 import Row from "../shared/row";
+import { notFound } from "next/navigation";
 
 export default function GameSpecificPage({
   gameId,
@@ -16,6 +17,8 @@ export default function GameSpecificPage({
   gameStats?: any;
 }) {
   const [game, setGame] = useState<any>(null);
+
+  if (gameId == 0) return notFound();
 
   const fetchGame = async () => {
     const gameObject = await fetch(`/api/game/?gameId=${gameId}`);
@@ -34,10 +37,8 @@ export default function GameSpecificPage({
       <div className="text-2xl font-semibold p-2 w-full bg-neutral-300 dark:bg-neutral-800">
         {game.name}
       </div>
-
       <MobView game={game} />
       <DeskView game={game} userGame={gameStats} />
-
       <div className="mx-4 md:border-t md:my-5 border-neutral-400 relative">
         <Row title="Similar Games" category={game.similarGames} rounded />
       </div>

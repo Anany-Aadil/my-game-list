@@ -13,17 +13,22 @@ export default function DarkModeButton() {
 
   if (!mounted) return null;
 
+  const sharedClasses =
+    "absolute fa-solid transition-all smoothing top-0 left-0 right-0 bottom-0";
+
   return (
-    <button
-      className="cursor-pointer text-neutral-100"
+    <div
+      className="cursor-pointer relative w-full h-full md:p-2.5 p-1.5"
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
-        console.log(theme);
       }}
     >
       <i
-        className={`${theme === "dark" ? "fa-sun" : "fa-moon"} fa-solid transition-all smoothing`}
+        className={`${sharedClasses} fa-sun opacity-100 dark:opacity-0 rotate-0 scale-100 dark:scale-50 dark:rotate-90`}
       ></i>
-    </button>
+      <i
+        className={`${sharedClasses} fa-moon dark:opacity-100 opacity-0 dark:rotate-0 dark:scale-100 scale-50 -rotate-90`}
+      ></i>
+    </div>
   );
 }

@@ -10,7 +10,7 @@ export default function SideList({
   title: string;
 }) {
   return (
-    <div className="w-64 border border-neutral-500 dark:border-neutral-600 mt-2 ml-2 bg-neutral-50 dark:bg-neutral-800">
+    <div className="w-64 border border-neutral-500 dark:border-neutral-600 mt-2 ml-2 bg-neutral-50 dark:bg-neutral-800 relative overflow-hidden">
       <div className="border-b border-neutral-500 dark:border-neutral-600 px-3 py-1 font-bold font-iceberg">
         {title}
       </div>

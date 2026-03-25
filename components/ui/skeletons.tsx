@@ -124,7 +124,7 @@ export function SideListSkeleton() {
   return (
     <>
       {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="flex w-full my-2">
+        <div key={i} className="flex w-full my-2 relative skeleton-shimmer">
           <div className="w-8 px-2">{i + 1}.</div>
           <div className="w-20 aspect-3/4 bg-neutral-300 dark:bg-neutral-600 border border-neutral-400 dark:border-neutral-700"></div>
           <div className="p-2 w-32 h-5 bg-neutral-700 dark:bg-neutral-300 blur-xs"></div>
