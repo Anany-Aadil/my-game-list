@@ -51,6 +51,8 @@ export async function generateMetadata({
 
   return {
     title: game.name,
-    description: game.summary.slice(0, 32),
+    description: game.summary
+      ? game.summary.slice(0, 32)
+      : "No Description Available",
   };
 }

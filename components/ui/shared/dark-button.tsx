@@ -18,7 +18,7 @@ export default function DarkModeButton() {
 
   return (
     <div
-      className="cursor-pointer relative w-full h-full md:p-2.5 p-1.5"
+      className="cursor-pointer relative flex items-center w-full h-full md:p-2.5 p-1.5"
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}

@@ -17,10 +17,10 @@ export default function AuthButton() {
   return (
     <div className="flex justify-between items-center-safe text-neutral-100 md:mx-5">
       <div className="font-nunito">
-        <span className="text-sm mx-1.5">
+        <span className="text-sm mx-1.5 hidden md:inline">
           {userDetail?.name ? userDetail.name : "Welcome"}
         </span>
-        <span className="text-sm mx-1.5 hidden md:inline">
+        <span className="text-sm mx-1.5">
           {userDetail?.userName ? <>({userDetail.userName})</> : "Gamer"}
         </span>
       </div>

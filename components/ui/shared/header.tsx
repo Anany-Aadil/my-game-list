@@ -1,11 +1,13 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
-import AuthButton from "./log-auth-button";
 import DarkModeButton from "./dark-button";
+import AuthButton from "./log-auth-button";
+import SearchBox from "./search-box";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -13,9 +15,13 @@ export default function Header() {
 
   const pathname = usePathname();
 
+  const hideCondition = pathname.slice(1, 9) === "gamelist";
+
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   return (
     <nav
-      className={`dark:bg-neutral-950 bg-neutral-900 fixed top-0 md:h-20 h-15 w-full md:w-4/5 md:mx-[10%] flex px-[5%] items-center justify-between transition-colors smoothing z-10 ${pathname.slice(1, 9) === "gamelist" && "md:hidden"} text-neutral-200`}
+      className={`dark:bg-neutral-950 bg-neutral-900 fixed top-0 md:h-20 h-15 w-full md:w-4/5 md:mx-[10%] flex px-[5%] items-center justify-between transition-colors smoothing z-10 ${hideCondition && "md:hidden"} text-neutral-200`}
     >
       <div className="flex items-center">
         <Link
@@ -28,9 +34,16 @@ export default function Header() {
 
         {session ? <GameListLink username={userName} /> : null}
       </div>
-      <button className="">
+      <button className="mx-2">
         <DarkModeButton />
       </button>
+      <button
+        className={`${hideCondition && "hidden"} flex items-center mt-1 md:mt-0 cursor-pointer hover:text-neutral-100 hover:scale-105 transition-all smoothing mx-2 border border-neutral-600 p-1`}
+        onClick={() => setIsSearchOpen(true)}
+      >
+        <i className="fa-search fa-solid"></i>
+      </button>
+      <SearchBox isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <AuthButton />
     </nav>
   );
