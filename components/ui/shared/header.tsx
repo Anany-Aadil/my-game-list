@@ -38,7 +38,7 @@ export default function Header() {
         <DarkModeButton />
       </button>
       <button
-        className={`${hideCondition && "hidden"} flex items-center mt-1 md:mt-0 cursor-pointer hover:text-neutral-100 hover:scale-105 transition-all smoothing mx-2 border border-neutral-600 p-1`}
+        className={`${hideCondition && "hidden"} flex items-center mt-1 md:mt-0 cursor-pointer hover:text-neutral-100 hover:scale-105 transition-all smoothing mx-2`}
         onClick={() => setIsSearchOpen(true)}
       >
         <i className="fa-search fa-solid"></i>
