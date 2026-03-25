@@ -95,7 +95,7 @@ export default function RootLayout({
           ${exo.variable}
           antialiased custom-vertical-scroll transition-colors smoothing`}
       >
-        {/* <SpeedInsights /> */}
+        <SpeedInsights />
         <Providers>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Header />
